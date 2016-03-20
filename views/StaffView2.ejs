@@ -1,0 +1,116 @@
+<div class="container">
+<div class="panel panel-default">
+      <div class="panel-heading"><button type="button" class="btn btn-default" ng-click="FindAllStaff();" >All Staff Details</button>
+
+            <button type="button" class="btn btn-default" ng-click="showStaffSearchFunc()" >Find Staff</button>
+          
+
+          
+          </div>
+
+  
+
+            <div class="panel-body">
+                        <table ng-show="showAllStaff" class="table table-hover" >
+                            <thead>
+                                        <tr>
+                                            <th colspan="6"><h3>Staff Details Report</h3></th>
+                                        </tr>
+                                        <tr>
+                                            <th text-align="center">LastName</th>
+                                            <th align="center">FirstName</th>
+                                            <th align="center">Title</th>
+                                            <th text-align="center">City</th>
+                                            <th align="center">Region</th>
+                                            <th align="center">PostalCode</th>
+                                        </tr>
+                            </thead>
+                            <tbody>
+                                        <tr ng-repeat="rule in rules">
+                                            <td data-ng-bind="rule.LastName" />
+                                            <td data-ng-bind="rule.FirstName" />
+                                            <td data-ng-bind="rule.Title" />
+                                            <td data-ng-bind="rule.City" />
+                                            <td data-ng-bind="rule.Region" />
+                                            <td data-ng-bind="rule.PostalCode" />
+
+                                        <tr>
+                            </tbody>
+
+                        </table>
+
+
+                    <form name="myForm" ng-show="showStaffSearch" class="form-horizontal" role="form" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="name">Staff Name:</label>
+                            <div class="col-xs-2">
+                                <input ng-model="name" required type="text" class="form-control" id="name" placeholder="name" name="name" >
+
+                                                    <span style="color:red" ng-show="myForm.name.$dirty && myForm.name.$invalid">
+                                    <span ng-show="myForm.name.$error.required">Username is required.</span>
+                                    </span>
+                            </div>
+                        </div>
+
+
+                        <div class="btn-group">
+                            <input type="submit" 
+                                   ng-disabled="myForm.name.$untouched && myForm.name.$invalid " 
+                                   ng-click="FindOneStaff();" class="btn btn-primary"  >
+                            <button type="button" ng-click="clearStaffSearch()" class="btn btn-primary">Clear</button>
+                            <button type="button" ng-click="hideStaffSearch()" class="btn btn-primary">Hide</button>
+                        </div>
+                    </form>
+
+
+                    <table ng-show="showStaff" class="table table-hover" >
+                        <thead>
+                                <tr>
+                                    <th colspan="6">Staff Details Report</th></tr>
+                                <tr>
+                                    <th text-align="center">LastName</th>
+                                    <th align="center">FirstName</th>
+                                    <th align="center">Title</th>
+                                    <th text-align="center">City</th>
+                                    <th align="center">Region</th>
+                                    <th align="center">PostalCode</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td data-ng-bind="empes.LastName" />
+                                    <td data-ng-bind="empes.FirstName" />
+                                    <td data-ng-bind="empes.Title" />
+                                    <td data-ng-bind="empes.City" />
+                                    <td data-ng-bind="empes.Region" />
+                                    <td data-ng-bind="empes.PostalCode" />
+
+                                <tr>
+                        </tbody>
+
+                    </table>
+
+                
+                
+                
+                
+
+
+</div>
+           
+                
+
+        </div>
+</div>
+        
+        
+</div>  
+     
+        
+        
+        
+        
+        
+        
+        
+        

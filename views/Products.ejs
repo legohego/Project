@@ -1,0 +1,108 @@
+  <div class="container">
+<div class="panel panel-default">          
+ <div class="panel-heading">
+
+<button type="button" class="btn btn-default" ng-click="myFuncV3()" >New Products</button>
+<button type="button" class="btn btn-default" ng-click="myFuncV4()" >Delete Products</button>
+
+    </div>
+
+    <div class="panel-body">
+
+
+<form name="myFormi" ng-show="showMeV3" ng-click="click()" class="form-inline" 
+      role="form"  novalidate>
+        <div class="form-group">
+            <label for="ProductID">Product_ID:  </label>
+
+               <input ng-model="ProductID" required type="number" class="form-control"
+                      id="ProductID" placeholder="ProductID" name="ProductID" > 
+
+        </div>
+        <div class="form-group">
+
+            <label for="ProductName">Product_Name:</label>
+
+                <input ng-model="ProductName" required type="text"class="form-control"
+                   id="ProductName" placeholder="Product Name" name="ProductName" >
+
+        </div>
+
+        <div class="form-group">
+            <label for="SupplierID">Supplier_ID:  </label>
+
+
+                    <input ng-model="SupplierID" required type="number" class="form-control"
+                   id="SupplierID" placeholder="SupplierID" name="SupplierID" >
+
+        </div>
+        <div class="form-group">
+            <label for="CategoryID">CategoryID:</label>
+                    <input ng-model="CategoryID" type="Number" class="form-control" id="CategoryID" placeholder="Enter CategoryID:">
+            </div>
+            <div class="form-group">
+                <label for="QuantityPerUnit">Quant_Per_Unit:</label>
+
+                    <input ng-model="QuantityPerUnit" required type="number" 
+                           class="form-control" id="QuantityPerUnit" placeholder="QuantityPerUnit" name="QuantityPerUnit" >
+            </div>
+            <div class="form-group">
+                <label for="UnitPrice">Unit_Price:</label>
+
+
+
+
+                 <input ng-model="UnitPrice" required type="number" class="form-control"
+                        id="UnitPrice" placeholder="UnitPrice" name="QuantityPerUnit" >
+            </div>
+            <div class="form-group">
+                <label for="UnitInStock">StockLevel:</label>
+                <input  ng-model="UnitInStock"type="Number" class="form-control" id="number" placeholder="Enter StockLevel:">
+
+            </div>
+           
+            <div class="form-group">
+                <label for="ReorderLevel">ReorderLevel:</label>
+
+
+                <input ng-model="ReorderLevel" required type="number"
+                       class="form-control" id="ReorderLevel" placeholder="ReorderLevel" name="ReorderLevel" >
+            </div>
+
+            <div class="form-group">
+                <label for="Discontinued">Discontinued:</label>
+
+                  <input ng-model="Discontinued" required type="number" class="form-control" 
+                         id="Discontinued" placeholder="Discontinued" name="Discontinued" >
+            </div>
+<br><br>
+
+    <div class="btn-group">
+         <input type="submit" ng-click="addProduct()" ng-disabled="myFormi.ProductName.$untouched && myFormi.ProductName.$invalid ||
+                                           myFormi.Discontinued.$untouched && myFormi.Discontinued.$invalid ||
+                                           myFormi.ReorderLevel.$untouched && myFormi.ReorderLevel.$invalid||
+                                           myFormi.UnitsOnOrder.$untouched && myFormi.UnitsOnOrder.$invalid ||
+                                           myFormi.UnitInStock.$untouched && myFormi.UnitInStock.$invalid ||
+                                           myFormi.QuantityPerUnit.$untouched && myFormi.QuantityPerUnit.$invalid||
+                                           myFormi.SupplierID.$untouched && myFormi.SupplierID.$invalid ||
+                                           myFormi.ProductID.$untouched && myFormi.ProductID.$invalid" class="btn btn-primary" >
+        <button type="button" class="btn btn-primary" ng-click="myFuncV3()">Hide</button>
+    </div>
+</form>
+
+
+       <form name="myForm1" ng-show="showMe4" class="form-horizontal" role="form" novalidate>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="id">Product ID:</label>
+        <div class="col-xs-2">
+            <input ng-model="id" ng-click="DeleteProducts()" required type="number" class="form-control" id="id" placeholder="id" name="id" >
+
+            <span style="color:red" ng-show="myForm1.id.$dirty && myForm1.id.$invalid">
+<span ng-show="myForm1.id.$error.required">id is required.</span>
+</span>
+        </div>  
+
+    </div>
+             <input type="submit" ng-disabled="myForm1.name.$untouched && myForm1.name.$invalid " ng-click="" class="btn btn-primary"  >
+        </form>
+    </div></div></div>

@@ -1,0 +1,46 @@
+
+       <button type="button" class="btn btn-default" ng-click="FindQueries();" >Requests</button>
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+    <table  class="table table-hover" >
+        <thead>
+            <tr>
+                <th colspan="6"><h3>Open Staff Requests</h3></th>
+            </tr>
+            <tr>
+                <th text-align="center">ID</th>
+                <th text-align="center">Request Subject</th>
+                <th align="center">Request Body</th>
+                <th text-align="center">Request Status</th>
+                <th text-align="center">Admin Notes</th>
+                <th align="center">FirstName</th>
+                <th text-align="center">Request Date</th>
+                <th align="center">UrgentLevel</th>
+                <th align="center">Email</th>
+                <th text-align="center">LastName</th>
+                <th align="center">FirstName</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="rule in rules">
+                <td data-ng-bind="rule._id" />
+                <td data-ng-bind="rule.querySubject" />
+                <td data-ng-bind="rule.queryBody" />
+                <td data-ng-bind="rule.Status" />
+                <td data-ng-bind="rule.Notes" />
+                <td data-ng-bind="rule.query_date" />
+                <td data-ng-bind="rule.UrgentLevel" />
+                <td data-ng-bind="rule.email" />
+                <td data-ng-bind="rule.lastName" />
+                <td data-ng-bind="rule.firstName" />
+                
+               
+
+            <tr>
+        </tbody>
+
+    </table>
+      
+        </div>
+</div>

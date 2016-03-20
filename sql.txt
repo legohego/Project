@@ -1,0 +1,36 @@
+SELECT  Count(
+OrderID) AS Orders ,CustomerID FROM [Orders] Group by CustomerID  ORDER BY  
+Orders desc
+Limit 10
+
+
+
+
+SELECT  Count(
+OrderID) AS Orders ,
+EmployeeID FROM [Orders] Group by 
+EmployeeID  ORDER BY  
+Orders desc
+Limit 10 
+
+
+SELECT OrderDetails.OrderDetailID, OrderDetails.ProductID,Products.CategoryID,Products.ProductName
+FROM OrderDetails
+INNER JOIN Products
+ON OrderDetails.ProductID=Products.ProductID
+
+
+SELECT count(Products.CategoryID),Products.CategoryID
+FROM OrderDetails
+INNER JOIN Products
+ON OrderDetails.ProductID=Products.ProductID
+GRoup by CategoryID
+
+
+
+Select Sum(Quantity),OrderDetails.ProductID,Products.ProductName,(Price*Sum(Quantity))As totalSales,Price
+From OrderDetails
+Join Products
+on  Products.ProductID = OrderDetails.ProductID
+WHere 
+Group By OrderDetails.ProductID

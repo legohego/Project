@@ -1,0 +1,178 @@
+  <div class="container">
+<div class="panel panel-default">          
+ <div class="panel-heading">
+<button type="button" class="btn btn-default" ng-click="OrdersIDfun()" >Find Orders</button>
+
+            <button type="button" class="btn btn-default" ng-click="OrdersDate2fun()" >Find Order Via Date</button>
+                        <button type="button" class="btn btn-default" ng-click="OrdersCustfun()" >Find Order Via Customers</button>
+
+            <button type="button" class="btn btn-default" ng-click="OrdersDfun()" > Order Detail</button>
+                 
+     </div>
+     <div class="panel-body">
+      
+         <form name="OrderIDForm" ng-show="OrdersID" class="form-horizontal" role="form" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="OrderID">OrderID:</label>
+                            <div class="col-xs-2">
+                                <input ng-model="OrderID" required type="text" class="form-control" id="ID" placeholder="OrderID" name="OrderID" >
+
+                                                    <span style="color:red" ng-show="OrderIDForm.name.$dirty && OrderIDForm.name.$invalid">
+                                    <span ng-show="OrderIDForm.name.$error.required">Username is required.</span>
+                                    </span>
+                            </div>
+                        </div>
+
+
+                        <div class="btn-group">
+                            <input type="submit" 
+                                   ng-disabled="OrderIDForm.name.$untouched && OrderIDForm.name.$invalid " 
+                                   ng-click="FindOrders();" class="btn btn-primary"  >
+                            <button type="button" ng-click="" class="btn btn-primary">Clear</button>
+                            <button type="button" ng-click="" class="btn btn-primary">Hide</button>
+                        </div>
+                    </form>
+      
+         
+            <form name="OrderIDForm2" ng-show="OrdersDate2" class="form-horizontal" role="form" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="OrderDate">Order Date:</label>
+                            <div class="col-xs-2">
+                                <input ng-model="OrderDate" required type="text" class="form-control" id="OrderDate" placeholder="OrderDate" name="OrderDate" >
+
+                                                    <span style="color:red" ng-show="OrderIDForm2.OrderDate.$dirty && OrderIDForm2.OrderDate.$invalid">
+                                    <span ng-show="OrderIDForm2.OrderDate.$error.required">Order Date is required.</span>
+                                    </span>
+                            </div>
+                        </div>
+
+
+                        <div class="btn-group">
+                            <input type="submit" 
+                                   ng-disabled="OrderIDForm2.OrderDate.$untouched && OrderIDForm2.OrderDate.$invalid " 
+                                   ng-click="FindOrders2();" class="btn btn-primary"  >
+                            <button type="button" ng-click="" class="btn btn-primary">Clear</button>
+                            <button type="button" ng-click="" class="btn btn-primary">Hide</button>
+                        </div>
+                    </form>
+         
+   <form name="OrderIDForm3" ng-show="OrdersCust" class="form-horizontal" role="form" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="CustomerID">CustomerID:</label>
+                            <div class="col-xs-2">
+                                <input ng-model="CustomerID" required type="text" class="form-control" id="CustomerID" placeholder="CustomerID" name="CustomerID" >
+
+                                                    <span style="color:red" ng-show="OrderIDForm3.CustomerID.$dirty && OrderIDForm3.CustomerID.$invalid">
+                                    <span ng-show="OrderIDForm3.CustomerID.$error.required">CustomerID is required.</span>
+                                    </span>
+                            </div>
+                        </div>
+
+
+                        <div class="btn-group">
+                            <input type="submit" 
+                                   ng-disabled="OrderIDForm3.CustomerID.$untouched && OrderIDForm3.CustomerID.$invalid " 
+                                   ng-click="FindOrdersC();" class="btn btn-primary"  >
+                            <button type="button" ng-click="" class="btn btn-primary">Clear</button>
+                            <button type="button" ng-click="" class="btn btn-primary">Hide</button>
+                        </div>
+                    </form>  
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+    <form name="OrderDetForm" ng-show="OrdersD" class="form-horizontal" role="form" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="OrderID">OrderID:</label>
+                            <div class="col-xs-2">
+                                <input ng-model="OrderID" required type="text" class="form-control" id="OrderID" placeholder="OrderID" name="OrderID" ><span style="color:red" ng-show="OrderDetForm.OrderID.$dirty && OrderDetForm.OrderID.$invalid"><span ng-show="OrderDetForm.OrderID.$error.required">OrderID is required.</span>
+                                    </span></div> </div>
+
+                        <div class="btn-group">
+                            <input type="submit" 
+                                   ng-disabled="OrderDetForm.OrderID.$untouched && OrderDetForm.OrderID.$invalid " 
+                                   ng-click="FindOrdersD();" class="btn btn-primary"  >
+                            <button type="button" ng-click="" class="btn btn-primary">Clear</button>
+                            <button type="button" ng-click="" class="btn btn-primary">Hide</button>
+                        </div>
+                    </form>           
+         
+          <table ng-show="show" class="table table-hover" >
+                            <thead>
+                                        <tr>
+                                            <th colspan="6"><h3>Order Report</h3></th>
+                                        </tr>
+                                        <tr>
+                                            <th text-align="center">OrderID</th>
+                                            <th align="center">CustomerID</th>
+                                            <th align="center">EmployeeID</th>
+                                            <th text-align="center">OrderDate</th>
+                                            <th align="center">RequireDate</th>
+                                            <th align="center">ShippedDate</th>
+                                             <th text-align="center">ShipName</th>
+                                          
+                                        </tr>
+                            </thead>
+                            <tbody>
+                                        <tr ng-repeat="rule in rules">
+                                            <td data-ng-bind="rule.OrderID" />
+                                            <td data-ng-bind="rule.CustomerID" />
+                                            <td data-ng-bind="rule.EmployeeID" />
+                                            <td data-ng-bind="rule.OrderDate" />
+                                            <td data-ng-bind="rule.RequiredDate" />
+                                            <td data-ng-bind="rule.ShippedDate" />
+                                            <td data-ng-bind="rule.ShipName" />
+                                        <tr>
+                            </tbody>
+
+                        </table>
+         
+         
+         
+         <table ng-show="show2" class="table table-hover" >
+                            <thead>
+                                        <tr>
+                                            <th colspan="6"><h3>Order Details</h3></th>
+                                        </tr>
+                                        <tr>
+                                            <th text-align="center">Order Details ID</th>
+                                            <th align="center">Order ID</th>
+                                            <th align="center">Product ID</th>
+                                            <th text-align="center">Unit Price</th>
+                                            <th align="center">Quantity</th>
+                                            <th align="center">Discount</th>
+                                             
+                                          
+                                        </tr>
+                            </thead>
+                            <tbody>
+                                        <tr ng-repeat="rule in rules">
+                                            <td data-ng-bind="rule._id" />
+                                            <td data-ng-bind="rule.OrderID" />
+                                            <td data-ng-bind="rule.ProductID" />
+                                            <td data-ng-bind="rule.UnitPrice" />
+                                            <td data-ng-bind="rule.Quantity" />
+                                            <td data-ng-bind="rule.Discount" />
+                                            
+                                        <tr>
+                            </tbody>
+
+                        </table>
+         
+         
+         
+         
+         
+         
+         
+         
+         
+     </div>
+      </div>
+</div>

@@ -1,0 +1,9 @@
+            <button type="button" class="btn btn-default" ng-click="click();myFunc1()" >All Staff Details</button>
+
+            <button type="button" class="btn btn-default" ng-click="myFunc()" >Find Staff</button>
+                        <button type="button" class="btn btn-default" ng-click="click();myFunc1()" >All Staff Details</button>
+
+            <button type="button" class="btn btn-default" ng-click="myFunc()" >Find Staff</button>
+                        <button type="button" class="btn btn-default" ng-click="click();myFunc1()" >All Staff Details</button>
+
+            <button type="button" class="btn btn-default" ng-click="myFunc()" >Find Staff</button>

@@ -1,0 +1,100 @@
+  <div class="container">
+<div class="panel panel-default">          
+ <div class="panel-heading">
+
+
+
+    <button type="button" class="btn btn-default" ng-click="click();AllCustFun()" >All Customers Details</button>
+
+<button type="button" class="btn btn-default" ng-click="findCustFun();" >Find Customer Details</button>
+    </div>
+    
+    <div class="panel-body">
+        
+        
+       <form name="myForm" ng-show="FindCust" class="form-horizontal" role="form" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="id">CustomerID:</label>
+                            <div class="col-xs-2">
+                                <input ng-model="id" required type="text" class="form-control" id="id" placeholder="id" name="id" >
+
+                                                    <span style="color:red" ng-show="myForm.id.$dirty && myForm.id.$invalid">
+                                    <span ng-show="myForm.id.$error.required">ID is required.</span>
+                                    </span>
+                            </div>
+                        </div>
+
+
+                        <div class="btn-group">
+                       <input type="submit" 
+                                   ng-disabled="myForm.id.$untouched && myForm.id.$invalid " 
+                                   ng-click="findCustomer();myFuncV()" class="btn btn-primary"  >
+                          <button type="button" ng-click="clearStaffSearch()" class="btn btn-primary">Clear</button>
+                            <button type="button" ng-click="showhide()" class="btn btn-primary">Hide</button>
+           </div>
+                    </form>  
+        
+        
+        
+        
+        
+    <table ng-show="AllCust" class="table table-hover">
+            <thead>
+
+            <tr>
+                <th colspan="6"><h3>Company Report</h3></th>
+            </tr>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Contact Name</th>
+                        <th>contact Title</th>
+                        <th>City</th>
+                        <th>Region</th>
+                        <th>Postal-Code</th>
+                    </tr>
+            </thead>
+            <tbody>
+                    <tr ng-repeat="boss in bosses">
+                        <td data-ng-bind="boss.CompanyName" />
+                        <td data-ng-bind="boss.ContactName" />
+                        <td data-ng-bind="boss.ContactTitle" />
+                        <td data-ng-bind="boss.City" />
+                        <td data-ng-bind="boss.Region" />
+                        <td data-ng-bind="boss.PostalCode" />
+
+                    <tr>
+            </tbody>
+
+        </table>
+           <table ng-show="CustRes" class="table table-hover">
+            <thead>
+
+            <tr>
+                <th colspan="6"><h3>Company Report</h3></th>
+            </tr>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Contact Name</th>
+                        <th>contact Title</th>
+                        <th>City</th>
+                        <th>Region</th>
+                        <th>Postal-Code</th>
+                    </tr>
+            </thead>
+            <tbody>
+                    
+                        <td data-ng-bind="bosses.CompanyName" />
+                        <td data-ng-bind="bosses.ContactName" />
+                        <td data-ng-bind="bosses.ContactTitle" />
+                        <td data-ng-bind="bosses.City" />
+                        <td data-ng-bind="bosses.Region" />
+                        <td data-ng-bind="bosses.PostalCode" />
+
+                    <tr>
+            </tbody>
+
+        </table>
+           </div>
+    </div>
+    </div>
+    </div>

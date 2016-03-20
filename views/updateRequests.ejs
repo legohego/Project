@@ -1,0 +1,76 @@
+<button type="button" class="btn btn-default" ng-click="myFunc2()" >Update Requests</button>
+<button type="button" class="btn btn-default" ng-click="FindQueries(); myFunc()" >Requests</button>
+
+ <div class="panel panel-default" ng-show="showMe2">
+       <div class="panel-body" ng-show="showMe2">
+    <form name="myForm"class="form-inline" role="form" ng-show="showMe2" novalidate>
+        <div class="form-group">
+            <label for="_id">_id:  </label>
+            <input type="text" ng-model="_id" class="form-control" id="_id" placeholder="Enter _id" name="id" required>
+
+        </div>
+        
+        <div class="form-group">
+            <label for=" Status"> Status:  </label>
+            <input type="text" ng-model="Status" class="form-control" id="Status" placeholder="Complete/Pending:">
+
+        </div>
+        <div class="form-group">
+            <label for="Notes">Notes:</label>
+            <input type="text" ng-model="Notes" class="form-control" id="Notes" placeholder="Notes:">
+        </div>
+   
+
+<br>
+<br>
+            
+            <input type="submit"  ng-disabled="myForm.id.$untouched && myForm.id.$invalid " class="btn btn-primary" ng-click="UpdateRequests();">
+            <button type="button" class="btn btn-primary" ng-click="myFunc2()">Hide</button></div>
+            
+    </form>
+</div>
+       </div>
+    <div class="panel panel-default" ng-show="showMe">
+
+        <div class="panel-body">
+    <table  class="table table-hover" >
+        <thead>
+            <tr>
+                <th colspan="6"><h3>Open Staff Requests</h3></th>
+            </tr>
+            <tr>
+                <th text-align="center">ID</th>
+                <th text-align="center">Request Subject</th>
+                <th align="center">Request Body</th>
+                <th text-align="center">Request Status</th>
+                <th text-align="center">Admin Notes</th>
+                <th align="center">FirstName</th>
+                <th text-align="center">Request Date</th>
+                <th align="center">UrgentLevel</th>
+                <th align="center">Email</th>
+                <th text-align="center">LastName</th>
+                <th align="center">FirstName</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="rule in rules">
+                <td data-ng-bind="rule._id" />
+                <td data-ng-bind="rule.querySubject" />
+                <td data-ng-bind="rule.queryBody" />
+                <td data-ng-bind="rule.Status" />
+                <td data-ng-bind="rule.Notes" />
+                <td data-ng-bind="rule.query_date" />
+                <td data-ng-bind="rule.UrgentLevel" />
+                <td data-ng-bind="rule.email" />
+                <td data-ng-bind="rule.lastName" />
+                <td data-ng-bind="rule.firstName" />
+                
+               
+
+            <tr>
+        </tbody>
+
+    </table>
+      
+        </div>
+</div>

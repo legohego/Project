@@ -1,0 +1,1 @@
+db.products.aggregate([{$group:{	ProductID '',total:{$sum:"$Price"}}}])

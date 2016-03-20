@@ -1,0 +1,91 @@
+<div class="container">
+<div class="panel panel-default">          
+ <div class="panel-heading">
+<button type="button" class="btn btn-default" ng-click="myFunc()" >Make Requests</button>
+<button type="button" class="btn btn-default" ng-click="viewmyQuieries(); myFunc2()" >View Requests</button>
+    </div>
+       <div class="panel-body">
+    <form class="form-inline" role="form" ng-show="showMe">
+        <div class="form-group">
+            <label for="querySubject">Query Subject:  </label>
+            <input type="text" ng-model="querySubject" class="form-control" id="querySubject" placeholder="Enter Subject">
+
+        </div>
+        
+        <div class="form-group">
+            <label for="firstName">First Name:  </label>
+            <input type="text" ng-model="firstName" class="form-control" id="firstName" placeholder="Enter First Name:">
+
+        </div>
+        <div class="form-group">
+            <label for="LastName">LastName:</label>
+            <input type="text" g-model="LastName" class="form-control" id="LastName" placeholder="Enter LastName:">
+        </div>
+        <div class="form-group">
+            <label for="UrgentLevel">Urgent_Level:</label>
+            <input type="text" g-model="UrgentLevel" class="form-control" id="UrgentLevel" placeholder="Enter Urgent_Level:">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" ng-model="email" class="form-control" id="email" placeholder="Enter Email:">
+        </div>
+       
+<br>
+<div class="form-group">
+
+            <label for="queryBody">Query Body:</label>
+            
+<textarea class="form-control" ng-model="queryBody" rows="5" id="queryBody"  placeholder="Enter Body"></textarea>
+        </div>
+        <br><br>
+        <div class="btn-group">
+            
+            <button type="button"class="btn btn-primary" ng-click="addQuery();">Submit</button>
+            <button type="button" class="btn btn-primary" ng-click="myFunc()">Hide</button></div>
+            
+    </form>
+
+
+           
+        
+    <table  class="table table-hover" ng-show="showMe2">
+        <thead>
+            <tr>
+                <th colspan="6"><h3>Your Requests</h3></th>
+            </tr>
+            <tr>
+                <th text-align="center">ID</th>
+                <th text-align="center">Request Subject</th>
+                <th align="center">Request Body</th>
+                <th text-align="center">Request Status</th>
+                <th text-align="center">Admin Notes</th>
+                <th align="center">FirstName</th>
+                <th text-align="center">Request Date</th>
+                <th align="center">UrgentLevel</th>
+                <th align="center">Email</th>
+                <th text-align="center">LastName</th>
+                <th align="center">FirstName</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="rule in rules">
+                <td data-ng-bind="rule._id" />
+                <td data-ng-bind="rule.querySubject" />
+                <td data-ng-bind="rule.queryBody" />
+                <td data-ng-bind="rule.Status" />
+                <td data-ng-bind="rule.Notes" />
+                <td data-ng-bind="rule.query_date" />
+                <td data-ng-bind="rule.UrgentLevel" />
+                <td data-ng-bind="rule.email" />
+                <td data-ng-bind="rule.lastName" />
+                <td data-ng-bind="rule.firstName" />
+                
+               
+
+            <tr>
+        </tbody>
+
+    </table>
+      
+    </div></div>
+</div>

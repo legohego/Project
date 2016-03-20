@@ -1,0 +1,97 @@
+<!-- views/index.ejs -->
+<!doctype html>
+<html>
+<head>
+  <script src="https://code.angularjs.org/1.5.0-rc.2/angular.min.js"></script>
+     
+                                                                                                                                              <script  src="../js/controller.js"></script>                                                                                                     
+                                                                                                                                               <script src="//code.angularjs.org/1.5.0/angular-route.min.js"></script>                                                                                                            
+
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <style>
+        body        { padding-top:80px; }
+    </style>
+    
+    
+
+</head>
+<body  ng-app ="myApp">
+<div class="container">
+
+    <div class="jumbotron text-center">
+        <h1></span>Reports</h1>
+
+        <p>Choose a reports</p>
+
+        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
+        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+    </div>
+    
+ <h1>hi</h1>
+<div ng-controller="mainController">
+    
+  <button ng-click="click();myFunc()" >Click Me!</button>
+<ul ng-show="showMe">
+  <li>Staff</li>
+  <li ng-repeat ="rule in rules">
+    {{rule.LastName}}
+    {{rule.FirstName}}
+    {{rule.Title}}
+
+  </li>
+</ul>
+  <table ng-show="showMe">
+    <tr>
+    <th>other Detail</th>
+    </tr>
+    <tr ng-repeat="rule in rules">
+
+      <td>{{rule.City}}</td>
+      <td>{{rule.Region}}</td>
+      <td>{{rule.PostalCode}}</td>
+    </tr>
+  </table>
+  </div>
+
+ <script scr ="../js/controller.js"></script>
+
+
+<div ng-controller="mainController2">
+  <button ng-click="click();myFunc()" >Click Me!</button>
+
+  <table ng-show="showMe">
+    <tr>
+      <th>Staff</th>
+    </tr>
+    <tr ng-repeat="rule in rules">
+
+      <td>{{rule.fName}}</td>
+      <td>{{rule.sName}}</td>
+      <td>{{rule.email}}</td>
+    </tr>
+  </table>
+
+
+
+
+
+  <table ng-show="showMe" id="example" cellspacing="0" width="100%" border="1px">
+    <thead>
+    <tr>
+      <th>City</th>
+      <th>Region</th>
+      <th>PostalCode</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="rule in rules">
+      <td data-ng-bind="rule.City" />
+      <td data-ng-bind="rule.Region" />
+      <td data-ng-bind="rule.PostalCode" />
+
+    <tr>
+</body>
+</html>
