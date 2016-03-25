@@ -1,8 +1,11 @@
+  <div class="container">
+<div class="panel panel-default">          
+ <div class="panel-heading">
+
+
 <button type="button" class="btn btn-default" ng-click="myFunc2()" >Update Requests</button>
 <button type="button" class="btn btn-default" ng-click="FindQueries(); myFunc()" >Requests</button>
-
- <div class="panel panel-default" ng-show="showMe2">
-       <div class="panel-body" ng-show="showMe2">
+	</div>
     <form name="myForm"class="form-inline" role="form" ng-show="showMe2" novalidate>
         <div class="form-group">
             <label for="_id">_id:  </label>
@@ -25,14 +28,14 @@
 <br>
             
             <input type="submit"  ng-disabled="myForm.id.$untouched && myForm.id.$invalid " class="btn btn-primary" ng-click="UpdateRequests();">
-            <button type="button" class="btn btn-primary" ng-click="myFunc2()">Hide</button></div>
+            <button type="button" class="btn btn-primary" ng-click="myFunc2()">Hide</button>
             
     </form>
-</div>
-       </div>
+
+      
     <div class="panel panel-default" ng-show="showMe">
 
-        <div class="panel-body">
+       
     <table  class="table table-hover" >
         <thead>
             <tr>
@@ -72,5 +75,5 @@
 
     </table>
       
-        </div>
+        </div></div>
 </div>

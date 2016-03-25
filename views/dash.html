@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: black;
+      height: 100%;
+		width: 20%;
+    }
+        
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Admin View</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="#/StaffView" >Staff</a></li>
+     <li><a  href="#/reg">Register Users</a></li>
+     <li> <a  href="#/makeRequests">Make Requests</a></li>
+      <li><a href="#/getRequests" >Request</a></li>
+   
+      <li><a  href="#/getCustomers">Customers</a></li>
+      <li><a  href="#/ProductView">Products</a></li>
+       
+        <li><a  href="#/OrdersView">Orders</a></li>
+       
+		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Chart <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/chart">Employee Sales</a></li>
+          <li><a href="/chart2">Customer Orders</a></li>
+          <li><a href="/chart3">Products</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      
+      <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
+    </ul>
+  </div>
+</nav>
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <li><a href="#">Age</a></li>
+        <li><a href="#">Gender</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2>Logo</h2>
+     
+		<div class="list-group">
+       <a href="#" class="list-group-item">First item</a>
+  <a href="#" class="list-group-item">Second item</a>
+  <a href="#" class="list-group-item">Third item</a>
+  </div>
+    </div>
+    <br>
+	</div></div>
+  
+
+</body>
+</html>

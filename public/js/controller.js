@@ -11,7 +11,11 @@
 
                     })
 
+ .when('/charts',{
+                        templateUrl:'/chart',
+                       // controller:'chartsController'
 
+                    })
 
  .when('/StaffView2',{
                         templateUrl:'/StaffView2',
@@ -86,7 +90,11 @@
 
                 a.FindOneStaff =function(){
                     b.get("/findOneEmployees/"+ a.name).success(function(result){
-                            a.empes =result;
+                            
+						
+						
+						
+						a.empes =result;
                         a.showStaff=true;
                         a.showAllStaff = false;
                         a.DeleteShow= false;
@@ -564,6 +572,7 @@ console.log("did not work");
                            a.rules =result;
                            a.show=true;
                           console.log(result);
+						  
                         })
                         .error(function(data,status){
 
@@ -606,3 +615,16 @@ console.log("did not work");
  };
                }])
 
+
+            
+            
+            myApp.controller('chartsController',['$scope','$http',function(a,b){
+
+
+                
+
+
+
+               }])      
+            
+            

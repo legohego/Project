@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+ 
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+
+	
+	
+	
+	
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	
+	 <script src="https://code.angularjs.org/1.5.0-rc.2/angular.min.js"></script>
+     
+                                                                                                                                          
+    <script  src="../js/controller.js"></script>                                                                                                     
+                                                                                                                                               <script src="//code.angularjs.org/1.5.0/angular-route.min.js"></script>                                                                                                  <script>                                                                                 src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"        </script>         
+
+           
+
+
+	<style>
+ a{color: white;}
+   
+  .bar{
+    fill: steelblue;
+  }
+
+  .bar:hover{
+    fill: brown;
+  }
+
+	.axis {
+	  font: 10px sans-serif;
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+	</style>
+
+
+<body ng-app ="myApp">
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Admin View</a>
+    </div>
+	   <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav">
+      <li><a href="#/StaffView" >Staff</a></li>
+     <li><a  href="#/reg">Register Users</a></li>
+     <li> <a  href="#/makeRequests">Make Requests</a></li>
+      <li><a href="#/getRequests" >Request</a></li>
+   
+      <li><a  href="#/getCustomers">Customers</a></li>
+      <li><a  href="#/ProductView">Products</a></li>
+       
+        <li><a  href="#/OrdersView">Orders</a></li>
+       
+		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Chart <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/chart">Employee Sales</a></li>
+          <li><a href="/chart2">Customer Orders</a></li>
+          <li><a href="/chart3">Products</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      
+      <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
+    </ul>
+	  </div></div>
+</nav>
+      
+	
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+// set the dimensions of the canvas
+var margin = {top: 20, right: 20, bottom: 70, left: 40},
+    width = 1000 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+
+
+// set the ranges
+var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+
+var y = d3.scale.linear().range([height, 0]);
+
+// define the axis
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .ticks(10);
+ 
+        
+
+// add the SVG element
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", 
+          "translate(" + margin.left + "," + margin.top + ")");
+
+
+// load the data
+d3.json("/sales/-1/10", function(error, data) {
+
+    data.forEach(function(d) {
+        d._id = d._id;
+        d.count = +d.count;
+    });
+	
+  // scale the range of the data
+  x.domain(data.map(function(d) { return d._id; }));
+  y.domain([0, d3.max(data, function(d) { return d.count; })]);
+
+  // add axis
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+    .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", "-.55em")
+      .attr("transform", "rotate(-90)" );
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 5)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Sales");
+
+
+  // Add bar chart
+ var my =svg.selectAll("bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d._id); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.count); })
+      .attr("height", function(d) { return height - y(d.count); });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+});
+
+</script>
+
+</body>

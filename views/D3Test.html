@@ -1,0 +1,49 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+ <head><style>
+  .chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}
+     </style>
+  </head>
+  <body>
+   
+     <div class="chart"></div>
+<script src="http://d3js.org/d3.v3.min.js"  charset="utf-8"></script>
+      <script>
+      
+      
+      var data = [4, 12, 15, 16, 23, 42];
+var data3  = [
+  { "x_axis": 30, "y_axis": 30, "radius": 20, "color" : "6" },
+  { x_axis: 70, "y_axis": 70, "radius": 20, "color" : 15},
+ { "x_axis": 110, "y_axis": 100, "radius": 20, "color" : 20}];
+
+
+
+var x = d3.scale.linear()
+    .domain([0, d3.max(data.3)])
+    .range([0, 420]);
+
+d3.select(".chart")
+  .selectAll("div")
+    .data(data3)
+  .enter().append("div")
+    .style("width", function(d) { return x(d.color) + "px"; })
+    .text(function(d) { return d.color; });
+
+      
+      
+      </script>
+  </body>
+</html>

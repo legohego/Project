@@ -1,0 +1,92 @@
+<html>
+    <head><script src="http://d3js.org/d3.v3.min.js"  charset="utf-8"></script>
+    </head>
+        <body>
+        <ul class ="items">
+            <li>VodaPhone</li> 
+            <li>Galaxdy</li>
+            <li>Iphone</li>  
+            <li>HTC</li>
+            <li>Nokia</li>
+             <li>Nokia</li>
+            </ul>
+  
+    
+    <script>
+     
+            
+        var styles = [
+            {'text':'VodaPhone',
+                'background':'red',
+             'color':'white',
+             'width':'15'
+            },
+            {'text':'Galaxdy',
+                'background':'yellow',
+                'color':'Black',
+                'width':'25'
+            },
+            {'text':'Iphone',
+                'background':'green',
+               'color':'White',
+               'width':'25'
+              },
+            {'text':'HTC',
+                'background':'red',
+                 'color':'blue',
+                 'width':'20'
+            },
+            {'text':'Nokia2',
+                                  'background':'green',
+                                             'color':'orange',
+                                  'width':'15'
+                              }
+        ];
+        
+     d3.selectAll('.items li')
+     .data(styles)
+     .style({'font-size':'18px',
+             'padding':'6px',
+             'margin':'4px',
+             'list-style':'none',
+             'background':function(d){return d.background;},
+                     
+             'color':function(d){return d.color;},      
+            'width':function(d){return d.width+'%';}, 
+             
+            })
+     
+    
+    .text(function(d){
+        return d.text
+        })
+     
+     
+     d3.select('body')
+     .append('svg')
+         .attr('width',400)
+         .attr('height',400)
+         .style('background',"#f4f4f4")
+     .append('rect')
+         .attr('width',300)
+         .attr('height',300)
+         .attr('x',50)
+         .attr('y',50)
+         .style('fill','red')
+         .style('stroke','black')
+         .style('stroke-width',1)
+     
+     
+     d3.select('svg')
+     .append('circle')
+        .attr('cx',200)
+        .attr('cy',200)
+        .attr('r',50)
+        .style('fill','blue')
+        .style('stroke','black')
+        .style('stroke-width',7)
+     
+    </script>
+    
+    </body>
+</html>

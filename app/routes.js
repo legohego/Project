@@ -5,7 +5,7 @@ var customers  = require('../app/models/customers');
 var employees  = require('../app/models/employees');
 var products  = require('../app/models/products');
 var queries  = require('../app/models/queries');
-
+var obj  = require('../views/data.json');
 var Order_Details  = require('../app/models/Order_Details');
 var orders  = require('../app/models/orders'); 
 // =====================================
@@ -23,7 +23,7 @@ app.get('/makeRequests',function(req,res){
 app.get('/myRequests',function(req,res){
 
     var myemail=req.user.local.email; 
-
+console.log(req.user.local.email)
     queries.find({email:myemail},function(err,foundqueries){
         if(err){
             console.log(err)
@@ -319,7 +319,170 @@ orders.find({'OrderID': OrderID}, function (err, foundObject) {
 
     }
 })
-});    
+});   
+    
+   app.get('/sales/:data/:amount', function (req, res) {
+var data;
+       var amount;
+        if(req.params.amount == 10){
+          amount = 10;
+           
+       }else if(req.params.amount == 5){
+           
+          amount = 5;
+       }
+       
+       
+   
+       if(req.params.data == 1){
+           data = 1;
+           
+       }else if(req.params.data == -1){
+           
+           data = -1;
+       }
+       
+    console.log(data)
+ 
+   
+  orders.aggregate([
+        {
+            $group:{ _id: '$CustomerID',  //$region is the column name in collection
+                count: {$sum: 1}} }, { "$sort": { "count": data } },
+        // Optionally limit results
+        { "$limit": amount}
+    ], function (err, foundObject) {
+    if (err) {//start of outer if
+        console.log(err);
+        res.status(500).send()
+    } else {//start of outer else
+        if (!foundObject) {
+            res.status(404).send();
+        } else {
+
+            res.json(foundObject);
+        }
+
+    }
+})
+});  
+    
+    
+    
+
+	
+	
+	app.get('/sales2/:data/:amount', function (req, res) {
+var data;
+       var amount;
+        if(req.params.amount == 10){
+          amount = 10;
+           
+       }else if(req.params.amount == 5){
+           
+          amount = 5;
+       }
+       
+       if(req.params.data == 1){
+           data = 1;
+           
+       }else if(req.params.data == -1){
+           
+           data = -1;
+       }
+       
+    console.log(data)
+ 
+   
+  Order_Details.aggregate([
+        {
+            $group:{ _id: '$ProductID',  //$region is the column name in collection
+                count: {$sum: "$Quantity"}} }, { "$sort": { "count": data } },
+        // Optionally limit results
+        { "$limit": amount}
+    ], function (err, foundObject) {
+    if (err) {//start of outer if
+        console.log(err);
+        res.status(500).send()
+    } else {//start of outer else
+        if (!foundObject) {
+            res.status(404).send();
+        } else {
+
+            res.json(foundObject);
+        }
+
+    }
+})
+});  
+	
+	
+	
+app.get('/sales3/:data/:amount', function (req, res) {
+var data;
+       var amount;
+        if(req.params.amount == 10){
+          amount = 10;
+           
+       }else if(req.params.amount == 5){
+           
+          amount = 5;
+       }
+       
+       
+   
+       if(req.params.data == 1){
+           data = 1;
+           
+       }else if(req.params.data == -1){
+           
+           data = -1;
+       }
+       
+    console.log(data)
+ 
+   
+  orders.aggregate([
+        {
+            $group:{ _id: '$EmployeeID',  //$region is the column name in collection
+                count: {$sum: 1}} }, { "$sort": { "count": data } },
+        // Optionally limit results
+        { "$limit": amount}
+    ], function (err, foundObject) {
+    if (err) {//start of outer if
+        console.log(err);
+        res.status(500).send()
+    } else {//start of outer else
+        if (!foundObject) {
+            res.status(404).send();
+        } else {
+
+            res.json(foundObject);
+        }
+
+    }
+})
+});  	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
 app.get('/findOrdersVia_C_ID/:CustomerID', function (req, res) {
 var CustomerID = req.params.CustomerID;
 
@@ -655,12 +818,26 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-
-
-app.get('/fc', isLoggedIn, function(req, res) {
-
-    res.render('firstChart.ejs', { message: req.flash('signupMessage') });
+app.get('/data', function(req, res) {
+   res.json(obj);
 });
+
+app.get('/chart', function(req, res) {
+
+    res.render('Charts.ejs', { message: req.flash('signupMessage') });
+});
+	
+	
+	app.get('/chart3', function(req, res) {
+
+    res.render('chart3.ejs', { message: req.flash('signupMessage') });
+});
+	
+	app.get('/chart2', isLoggedIn, function(req, res) {
+
+    res.render('chart2.ejs', { message: req.flash('signupMessage') });
+});
+
 
 app.get('/noAccess', isLoggedIn, function(req, res) {
 

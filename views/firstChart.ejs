@@ -9,7 +9,7 @@
 <meta charset=utf-8 />
 <title>Morris.js Bar Chart Example</title>
 </head>
-<body >
+<body onload="FindFakeData">
   <div id="bar-example"></div>
 
 
@@ -19,8 +19,10 @@
 </body>
     
     <script>
-       
-    function myFunction() {
+  
+   
+  // var result = JSON.parse(Eanna); 
+   /* function myFunction() {
     $.get("/max", function(data,status){
           // console.log("Data: " + data + "\nStatus: " + status);
        // alert("Data: " + data + "\nStatus: " + status); 
@@ -34,15 +36,23 @@
    var data =  myFunction();  
    alert("Data: " + data2 + "\nStatus: " + status);     
      // console.log(data);  
-    
-   Morris.Bar({
+    */
+  function FindFakeData() {
+  // Get ready to store our graph instance in a variable
+  var mainGraph;
+ 
+  // Call our API
+  $.getJSON('/d',
+    function(results) { 
+      
+/*mainGraph= Morris.Bar({
   element: 'bar-example',
-data2 ,
-  xkey: 'Company',
-  ykeys: ['Number_of_Order'],
+ data:results.data ,
+  xkey: 'year',
+  ykeys: ['value'],
   labels: ['Number_of_Order' ]
-});
-    
+});*/
+  }
     </script>
 
 </html>

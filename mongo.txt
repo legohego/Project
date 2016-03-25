@@ -1,1 +1,41 @@
 db.products.aggregate([{$group:{	ProductID '',total:{$sum:"$Price"}}}])
+
+
+db.orders.aggregate([{$group:{	OrderID '',total:{$sum:"$Price"}}}])
+
+
+
+
+
+
+db.orders.count();
+
+
+ db.orders.find(key: { "OrderID": 1})
+
+
+db.orders.aggregate([ { $match : { orderID : "" } } ]);
+
+
+
+
+db.Orders.group(  
+   {  
+     key: { "OrderID": 1, "EmployeeID": 1 },  
+     
+     reduce: function ( curr, result ) { },  
+     initial: { }  
+   }  
+);
+
+
+
+
+
+
+db.orders.aggregate( [ { $group : { _id : "employeeID" } } ] )
+
+
+
+SELECT count(
+OrderDetailID) As countme,ProductID FROM [OrderDetails] Group by ProductID Order By countme desc
