@@ -83,7 +83,7 @@ body {
 }
 </style>
 <body ng-app ="myApp">
- <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -91,25 +91,24 @@ body {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Admin View</a>
+      <a class="navbar-brand" href="/Profile">Admin View</a>
     </div>
 	   <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav">
-      <li><a href="reports#/StaffView2" >Staff</a></li>
-     <li><a  href="#/reg">Register Users</a></li>
-     <li> <a  href="#/makeRequests">Make Requests</a></li>
-      <li><a href="#/getRequests" >Request</a></li>
-   
-      <li><a  href="#/getCustomers">Customers</a></li>
-      <li><a  href="#/ProductView">Products</a></li>
+      
+     <li><a  href="/chart">Employee Sales</a></li>
+     <li> <a  href="/chart2">Customer Orders</a></li>
+      <li><a href="/chart3" >Products</a></li>
        
-        <li><a  href="#/OrdersView">Orders</a></li>
-       
-		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Chart <span class="caret"></span></a>
+		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="/chart">Employee Sales</a></li>
-          <li><a href="/chart2">Customer Orders</a></li>
-          <li><a href="/chart3">Products</a></li>
+               <li><a href="#/StaffView2" >Staff</a></li>
+     
+      <li><a  href="/reports#/getCustomers2">Customers</a></li>
+      <li><a  href="/reports#/ProductView">Products</a></li>
+        <li> <a  href="/reports#/makeRequests">Make Requests</a></li>
+        <li><a  href="/reports#/OrdersView">Orders</a></li>
+        <li><a  href="/reports#/test">Orders</a></li>
         </ul>
       </li>
     </ul>

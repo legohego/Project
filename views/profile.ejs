@@ -3,12 +3,26 @@
 <html>
 <head>
     <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    
+     <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+
+  <style>
+
+ 
+  
+  </style>
+   <script src="https://code.angularjs.org/1.5.0-rc.2/angular.min.js"></script>
+
+                                                                                                                                                              <script  src="../js/controller.js"></script>                                                                                                     
+                                                                                                                                                               <script src="//code.angularjs.org/1.5.0/angular-route.min.js"></script>     
     <style>
                 
-      a{color: white;}
+   
        
     </style>
 </head>
@@ -17,11 +31,11 @@
     
     
     
-<body ng-app ="myApp">
+<body ng-app ="myApp" ng-controller="test" ng-init="init()">
     <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Staff View</a>
+      <a class="navbar-brand" href="#">Manager View</a>
     </div>
     <ul class="nav navbar-nav">
       <li><a href="/reports" >Reports</a></li>
@@ -38,33 +52,62 @@
     
 <div class="container">
 
+	
+	
+	
+	
+	
+	
+	
+	
     <div class="page-header text-center">
         <h1><span class="fa fa-anchor"></span>Welcome  <%= user.local.email %></h1>
       
     </div>
-<div class="jumbotron text-center">
-    
-   <h1><span></span>Home</h1>
-       <div class="btn-group">
-           
-            
-    </div>
+
+   </div>
+<div class="container" >
+	
+ 	
+	<button type="button" class="btn btn-default" ng-click="me()" >Find my Reports</button>
+	
+	  <table  class="table table-hover">
+            <thead>
+
+            <tr>
+                <th colspan="6"><h3>My Reports/Charts</h3></th>
+            </tr>
+                    <tr>
+                        
+                    </tr>
+            </thead>
+            <tbody>
+	
+	<tr ng-repeat="result in results">
+    <td><a href="#/StaffView2">FirstReport</a></td>
+    <td><a ng-href="#/{{result.myreports2}}">{{result.myreports2}}</a></td>
+    <td><a ng-href="#/{{result.myreports3}}">{{result.myreports3}}</a></td>
+		<td><a ng-href="#/{{result.myreports1}}">{{result.myreports1}}</a></td>
+</tr>
+	 </tbody>
+
+        </table>
+	
+    <div ng-view>
+
+
   </div>
-    <div class="row">
 
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
 
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p>
+        
 
-            </div>
-        </div>
+  
+
+
+
+</div>
+            
+        
 
     </div>
 

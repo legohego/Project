@@ -16,6 +16,12 @@
                        // controller:'chartsController'
 
                     })
+				 .when('/myreportsUpdate',{
+                        templateUrl:'/myreportsUndate',
+                       // controller:'chartsController'
+
+                    })
+				
 
  .when('/StaffView2',{
                         templateUrl:'/StaffView2',
@@ -66,9 +72,23 @@
                     })
 
 
-            "#/Requests"
+           
             });
+ myApp.controller('test',['$scope','$http', function(a,b){
+	 
+	 a.me=function(){ 
+		 b.get("/MyReports").success(function(result){
+                            
+						
+						a.results =result;})
+                     
+                        .error(function(data,status){
 
+
+                        })
+              
+												 }
+								 }])
 
             myApp.controller('StaffController',['$scope','$http', function(a,b){
 
@@ -401,7 +421,7 @@ console.log("did not work");
 
 
 
-                      b.get("/myRequests").success(function(result){
+                      b.get("/mytickets").success(function(result){
                           showMe2=true; 
                           a.rules =result;
 
@@ -457,7 +477,7 @@ console.log("did not work");
 
                   a.FindQueries =function(){ 
 
-                      b.get("/getRequest").success(function(result){
+                      b.get("/GetAllOpenTickets").success(function(result){
                            a.rules =result;
                            a.show=true;
                           console.log(result);

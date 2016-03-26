@@ -6,20 +6,65 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
     <style>
-        body        { padding-top:80px; }
+        
     </style>
 </head>
-<body>
-<div class="container">
 
-<div class="col-sm-6 col-sm-offset-3">
+	
+	
+	
+	<body ng-app ="myApp">
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="admin">Admin View</a>
+    </div>
+	   <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav">
+      <li><a href="admin#/StaffView" >Staff</a></li>
+     <li><a  href="admin#/reg">Register Users</a></li>
+     <li> <a  href="admin#/makeRequests">Make Requests</a></li>
+      <li><a href="admin#/getRequests" >Request</a></li>
+   
+      <li><a  href="admin#/getCustomers">Customers</a></li>
+      <li><a  href="admin#/ProductView">Products</a></li>
+       
+        <li><a  href="admin#/OrdersView">Orders</a></li>
+       
+		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Chart <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/chart">Employee Sales</a></li>
+          <li><a href="/chart2">Customer Orders</a></li>
+          <li><a href="/chart3">Products</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      
+      <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
+    </ul>
+	  </div></div>
+</nav>
+      
+<div class="col-sm-6 col-sm-offset-3">	
+	
+<div class="panel panel-default">
+<div class="panel-heading">
 
-    <h1><span class="fa fa-sign-in"></span> Signup</h1>
+
+    <h1><span class="fa fa-sign-in"></span> Register new users</h1>
 
     <!-- show any messages that come back with authentication -->
     <% if (message.length > 0) { %>
         <div class="alert alert-danger"><%= message %></div>
-    <% } %>
+    <% } %></div>
+	<div class="panel-body">
+    <!-- LOGIN FORM -->
 
     <!-- LOGIN FORM -->
     <form action="/signup" method="post">

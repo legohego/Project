@@ -1,6 +1,6 @@
 // app/routes.js
 module.exports = function(app, passport) {
-
+var myReports  = require('../app/models/myReports');
 var customers  = require('../app/models/customers');
 var employees  = require('../app/models/employees');
 var products  = require('../app/models/products');
@@ -12,32 +12,106 @@ var orders  = require('../app/models/orders');
 // HOME PAGE (with login links) ========
 // =====================================
 
-app.get('/makeRequests',function(req,res){
+app.get('/makeRequests',isLoggedIn,function(req,res){
 
     res.render('makeRequests.ejs');
 
 
 });
 
+	
+	
+	app.post('/addReports', function(req, res) {
+ 
 
-app.get('/myRequests',function(req,res){
+    var newmyReports =  new myReports()
+        newmyReports.email=req.body.email;
+         newmyReports.myreports1 =req.body.myreports1;
+        newmyReports.myreports2=req.body.myreports2;
+       newmyReports.myreports3=req.body.myreports3;
+       newmyReports.myreports4=req.body.myreports4;
+ 
 
-    var myemail=req.user.local.email; 
-console.log(req.user.local.email)
-    queries.find({email:myemail},function(err,foundqueries){
+
+     newmyReports.save(function(err){
+        console.log(newmyReports);
+        if(err){
+            console.log(err);
+            return res.status(500).send();
+        }
+        return res.status(200).send();
+    })
+})
+
+	app.post('/addNewReport',isLoggedIn,function(req,res){
+
+var report =req.body.reportNumber;	
+		//req.body.reportURL;
+		//query[name] = value;
+		var url=req.body.reportUR;
+		
+	var query = { email: req.body.email }
+	
+	var query2 = {};
+query2[report] = req.body.reportURL;
+	
+	console.log(query);console.log(query2);
+	myReports.findOneAndUpdate(query, query2, function(err, doc){
+    if (err) return res.send(500, { error: err });
+    return res.send("succesfully saved");
+}); 
+	
+	
+})
+	
+	
+	
+	
+
+	app.get('/MyReports',isLoggedIn,function(req,res){
+
+    var myemail=req.user.local.email;
+
+    myReports.find({email:myemail},function(err,foundObject){
         if(err){
             console.log(err)
             res.send(err)}
-        else{
-            res.send(foundqueries);
-        res.status(200);
+        else{//start of outer else
+        if (!foundObject) {
+            res.status(404).send();
+        } else {
 
+            res.send(foundObject)
+        }
 
-    }})
+    }
+    })
 
 })
+	
 
- app.get('/adminRequests',function(req,res){
+
+app.get('/mytickets',isLoggedIn,function(req,res){
+
+    var myemail=req.user.local.email; 
+console.log(req.user.local.email)
+    queries.find({email:myemail},function(err,foundObject){
+        if(err){
+            console.log(err)
+            res.send(err)}
+        else{//start of outer else
+        if (!foundObject) {
+            res.status(404).send();
+        } else {
+
+            res.send(foundObject)
+        }
+
+    }
+    })
+
+})
+ app.get('/adminRequests',isLoggedIn,function(req,res){
 
     res.render('adminRequest.ejs');
 
@@ -45,7 +119,7 @@ console.log(req.user.local.email)
 });
 
 
- app.get('/updateRequests',function(req,res){
+ app.get('/updateRequests',isLoggedIn,function(req,res){
 
     res.render('updateRequests.ejs');
 
@@ -54,7 +128,7 @@ console.log(req.user.local.email)
 
 
 
-app.get('/getRequest',function(req,res){
+app.get('/GetAllOpenTickets',isLoggedIn,function(req,res){
 
 queries.find({ Status: { $ne: "Complete" } },function(err,foundqueries){
 
@@ -74,7 +148,7 @@ queries.find({ Status: { $ne: "Complete" } },function(err,foundqueries){
 
 
 
-app.put('/updateStaff', function (req, res) {
+app.put('/updateStaff',isLoggedIn, function (req, res) {
 var id = req.body._id;
 console.log(req.body._id);
     console.log(req.body.LastName );
@@ -136,7 +210,7 @@ employees.findOne({_id: id}, function (err, foundObject) {
 
 
 
-app.put('/updateRequests', function (req, res) {
+app.put('/updateRequests',isLoggedIn, function (req, res) {
 var id = req.body._id;
 console.log(id);
 queries.findOne({_id: id}, function (err, foundObject) {
@@ -167,7 +241,7 @@ queries.findOne({_id: id}, function (err, foundObject) {
 
 
 
-app.post('/NewProducts', function(req, res) {
+app.post('/NewProducts',isLoggedIn, function(req, res) {
  
 
     var newProduct =  new products()
@@ -210,7 +284,7 @@ app.post('/NewProducts', function(req, res) {
 
 
 
-app.post('/userQueries',function(req,res){
+app.post('/userQueries',isLoggedIn,function(req,res){
 
 
 var newQuery = new queries();//need to create an instance of the object
@@ -249,15 +323,13 @@ app.get('/', function(req, res) {
 });
 
 
-app.get('/OrdersView', function(req, res) {
+app.get('/OrdersView',isLoggedIn, function(req, res) {
     res.render('OrdersView.ejs'); // load the index.ejs file
 });
 
 
 
- app.get('/Customers', function(req, res) {
-    res.render('Customers.ejs'); // load the index.ejs file
-});
+
 app.get('/login', function(req, res) {
 
     // render the page and pass in any flash data if it exists
@@ -265,7 +337,7 @@ app.get('/login', function(req, res) {
 });
 
 // process the login form
-app.get('/findemployees',function(req,res){
+app.get('/findemployees',isLoggedIn,function(req,res){
 
 
 employees.find({}, function(err,foundData){
@@ -281,7 +353,7 @@ employees.find({}, function(err,foundData){
 })
 });
 
-app.get('/findOrdersVia_Date/:OrderDate', function (req, res) {
+app.get('/findOrdersVia_Date/:OrderDate',isLoggedIn, function (req, res) {
 var OrderDate = req.params.OrderDate;
 
 
@@ -301,7 +373,7 @@ orders.find({'OrderDate': {'$regex': OrderDate}}, function (err, foundObject) {
 })
 });
 
-app.get('/findOrdersVia_O_ID/:OrderID', function (req, res) {
+app.get('/findOrdersVia_O_ID/:OrderID',isLoggedIn, function (req, res) {
 var OrderID = req.params.OrderID;
 
 
@@ -321,7 +393,7 @@ orders.find({'OrderID': OrderID}, function (err, foundObject) {
 })
 });   
     
-   app.get('/sales/:data/:amount', function (req, res) {
+   app.get('/sales/:data/:amount', isLoggedIn,function (req, res) {
 var data;
        var amount;
         if(req.params.amount == 10){
@@ -372,7 +444,7 @@ var data;
 
 	
 	
-	app.get('/sales2/:data/:amount', function (req, res) {
+	app.get('/sales2/:data/:amount',isLoggedIn, function (req, res) {
 var data;
        var amount;
         if(req.params.amount == 10){
@@ -418,7 +490,7 @@ var data;
 	
 	
 	
-app.get('/sales3/:data/:amount', function (req, res) {
+app.get('/sales3/:data/:amount',isLoggedIn, function (req, res) {
 var data;
        var amount;
         if(req.params.amount == 10){
@@ -483,7 +555,7 @@ var data;
 	
     
     
-app.get('/findOrdersVia_C_ID/:CustomerID', function (req, res) {
+app.get('/findOrdersVia_C_ID/:CustomerID',isLoggedIn, function (req, res) {
 var CustomerID = req.params.CustomerID;
 
 
@@ -504,7 +576,7 @@ orders.find({'CustomerID': CustomerID}, function (err, foundObject) {
 });    
 
 //do this when u come back
-app.get('/findOrdersDetailsVia_O_ID/:OrderID', function (req, res) {
+app.get('/findOrdersDetailsVia_O_ID/:OrderID',isLoggedIn, function (req, res) {
 var OrderID = req.params.OrderID;
 
 console.log(OrderID);
@@ -525,7 +597,7 @@ Order_Details.find({'OrderID': OrderID}, function (err, foundObject) {
 });
 
 
-app.post('/CreateNewOrder',function(req,res){
+app.post('/CreateNewOrder',isLoggedIn,function(req,res){
 
   var newOrders = new orders;
 
@@ -597,7 +669,7 @@ if (err) {
 
 
 
-app.delete('/deleteCustomers',function(req,res) {
+app.delete('/deleteCustomers',isLoggedIn,function(req,res) {
 var id = req.body.id;
 
 Customers.findOneAndRemove({_id: id}, function (err) {
@@ -614,7 +686,7 @@ Customers.findOneAndRemove({_id: id}, function (err) {
 
 
 
-app.delete('/deleteEmployees/:id',function(req,res) {
+app.delete('/deleteEmployees/:id',isLoggedIn,function(req,res) {
 var id = req.params.id;
 
 employees.findOneAndRemove({_id: id}, function (err) {
@@ -629,7 +701,7 @@ employees.findOneAndRemove({_id: id}, function (err) {
 });   
 
 
-app.delete('/deleteproducts/:id',function(req,res) {
+app.delete('/deleteproducts/:id',isLoggedIn,function(req,res) {
 var id = req.params.id;
 
 products.findOneAndRemove({ProductID: id}, function (err) {
@@ -644,7 +716,7 @@ products.findOneAndRemove({ProductID: id}, function (err) {
 });    
 
 
-app.delete('/deleteOrders',function(req,res) {
+app.delete('/deleteOrders',isLoggedIn,function(req,res) {
 var id = req.body.id;
 
 orders.findOneAndRemove({_id: id}, function (err) {
@@ -659,7 +731,7 @@ orders.findOneAndRemove({_id: id}, function (err) {
 });    
 
 
-app.delete('/deleteOrdersDetails',function(req,res) {
+app.delete('/deleteOrdersDetails',isLoggedIn,function(req,res) {
 var id = req.body.id;
 
 Order_Details.findOneAndRemove({_id: id}, function (err) {
@@ -676,7 +748,7 @@ Order_Details.findOneAndRemove({_id: id}, function (err) {
 
 
 
-app.get('/findOneEmployees/:name', function (req, res) {
+app.get('/findOneEmployees/:name',isLoggedIn, function (req, res) {
 var name=req.params.name;
 
 employees.findOne({FirstName: name}, function (err, foundObject) {
@@ -697,7 +769,7 @@ employees.findOne({FirstName: name}, function (err, foundObject) {
     
     
     
-    app.get('/findOneCustomer/:id', function (req, res) {
+    app.get('/findOneCustomer/:id',isLoggedIn, function (req, res) {
 var id=req.params.id;
 
 customers.findOne({_id: id}, function (err, foundObject) {
@@ -737,7 +809,7 @@ customers.findOne({_id: id}, function (err, foundObject) {
     
     
     
-app.get('/findCustomers',function(req,res){
+app.get('/findCustomers',isLoggedIn,function(req,res){
 
 
 customers.find({}, function(err,foundData){
@@ -786,7 +858,10 @@ app.get('/reports', isLoggedIn, function(req, res) {
 
     res.render('reports.ejs', { message: req.flash('signupMessage') });
 });
+  app.get('/testHome', isLoggedIn, function(req, res) {
 
+    res.render('testHome.ejs');
+});
 
   app.get('/admin', isLoggedIn2, function(req, res) {
 
@@ -818,17 +893,25 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-app.get('/data', function(req, res) {
+app.get('/data',isLoggedIn, function(req, res) {
    res.json(obj);
 });
 
-app.get('/chart', function(req, res) {
+	
+	app.get('/addReports',isLoggedIn, function(req, res) {
+  res.render('RegMyReports2.ejs', { message: req.flash('signupMessage') });
+});
+		app.get('/myreportsUndate',isLoggedIn, function(req, res) {
+  res.render('RegMyReports.ejs', { message: req.flash('signupMessage') });
+});
+	
+app.get('/chart', isLoggedIn,function(req, res) {
 
     res.render('Charts.ejs', { message: req.flash('signupMessage') });
 });
 	
 	
-	app.get('/chart3', function(req, res) {
+	app.get('/chart3',isLoggedIn, function(req, res) {
 
     res.render('chart3.ejs', { message: req.flash('signupMessage') });
 });
@@ -858,27 +941,26 @@ app.get('/noAccess', isLoggedIn, function(req, res) {
     res.render('Requests.ejs',  { message: req.flash('signupMessage') });
 });
 
-app.get('/ProductView', function(req, res, next) {
+app.get('/ProductView',isLoggedIn, function(req, res, next) {
 res.render('Products.ejs', { title: 'Express' });
 });
 
-app.get('/StaffView', function(req, res, next) {
+app.get('/StaffView', isLoggedIn,function(req, res, next) {
 res.render('StaffView.ejs', { title: 'Express' });
 });
-app.get('/StaffView2', function(req, res, next) {
+app.get('/StaffView2',isLoggedIn, function(req, res, next) {
 res.render('StaffView2.ejs', { title: 'Express' });
 });
 
 
-app.get('/userQueries', function(req, res, next) {
+app.get('/userQueries',isLoggedIn, function(req, res, next) {
 res.render('userQueries', { title: 'Express' });
 });   
 
 
 
-
-app.get('/Customers', function(req, res, next) {
-res.render('Customers.ejs', { title: 'Express' });
+app.get('/Customers',isLoggedIn,function(req, res, next) {
+res.render('Customers.ejs');
 
 
 
@@ -886,8 +968,8 @@ res.render('Customers.ejs', { title: 'Express' });
 
 });
     
-  app.get('/Customers2', function(req, res, next) {
-res.render('Customers2.ejs', { title: 'Express' });
+  app.get('/Customers2',isLoggedIn, function(req, res, next) {
+res.render('Customers2.ejs' );
 
 
 
