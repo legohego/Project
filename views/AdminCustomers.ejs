@@ -1,0 +1,247 @@
+  <div class="container">
+<div class="panel panel-default">          
+ <div class="panel-heading">
+
+
+
+    <button type="button" class="btn btn-default" ng-click="FindAllCust();AllCustFun()" > Customers Details Reports</button>
+
+<button type="button" class="btn btn-default" ng-click="findCustFun();" >Find Customer Details</button>
+	 <button type="button" class="btn btn-default" ng-click="addCustFormFuc()" >Add Customers</button>
+	 <button type="button" class="btn btn-default" ng-click="DeleteShowfun()" >Delete Customers</button>
+	 
+    </div>
+    
+    <div class="panel-body">
+		
+		
+		
+		
+		  <form name="myForm" ng-show="FindCust" class="form-horizontal" role="form" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="id">CustomerID:</label>
+                            <div class="col-xs-2">
+                                <input ng-model="id" required type="text" class="form-control" id="id" placeholder="id" name="id" >
+
+                                                    <span style="color:red" ng-show="myForm.id.$dirty && myForm.id.$invalid">
+                                    <span ng-show="myForm.id.$error.required">ID is required.</span>
+                                    </span>
+                            </div>
+                        </div>
+
+
+                        <div class="btn-group">
+                       <input type="submit" 
+                                   ng-disabled="myForm.id.$untouched && myForm.id.$invalid " 
+                                   ng-click="findCustomer();" class="btn btn-primary"  >
+                          <button type="button" ng-click="clear()" class="btn btn-primary">Clear</button>
+                            <button type="button" ng-click="showhide()" class="btn btn-primary">Hide</button>
+           </div>
+                    </form>  
+		
+		
+		
+		
+		
+		<h3><span ng-show="CustomerAdded">Customer Added</span></h3>
+	<h3><span ng-show="NotAdded">Customer Not Added</span></h3>
+    <table ng-show="AllCust" class="table table-hover">
+            <thead>
+
+            <tr>
+                <th colspan="6"><h3>Company Report</h3></th>
+            </tr>
+                    <tr>  <th>Company ID</th>
+                        <th>Company Name</th>
+                        <th>Contact Name</th>
+                        <th>contact Title</th>
+                        <th>City</th>
+                       
+                        <th>Postal-Code</th>
+                    </tr>
+            </thead>
+            <tbody>
+                    <tr ng-repeat="boss in bosses">
+						   <td data-ng-bind="boss._id" />
+                        <td data-ng-bind="boss.CompanyName" />
+                        <td data-ng-bind="boss.ContactName" />
+                        <td data-ng-bind="boss.ContactTitle" />
+                        <td data-ng-bind="boss.City" />
+                        
+                        <td data-ng-bind="boss.PostalCode" />
+
+                    <tr>
+            </tbody>
+
+        </table>
+		
+		 <table ng-show="CustRes" class="table table-hover">
+            <thead>
+
+            <tr>
+                <th colspan="6"><h3>Company Report</h3></th>
+            </tr>
+                    <tr><th>_id</th>
+                        <th>Company Name</th>
+                        <th>Contact Name</th>
+                        <th>contact Title</th>
+                        <th>City</th>
+                       
+                        <th>Postal-Code</th>
+                    </tr>
+            </thead>
+            <tbody>
+                   
+                        <td data-ng-bind="bosses.CompanyName" />
+                        <td data-ng-bind="bosses.ContactName" />
+                        <td data-ng-bind="bosses.ContactTitle" />
+                        <td data-ng-bind="bosses.City" />
+                        <td data-ng-bind="bosses.PostalCode" />
+
+                    <tr>
+            </tbody>
+
+        </table>
+		          
+                 <form name="DeleteForm" ng-show="DeleteShow" class="form-horizontal" role="form" novalidate>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="id">Customer ID:</label>
+        <div class="col-xs-2">
+            <input ng-model="id" required type="text" class="form-control" id="id" placeholder="id" name="id" >
+
+            <span style="color:red" ng-show="DeleteForm.id.$dirty && DeleteForm.id.$invalid">
+<span ng-show="DeleteForm.id.$error.required">_id is required.</span>
+</span>
+        </div>  
+
+    </div>
+             <input type="submit" ng-disabled="DeleteForm.id.$untouched && DeleteForm.id.$invalid " ng-click="DeleteCustomer()" class="btn btn-primary"  >
+                     <button type="button" ng-click="clearCustomerDelete()" class="btn btn-primary">Clear</button>
+                            <button type="button" ng-click="hideCustomerDelete()" class="btn btn-primary">Hide</button>
+        </form>
+                
+		
+		
+		
+		
+		
+		
+		<form name="myFormi" ng-show="addCustForm" ng-click="click()" class="form-inline" 
+      role="form"  novalidate>
+        <div class="form-group">
+            <label for="ProductID">CustomerID:  </label>
+
+               <input ng-model="CustomerID" required type="number" class="form-control"
+                      id="CustomerID" placeholder="Enter CustomerID" name="CustomerID" > 
+
+        </div>
+        <div class="form-group">
+
+            <label for="CustomerName">CustomerName:</label>
+
+                <input ng-model="CustomerName" required type="text"class="form-control"
+                   id="CustomerName" placeholder="Enter Customer Name" name="CustomerName" >
+
+        </div>
+
+        <div class="form-group">
+            <label for="SupplierID">CompanyName:  </label>
+
+
+                    <input ng-model="CompanyName" required type="number" class="form-control"
+                   id="CompanyName" placeholder="Enter Company Name" name="CompanyName" >
+
+        </div>
+        <div class="form-group">
+            <label for="ContactTitle">ContactTitle:</label>
+                    <input ng-model="ContactTitle" type="Number" class="form-control" id="ContactTitle" placeholder="Enter Contact Title:">
+            </div>
+            <div class="form-group">
+                <label for="Address">Address:</label>
+
+                    <input ng-model="Address" required type="number" 
+                           class="form-control" id="Address" placeholder="Address" name="Address" >
+            </div>
+            <div class="form-group">
+                <label for="City">City:</label>
+
+
+
+
+                 <input ng-model="City" required type="number" class="form-control"
+                        id="City" placeholder="City" name="City" >
+            </div>
+            <div class="form-group">
+                <label for="Country">Country:</label>
+                <input  ng-model="Country"type="Number" class="form-control" id="Country" placeholder="Country:">
+
+            </div>
+           
+            <div class="form-group">
+                <label for="Phone">Phone:</label>
+
+
+                <input ng-model="RPhone" required type="number"
+                       class="form-control" id="Phone" placeholder="Phone" name="Phone" >
+            </div>
+
+            
+<br><br>
+
+    <div class="btn-group">
+         <input type="submit" ng-click="addCustomer()" ng-disabled="myFormi.Phone.$untouched && myFormi.Phone.$invalid ||
+                                           myFormi.Country.$untouched && myFormi.Country.$invalid ||
+                                           myFormi.Address.$untouched && myFormi.Address.$invalid||
+                                           myFormi.ContactTitle.$untouched && myFormi.ContactTitle.$invalid ||
+                                           myFormi.CompanyName.$untouched && myFormi.CompanyName.$invalid ||
+                                           myFormi.CustomerID.$untouched && myFormi.CustomerID.$invalid||
+                                           myFormi.Customer Name.$untouched && myFormi.Customer Name.$invalid " class="btn btn-primary" >
+        <button type="button" class="btn btn-primary" ng-click="myFuncV3()">Hide</button>
+    </div>
+</form>
+
+
+       <form name="myForm1" ng-show="showMe4" class="form-horizontal" role="form" novalidate>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="id">Product ID:</label>
+        <div class="col-xs-2">
+            <input ng-model="id"  required type="text" class="form-control" id="id" placeholder="id" name="id" >
+
+            <span style="color:red" ng-show="myForm1.id.$dirty && myForm1.id.$invalid">
+<span ng-show="myForm1.id.$error.required">id is required.</span>
+</span>
+        </div>  
+
+    </div>
+             <input type="submit" ng-disabled="myForm1.name.$untouched && myForm1.name.$invalid " ng-click="DeleteProducts()" class="btn btn-primary"  >
+        </form>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    </div></div></div>

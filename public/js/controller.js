@@ -323,11 +323,81 @@
 
             myApp.controller('CustomerController',['$scope','$http', function(a,b){
 
-				 a.NotFound=false;
+												 a.NotFound=false;
 
- a.NotFoundFuc= function() {
-	 
-	 a.NotFound=true;}
+								 a.NotFoundFuc= function() {
+
+									 				a.NotFound=true;
+								 }
+
+								a.addCustForm=false;
+												 a.addCustFormFuc= function() {
+
+																	a.addCustForm=!a.addCustForm;
+																 }
+								 a.CustomerAdded=false;
+								 a.CustomerAddedFuc= function() {
+
+									 				a.CustomerAdded=true;
+								 }
+
+
+
+								  a.NotAdded=false;
+								 a.NotAddedFuc= function() {
+
+									 					a.NotAdded=true;
+								 }
+
+				 a.DeleteShow= false;
+                 a.DeleteShowfun = function() {
+												a.DeleteShow = !a.DeleteShow;
+				 }
+								 
+								 
+					a.addCustomer =function(){
+						
+			
+						var customer ={
+							
+							CustomerID:a.CustomerID,
+							CustomerName :a.CustomerName,
+							CompanyName:a.CompanyName,
+							ContactTitle:a.ContactTitle,
+							Address:a.Address,
+							City :a.City,
+							Country:a.Country,
+							Phone:a.Phone,
+
+						};
+						
+			  b({
+                  url: '/addCustomers', // No need of IP address
+                  method: 'POST',
+                  data: customer,
+                  headers: {'Content-Type': 'application/json'}
+						
+						}).success(function(){
+						   //a.ProductAddedfuc();
+                         //a.ProductName,
+                                  a.CustomerID="";
+                                   a.CustomerName="";
+                                  a.CompanyName="";
+                                   a.ContactTitle="";
+                                  a.Address="";
+                                  a.City="";
+                               a.Discontinued="";
+                                a.Country="";
+                            a.Phone="";
+ 
+                        })
+                        .error(function(){
+//a.NotAddedfuc();
+                        })
+                  };
+						
+
+                	
 				
 				
 				
@@ -338,7 +408,23 @@
 				
 				
 				
-            a.click =function(){
+								 
+				  a.DeleteCustomer =function(){
+                    b.delete("/deleteCustomers/"+ a.id)
+						.success(function(status){
+						//a.CustomerAddedFuc();
+														  console.log(done);
+														  console.log(status);
+
+                        })
+                        .error(function(data,status){
+                            console.log(status);
+						a.NotAddedFuc();
+
+                        })
+                }
+				
+            a.FindAllCust =function(){
                     b.get("/findCustomers").success(function(result){
                             a.bosses =result;
                         a.CustRes =false;
@@ -391,7 +477,12 @@
                 };
             
                  
-
+ a.clearCustomerDelete = function() { 
+												a.id=""
+                } 
+                a.hideCustomerDelete = function() {
+												a.DeleteShow= false;
+                } 
                
                 
 
@@ -425,7 +516,10 @@
 					
 
                 a.DeleteProducts =function(){
-                    b.delete("/deleteproducts/"+ a.id).success(function(status){
+					
+					
+			
+                    b.delete("/deleteproducts"+ a.id).success(function(status){
                           console.log("done");
                         console.log(status);
                         a.Deletefuc();

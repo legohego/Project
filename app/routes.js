@@ -520,6 +520,35 @@ queries.findOne({_id: id}, function (err, foundObject) {
         return res.status(200).send();
     })
 })
+	
+	
+	app.post('/addCustomers', function(req, res) {
+ 
+
+    var newcustomers  =  new customers()
+			 newcustomers.CustomerID=req.body.CustomerID;
+			 newcustomers.CustomerName =req.body.CustomerName;
+			 newcustomers.CompanyName=req.body.CompanyName;
+			 newcustomers.ContactTitle=req.body.ContactTitle;
+			 newcustomers.Address=req.body.Address;
+			 newcustomers.City =req.body.City;
+			 newcustomers.Country=req.body.Country;
+		     newcustomers.Phone=req.body.Phone;
+
+
+     newcustomers.save(function(err){
+      
+        if(err){
+            console.log(err);
+            return res.status(500).send();
+        }
+        return res.status(200).send();
+    })
+})	
+	
+	
+	
+	
 
 	app.post('/addNewReport',isLoggedIn,function(req,res){
 
@@ -687,22 +716,39 @@ return res.status(200).send();
 //delete area
 
 
-app.delete('/deleteCustomers',isLoggedIn,function(req,res) {
-var id = req.body.id;
+app.delete('/deleteCustomers/:id',isLoggedIn,function(req,res) {
+var myid = req.params.id;
+	
+	console.log(myid);
+	customers.find({'_id':  myid}, function (err, foundObject) {
+		if (err) {//if error
+						console.log(err);
+						res.status(500).send()
+					} 
+		else 
+					{//if no error
+							if (!foundObject) {//if product not found
 
-Customers.findOneAndRemove({_id: id}, function (err) {
-    if (err) {
-        console.log(err);
-        res.status(500).send()
-    }
-    return res.status(200).send()
+								res.status(404).send();//send back not found
+							} else {//if found
+console.log(foundObject);
+									customers.findOneAndRemove({_id:  myid}, function (err) {
+	
+												if (err) {//if error
+													console.log(err);
+													res.status(500).send();
+												}else{
+													console.log(myid);
+													//if no error
+													res.status(200).send();
+														
+													}
+											}); 
 
-})
+							};
+					}
 
-});
-
-
-
+	})});
 
 app.delete('/deleteEmployees/:id',isLoggedIn,function(req,res) {
 var id = req.params.id;
@@ -740,7 +786,7 @@ var id = req.params.id;
 													res.status(500).send();
 												}else{
 													//if no error
-res.status(200).send();
+
 														res.status(200).send();
 													}
 											}); 
@@ -979,7 +1025,7 @@ res.render('userQueries', { title: 'Express' });
 
 
 app.get('/Customers',isLoggedIn,function(req, res, next) {
-res.render('Customers.ejs');
+res.render('AdminCustomers.ejs');
 
 
 
