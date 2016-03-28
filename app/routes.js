@@ -201,17 +201,16 @@ orders.find({'OrderID': OrderID}, function (err, foundObject) {
 app.get('/findOneEmployees/:name',isLoggedIn, function (req, res) {
 var name=req.params.name;
 
-employees.findOne({FirstName: name}, function (err, foundObject) {
-    if (err) {//start of outer if
+employees.findOne({'FirstName': name}, function (err, foundObject) {
+   if (err) {//start of outer if
         console.log(err);
         res.status(500).send()
     } else {//start of outer else
         if (!foundObject) {
-            res.status(404).send(404);
+            res.status(404).send();
         } else {
-            repsonceObject = foundObject
-            res.send(repsonceObject)
-			 res.status(200).send();
+
+            res.send(foundObject)
         }
 
     }
@@ -966,10 +965,10 @@ res.render('Products.ejs', { title: 'Express' });
 });
 
 app.get('/StaffView', isLoggedIn,function(req, res, next) {
-res.render('StaffView.ejs', { title: 'Express' });
+res.render('AdminStaffView.ejs', { title: 'Express' });
 });
 app.get('/StaffView2',isLoggedIn, function(req, res, next) {
-res.render('StaffView2.ejs', { title: 'Express' });
+res.render('ManStaffView.ejs', { title: 'Express' });
 });
 
 

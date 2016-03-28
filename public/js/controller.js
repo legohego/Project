@@ -85,9 +85,8 @@
                         .error(function(data,status){
 
 
-                        })
-              
-												 }
+                        })		
+	 }
 								 }])
 
             myApp.controller('StaffController',['$scope','$http', function(a,b){
@@ -95,54 +94,65 @@
                 a.FindAllStaff =function(){
                     b.get("/findemployees").success(function(result){
                             a.rules =result;
-                          
+                          console.log(result);
                      a.showAllStaffFuc();
-                          a.showStaff = false;
-                         a.showStaffSearch = false;
-                          a.DeleteShow= false;
-                         a.showRegStaff=false;
-                         a.showUpdateStaff=false;
-						 a.NotFound=false;
-                        })
-                        .error(function(data,status){
+											  a.showStaff = false;
+											 a.showStaffSearch = false;
+											  a.DeleteShow= false;
+											 a.showRegStaff=false;
+											 a.showUpdateStaff=false;
+											 a.NotFound=false;
+						
+						//add
+						
+						a.StaffNotDeleted=false;
+				a.DeletedStaff=false;
+                 a.NotUpdate=false;
+                a.update=false;
+						
+						
+                        }).error(function(data,status){
                         })
                 }
                
- a.NotFound=false;
+					 a.NotFound=false;
 
- a.NotFoundFuc= function() {
-	 
-	 a.NotFound=true;}
+					 a.NotFoundFuc= function() {
+
+						 			a.NotFound=true;
+					 }
                     a.showUpdateStaff = !a.showUpdateStaff;
 
 
                 a.FindOneStaff =function(){
                     b.get("/findOneEmployees/"+ a.name).success(function(result){
-                            
-						a.NotFound=false;
-						a.name=" ";
-						
+                            console.log(result);
 						a.empes =result;
-                        a.showStaff=true;
-                        a.showAllStaff = false;
-                        a.DeleteShow= false;
-                         a.showRegStaff=false;
-						
-                        })
+												a.NotFound=false;
+												a.name=" ";
+												
+												a.showStaff=true;
+												a.showAllStaff = false;
+											a.DeleteShow= false;
+												a.showRegStaff=false;
+
+                       })
                         .error(function(data,status){
- a.NotFound=true;
- a.showStaff=false;
+												 a.NotFound=true;
+												 a.showStaff=false;
                         })
-                }
+                };
 
                  a.DeleteStaff =function(){
-                    b.delete("/deleteEmployees/"+ a.id).success(function(status){
-                          console.log(done);
-                        console.log(status);
-                        
+                    b.delete("/deleteEmployees/"+ a.id)
+						.success(function(status){a.DeletedStaffFun();
+														  console.log(done);
+														  console.log(status);
+
                         })
                         .error(function(data,status){
                             console.log(status);
+						a.StaffNotDeleted();
 
                         })
                 }
@@ -152,130 +162,162 @@
                   a.UpdateStaff =function(){ 
                        
 
-                            var update ={_id:a._id,LastName:a.LastName,FirstName:a.FirstName,City:a.City,Title:a.Title,Address:a.Address,Region:a.Region,PostalCode:a.PostalCode,Country:a.Country,HomePhone:a.HomePhone,ReportsTo:a.ReportsTo};
-                      console.log(update);
-                      
-              
+                            var update ={
+										 _id:a._id,
+										 LastName:a.LastName,
+										 FirstName:a.FirstName,
+										 City:a.City,
+										 Title:a.Title,
+										 Address:a.Address,
+										 Region:a.Region,
+										 PostalCode:a.PostalCode,
+										 Country:a.Country,
+										 HomePhone:a.HomePhone,
+										 ReportsTo:a.ReportsTo
+										};
                       
 
                            b({
-                  url: '/updateStaff', // No need of IP address
-                  method: 'PUT',
-                  data: update,
-                  headers: {'Content-Type': 'application/json'}
+							  url: '/updateStaff', // No need of IP address
+							  method: 'PUT',
+							  data: update,
+							  headers: {'Content-Type': 'application/json'}
 
-                             
-
-
-                  }).success(function(){
-                                  a._id="";
-                               a.LastName="";
-                               a.FirstName="";
-                               a.City="";
-                               a.Title="";
-                               a.Address="";
-                               Region="";
-                               a.Region="";
-                               a.PostalCode="";
-                               a.Country="";
-                               a.HomePhone="";
-                               a.ReportsTo="";
-                      
-                      console.log(update);
-                      
-
-                        })
-                 
-                 
-                    
+							  }).success(function(){
+														  a._id="";
+													   a.LastName="";
+													   a.FirstName="";
+													   a.City="";
+													   a.Title="";
+													   a.Address="";
+													   Region="";
+													   a.Region="";
+													   a.PostalCode="";
+													   a.Country="";
+													   a.HomePhone="";
+													   a.ReportsTo="";
+														console.log(update);
+							   a.updateFun();
+									}).error(function(){a.NotUpdateFun();})
 
                   }
-                 
-                  
-                 
-                 
+     
                         a.showRegStaff=false;
                 a.showRegStaffFuc= function() {
-                    a.showRegStaff = !a.showRegStaff;
-                    a.showUpdateStaff=false;
-                    a.showAllStaff=false;
-                     a.DeleteShow= false;
-                     a.showAllStaff = false;
-                    a.showStaffSearch = false;
+												a.showRegStaff = !a.showRegStaff;
+												a.showUpdateStaff=false;
+												a.showAllStaff=false;
+												a.DeleteShow= false;
+												a.showAllStaff = false;
+												a.showStaffSearch = false;
+												a.NotFound=false;
                 } 
-                 
-                  
-                  
-                  
                  
                    a.showUpdateStaff=false;
                 a.showUpdateStaffFuc= function() {
-                    a.showUpdateStaff = !a.showUpdateStaff;
-                     a.showRegStaff= false;
-                     a.showStaffSearch = false;
-                    a.showStaff = false;
-                    a.showAllStaff=false;
+												a.showUpdateStaff = !a.showUpdateStaff;
+											    a.showRegStaff= false;
+												a.showStaffSearch = false;
+												a.showStaff = false;
+												a.showAllStaff=false;
+												a.NotFound=false;
+					 a.DeleteShow= false;
+					
+					
+					
+					//add
+					
+					a.StaffNotDeleted=false;
+				a.DeletedStaff=false;
+                 a.NotUpdate=false;
+                a.update=false;
+						
+					
                 } 
                  
-                 
-                 
-                 
-                 
-                 
-                 
-                 
+     
                  
                 a.showAllStaff=false;
                 a.showAllStaffFuc= function() {
-                    a.showAllStaff = !a.showAllStaff;
-                     a.showRegStaff= false;
+											 a.showAllStaff = !a.showAllStaff;
+											 a.showRegStaff= false;
+					
                 }
                 a.DeleteShow= false;
                  a.DeleteShowfunc = function() {
-                    a.DeleteShow = !a.DeleteShow;
-                   a.showStaffSearch = false;
-                      a.showAllStaff=false;
-                      a.showRegStaff= false;
+												a.DeleteShow = !a.DeleteShow;
+											    a.showStaffSearch = false;
+												a.showAllStaff=false;
+												a.showRegStaff= false;
+												a.NotFound=false;
+					  a.showUpdateStaff=false;
+					 //add
+					 a.StaffNotDeleted=false;
+				a.DeletedStaff=false;
+                 a.NotUpdate=false;
+                a.update=false;
+					 
+					 
+					 
                 }
                  a.showAllStaff = false;
                 a.DeleteShowFunc = function() {
-                    a.DeleteShow = !a.DeleteShow;
-                 a.showRegStaff= false;
+													a.DeleteShow = !a.DeleteShow;
+												    a.showRegStaff= false;
                 }
                 a.showStaff = false;
                 a.showStaffFunc = function() {
-                    a.showStaff = !a.showStaff;
-                     a.showRegStaff= false;
+												a.showStaff = !a.showStaff;
+												a.showRegStaff= false;
                   
                 }
                 a.showStaffSearch = false;
                 a.showStaffSearchFunc =function() {
-                    a.showStaffSearch = !a.showStaffSearch;
-                     a.showAllStaff = false;
-                     a.DeleteShow= false;
-                   a.showRegStaff= false;
-                     a.showUpdateStaff=false;
+												 a.showStaffSearch = !a.showStaffSearch;
+												 a.showAllStaff = false;
+												 a.DeleteShow= false;
+											     a.showRegStaff= false;
+												 a.showUpdateStaff=false;
+					
+					//aded
+					
+					a.StaffNotDeleted=false;
+				a.DeletedStaff=false;
+                 a.NotUpdate=false;
+                a.update=false;
                   
                 }
                 a.hideStaffSearch = function() {
-                    a.showStaffSearch = false;
-                    a.showStaff = false;
+												a.showStaffSearch = false;
+												a.showStaff = false;
                    
                 }
                 a.clearStaffSearch = function() {
-                   
-                    a.name=""
+												a.name=""
                 } 
-                a.clearStaffDelete = function() {
-                   
-                    a.id=""
+                a.clearStaffDelete = function() { 
+												a.id=""
                 } 
                 a.hideStaffDelete = function() {
-                   
-                    a.DeleteShow= false;
+												a.DeleteShow= false;
                 } 
-                 
-                
+				
+                a.update=false;
+				a.updateFun=function(){ 
+									a.update=!a.update;
+				}
+				a.NotUpdate=false;
+				a.NotUpdateFun	=function(){
+										a.NotUpdate=!a.NotUpdate;
+				}
+				a.DeletedStaff=false;
+				a.DeletedStaffFun	=function(){ 
+											a.DeletedStaff=!a.DeletedStaff;
+				}
+				a.StaffNotDeleted=false;
+				a.StaffNotDeletedFun	=function(){ 
+												a.StaffNotDeleted=!a.StaffNotDeleted;
+				}
 
             }]);
 
@@ -472,7 +514,16 @@ a.NotAddedfuc();
             }]);
             myApp.controller('userQueriesController',['$scope','$http',function(a,b){
 
+ a.Notsubmitted=false;
 
+ a.NotsubmittedFuc= function() {
+	 
+	 a.Notsubmitted=true;}
+ a.submitted=false;
+
+ a.submittedFuc= function() {
+	 
+	 a.submitted=true;}
 
                 a.viewmyQuieries = function(req){
 
@@ -509,13 +560,23 @@ a.NotAddedfuc();
 
 
 
-                  })
-                  };
+                  }).success(function(result){
+					  
+					 a.submittedFuc();
+					  
+					  
+					  
+                  }).error(function(result){
+						  
+						  a.NotsubmittedFuc();
+					  })}
                 a.show=false;
 
                 a.myFunc=function(){
                    a.showMe = !a.showMe;  
                     a.showMe2 =false;
+					a.submitted=false;
+a.Notsubmitted=false;
                 }
 
 
@@ -524,6 +585,8 @@ a.NotAddedfuc();
                 a.myFunc2=function(){
                    a.showMe2 = !a.showMe2; 
                     a.showMe =false;
+					a.submitted=false;
+a.Notsubmitted=false;
                 }
 
 
