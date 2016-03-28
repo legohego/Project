@@ -358,7 +358,7 @@
             myApp.controller('ProductController',['$scope','$http', function(a,b){
 
                 
-                
+                a.NotAdded=false;
                a.ProductAdded=false;
 
  a.ProductAddedfuc= function() {
@@ -371,7 +371,7 @@
  a.NotAddedfuc= function() {
 	 
 	 a.NotAdded=true;}
-					
+				a.NotDelete	=false;	
 			a.Deleted	=false;
 				 a.Deletefuc= function() {
 	 
@@ -387,12 +387,12 @@
                           console.log("done");
                         console.log(status);
                         a.Deletefuc();
-						a.NotDelete=true;
+						a.NotDelete=false;
                         })
                         .error(function(data,status){
                             console.log(status);
 						a.NotDeletefuc();
-						a.Deleted	=false;
+						a.Deleted=false;
                         })
                 }
                  
@@ -453,12 +453,18 @@ a.NotAddedfuc();
                     a.showMe = false;
                     a.showMeV2 = false;
 					a.showMe4 = false;
+					a.NotDelete= false;
+				
+			a.Deleted	=false;
                 }
                 
                  a.showMe4 = false;
                 a.myFuncV4 = function() {
                     a.showMe4 = !a.showMe4;
                     a.showMeV3 = false;
+					 a.NotAdded=false;
+               a.ProductAdded=false;
+
                 }
                 
                 

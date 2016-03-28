@@ -723,31 +723,35 @@ employees.findOneAndRemove({_id: id}, function (err) {
 app.delete('/deleteproducts/:id',isLoggedIn,function(req,res) {
 var id = req.params.id;
 
-products.findOneAndRemove({ProductID: id}, function (err) {
-    if (err) {
-        console.log(err);
-        res.status(500).send();
-    }else{
 	products.find({'ProductID': id}, function (err, foundObject) {
-    if (err) {//start of outer if
-        console.log(err);
-        res.status(500).send()
-    } else {//start of outer else
-        if (!foundObject) {
-			console.log("Ea");
-            res.status(404).send();
-        } else {
-console.log("NNNN");
-           res.status(404).send();
-        }
+		if (err) {//if error
+						console.log(err);
+						res.status(500).send()
+					} 
+		else 
+					{//if no error
+							if (!foundObject) {//if product not found
 
-    }
-})
+								res.status(404).send();//send back not found
+							} else {//if found
 
-}
-}
+										products.findOneAndRemove({ProductID: id}, function (err) {
+												if (err) {//if error
+													console.log(err);
+													res.status(500).send();
+												}else{
+													//if no error
+res.status(200).send();
+														res.status(200).send();
+													}
+											}); 
+
+									}		
+						}
+			})
 	
-	);    
+	
+   
 
 })
 
