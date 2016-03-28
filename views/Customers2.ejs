@@ -4,7 +4,7 @@
 
 
 
-    <button type="button" class="btn btn-default" ng-click="click();AllCustFun()" >All Customers Details</button>
+    <button type="button" class="btn btn-default" ng-click="click();AllCustFun()" > Customers Details Reports</button>
 
 <button type="button" class="btn btn-default" ng-click="findCustFun();" >Find Customer Details</button>
     </div>
@@ -28,13 +28,14 @@
                         <div class="btn-group">
                        <input type="submit" 
                                    ng-disabled="myForm.id.$untouched && myForm.id.$invalid " 
-                                   ng-click="findCustomer();myFuncV()" class="btn btn-primary"  >
-                          <button type="button" ng-click="clearStaffSearch()" class="btn btn-primary">Clear</button>
+                                   ng-click="findCustomer();" class="btn btn-primary"  >
+                          <button type="button" ng-click="clear()" class="btn btn-primary">Clear</button>
                             <button type="button" ng-click="showhide()" class="btn btn-primary">Hide</button>
            </div>
                     </form>  
         
-        
+        <br>
+				<h3><span ng-show="NotFound">Customer not found</span></h3>
         
         
         
@@ -42,24 +43,25 @@
             <thead>
 
             <tr>
-                <th colspan="6"><h3>Company Report</h3></th>
+                <th colspan="6"><h3>Customer Details Report</h3></th>
             </tr>
-                    <tr>
+                    <tr><th>_id</th>
                         <th>Company Name</th>
                         <th>Contact Name</th>
                         <th>contact Title</th>
                         <th>City</th>
-                        <th>Region</th>
+                        
                         <th>Postal-Code</th>
                     </tr>
             </thead>
             <tbody>
                     <tr ng-repeat="boss in bosses">
+						<td data-ng-bind="boss._id" />
                         <td data-ng-bind="boss.CompanyName" />
                         <td data-ng-bind="boss.ContactName" />
                         <td data-ng-bind="boss.ContactTitle" />
                         <td data-ng-bind="boss.City" />
-                        <td data-ng-bind="boss.Region" />
+                       
                         <td data-ng-bind="boss.PostalCode" />
 
                     <tr>
@@ -72,22 +74,21 @@
             <tr>
                 <th colspan="6"><h3>Company Report</h3></th>
             </tr>
-                    <tr>
+                    <tr><th>_id</th>
                         <th>Company Name</th>
                         <th>Contact Name</th>
                         <th>contact Title</th>
                         <th>City</th>
-                        <th>Region</th>
+                       
                         <th>Postal-Code</th>
                     </tr>
             </thead>
             <tbody>
-                    
+                   
                         <td data-ng-bind="bosses.CompanyName" />
                         <td data-ng-bind="bosses.ContactName" />
                         <td data-ng-bind="bosses.ContactTitle" />
                         <td data-ng-bind="bosses.City" />
-                        <td data-ng-bind="bosses.Region" />
                         <td data-ng-bind="bosses.PostalCode" />
 
                     <tr>

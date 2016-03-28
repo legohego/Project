@@ -102,27 +102,36 @@
                           a.DeleteShow= false;
                          a.showRegStaff=false;
                          a.showUpdateStaff=false;
+						 a.NotFound=false;
                         })
                         .error(function(data,status){
                         })
                 }
                
+ a.NotFound=false;
+
+ a.NotFoundFuc= function() {
+	 
+	 a.NotFound=true;}
+                    a.showUpdateStaff = !a.showUpdateStaff;
+
 
                 a.FindOneStaff =function(){
                     b.get("/findOneEmployees/"+ a.name).success(function(result){
                             
-						
-						
+						a.NotFound=false;
+						a.name=" ";
 						
 						a.empes =result;
                         a.showStaff=true;
                         a.showAllStaff = false;
                         a.DeleteShow= false;
                          a.showRegStaff=false;
+						
                         })
                         .error(function(data,status){
-
-
+ a.NotFound=true;
+ a.showStaff=false;
                         })
                 }
 
@@ -272,6 +281,21 @@
 
             myApp.controller('CustomerController',['$scope','$http', function(a,b){
 
+				 a.NotFound=false;
+
+ a.NotFoundFuc= function() {
+	 
+	 a.NotFound=true;}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
             a.click =function(){
                     b.get("/findCustomers").success(function(result){
                             a.bosses =result;
@@ -287,10 +311,13 @@
                a.findCustomer =function(){
                     b.get("/findOneCustomer/"+ a.id).success(function(result){
                             a.bosses =result;
-                      
+                      a.CustResFun();
                         console.log(result);
+							 a.NotFound=false;
                         })
                         .error(function(data,status){
+							 a.NotFound=true;
+						a.CustRes =false;
                         })
                 }
                 
@@ -312,7 +339,7 @@
               }
                  a.showhide = function() {
                   a.FindCust =false;   
-                     
+                     a.CustRes =false; 
                      
                  }
                  
@@ -332,18 +359,40 @@
 
                 
                 
-              
-         
+               a.ProductAdded=false;
+
+ a.ProductAddedfuc= function() {
+	 
+	 a.ProductAdded=true;}
+				
+				
+			 a.NotAdded=false;
+
+ a.NotAddedfuc= function() {
+	 
+	 a.NotAdded=true;}
+					
+			a.Deleted	=false;
+				 a.Deletefuc= function() {
+	 
+	 a.Deleted=true;}
+		a.NotDelete	=false;	
+         a.NotDeletefuc= function() {
+	 
+	 a.NotDelete=true;}
+					
 
                 a.DeleteProducts =function(){
                     b.delete("/deleteproducts/"+ a.id).success(function(status){
                           console.log("done");
                         console.log(status);
-                        
+                        a.Deletefuc();
+						a.NotDelete=true;
                         })
                         .error(function(data,status){
                             console.log(status);
-
+						a.NotDeletefuc();
+						a.Deleted	=false;
                         })
                 }
                  
@@ -375,6 +424,7 @@
 
 
                   }).success(function(){
+						   a.ProductAddedfuc();
                          a.ProductName,
                                   a.SupplierID="";
                                    a.CategoryID="";
@@ -385,10 +435,10 @@
                                a.Discontinued="";
                                 a.ProductID="";
                             a.ProductName="";
-
+ a.UnitInStock="";
                         })
                         .error(function(){
-console.log("did not work");
+a.NotAddedfuc();
                         })
                   };
                 
@@ -402,12 +452,13 @@ console.log("did not work");
                     a.showMeV3 = !a.showMeV3;
                     a.showMe = false;
                     a.showMeV2 = false;
+					a.showMe4 = false;
                 }
                 
                  a.showMe4 = false;
                 a.myFuncV4 = function() {
                     a.showMe4 = !a.showMe4;
-                   
+                    a.showMeV3 = false;
                 }
                 
                 

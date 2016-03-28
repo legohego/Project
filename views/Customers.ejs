@@ -4,13 +4,13 @@
 
 
 
-    <button type="button" class="btn btn-default" ng-click="click();myFuncV2()" >All Customers Details</button>
+    <button type="button" class="btn btn-default" ng-click="click();AllCustFun()" > Customers Details Reports</button>
 <button type="button" class="btn btn-default" ng-click="" >Add Customers</button>
-<button type="button" class="btn btn-default" ng-click="" >Find Customer Details</button>
+<button type="button" class="btn btn-default" ng-click="findCustFun();" >Find Customer Details</button>
     </div>
     
     <div class="panel-body">
-    <table ng-show="showMeV2" class="table table-hover">
+    <table ng-show="AllCust" class="table table-hover">
             <thead>
 
             <tr>
@@ -21,7 +21,7 @@
                         <th>Contact Name</th>
                         <th>contact Title</th>
                         <th>City</th>
-                        <th>Region</th>
+                       
                         <th>Postal-Code</th>
                     </tr>
             </thead>
@@ -31,7 +31,7 @@
                         <td data-ng-bind="boss.ContactName" />
                         <td data-ng-bind="boss.ContactTitle" />
                         <td data-ng-bind="boss.City" />
-                        <td data-ng-bind="boss.Region" />
+                        
                         <td data-ng-bind="boss.PostalCode" />
 
                     <tr>

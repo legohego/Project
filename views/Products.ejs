@@ -95,7 +95,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="id">Product ID:</label>
         <div class="col-xs-2">
-            <input ng-model="id" ng-click="DeleteProducts()" required type="number" class="form-control" id="id" placeholder="id" name="id" >
+            <input ng-model="id"  required type="text" class="form-control" id="id" placeholder="id" name="id" >
 
             <span style="color:red" ng-show="myForm1.id.$dirty && myForm1.id.$invalid">
 <span ng-show="myForm1.id.$error.required">id is required.</span>
@@ -103,6 +103,10 @@
         </div>  
 
     </div>
-             <input type="submit" ng-disabled="myForm1.name.$untouched && myForm1.name.$invalid " ng-click="" class="btn btn-primary"  >
+             <input type="submit" ng-disabled="myForm1.name.$untouched && myForm1.name.$invalid " ng-click="DeleteProducts()" class="btn btn-primary"  >
         </form>
+		<br><h3><span ng-show="NotAdded">Product Not Added</span></h3>
+				<h3><span ng-show="ProductAdded">Product Added</span></h3>
+		<h3><span ng-show="NotDelete">Product Not Delete</span></h3>
+		<h3><span ng-show="Deleted">Product Delete</span></h3>
     </div></div></div>

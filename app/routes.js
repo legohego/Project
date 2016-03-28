@@ -12,57 +12,48 @@ var orders  = require('../app/models/orders');
 // HOME PAGE (with login links) ========
 // =====================================
 
-app.get('/makeRequests',isLoggedIn,function(req,res){
 
-    res.render('makeRequests.ejs');
-
-
-});
-
-	
-	
-	app.post('/addReports', function(req, res) {
- 
-
-    var newmyReports =  new myReports()
-        newmyReports.email=req.body.email;
-         newmyReports.myreports1 =req.body.myreports1;
-        newmyReports.myreports2=req.body.myreports2;
-       newmyReports.myreports3=req.body.myreports3;
-       newmyReports.myreports4=req.body.myreports4;
- 
+    
+app.get('/findOrdersVia_C_ID/:CustomerID',isLoggedIn, function (req, res) {
+var CustomerID = req.params.CustomerID;
 
 
-     newmyReports.save(function(err){
-        console.log(newmyReports);
-        if(err){
-            console.log(err);
-            return res.status(500).send();
+orders.find({'CustomerID': CustomerID}, function (err, foundObject) {
+    if (err) {//start of outer if
+        console.log(err);
+        res.status(500).send()
+    } else {//start of outer else
+        if (!foundObject) {
+            res.status(404).send();
+        } else {
+
+            res.send(foundObject)
         }
-        return res.status(200).send();
-    })
-})
 
-	app.post('/addNewReport',isLoggedIn,function(req,res){
-
-var report =req.body.reportNumber;	
-		//req.body.reportURL;
-		//query[name] = value;
-		var url=req.body.reportUR;
-		
-	var query = { email: req.body.email }
-	
-	var query2 = {};
-query2[report] = req.body.reportURL;
-	
-	console.log(query);console.log(query2);
-	myReports.findOneAndUpdate(query, query2, function(err, doc){
-    if (err) return res.send(500, { error: err });
-    return res.send("succesfully saved");
-}); 
-	
-	
+    }
 })
+});    
+
+//do this when u come back
+app.get('/findOrdersDetailsVia_O_ID/:OrderID',isLoggedIn, function (req, res) {
+var OrderID = req.params.OrderID;
+
+console.log(OrderID);
+Order_Details.find({'OrderID': OrderID}, function (err, foundObject) {
+    if (err) {//start of outer if
+        console.log(err);
+        res.status(500).send()
+    } else {//start of outer else
+        if (!foundObject) {
+            res.status(404).send();
+        } else {
+
+            res.send(foundObject)
+        }
+
+    }
+})
+});
 	
 	
 	
@@ -111,21 +102,7 @@ console.log(req.user.local.email)
     })
 
 })
- app.get('/adminRequests',isLoggedIn,function(req,res){
-
-    res.render('adminRequest.ejs');
-
-
-});
-
-
- app.get('/updateRequests',isLoggedIn,function(req,res){
-
-    res.render('updateRequests.ejs');
-
-
-});
-
+ 
 
 
 app.get('/GetAllOpenTickets',isLoggedIn,function(req,res){
@@ -144,199 +121,8 @@ queries.find({ Status: { $ne: "Complete" } },function(err,foundqueries){
 })
 
 
-})
-
-
-
-app.put('/updateStaff',isLoggedIn, function (req, res) {
-var id = req.body._id;
-console.log(req.body._id);
-    console.log(req.body.LastName );
-    console.log(req.body.FirstName);
-employees.findOne({_id: id}, function (err, foundObject) {
-    if(err) {//start of outer if
-        console.log(err);
-        res.status(500).send()
-    }else {//start of outer else
-        if (!foundObject) {
-            res.status(403).send();
-        } else {
-             if (req.body.LastName != null) {
-                foundObject.LastName  = req.body.LastName  ;
-            }
-            if (req.body.FirstName != null) {
-                foundObject.FirstName  = req.body.FirstName ;
-            }
-              if (req.body.City != null) {
-                foundObject.City  = req.body.City ;
-            }
-            if (req.body.Title != null) {
-                foundObject.Title  = req.body.Title ;
-            }
-            if (req.body.Address != null) {
-                foundObject.Address  = req.body.Address ;
-            }
-            
-             if (req.body.City != null) {
-                foundObject.City  = req.body.City ;
-            }
-            if (req.body.PostalCode != null) {
-                foundObject.PostalCode  = req.body.PostalCode ;
-            }
-               if (req.body.Country != null) {
-                foundObject.Country   = req.body.Country  ;
-            }
-            
-             if (req.body.HomePhone != null) {
-                foundObject.HomePhone  = req.body.HomePhone ;
-            }
-            if (req.body.ReportsTo != null) {
-                foundObject.ReportsTo  = req.body.ReportsTo ;
-            }
-           
-            foundObject.save(function (err, updatedObject) {
-                if (err) {
-                    console.log(err);
-                    res.status(500).send();
-                } else {
-                    res.send(updatedObject); }
-            });
-        }   }
-})}
-) 
-
-
-
-
-
-
-app.put('/updateRequests',isLoggedIn, function (req, res) {
-var id = req.body._id;
-console.log(id);
-queries.findOne({_id: id}, function (err, foundObject) {
-    if(err) {//start of outer if
-        console.log(err);
-        res.status(500).send()
-    }else {//start of outer else
-        if (!foundObject) {
-            res.status(403).send();
-        } else {
-            if (req.body.Status != "") {
-                foundObject.Status = req.body.Status;
-            }
-            if (req.body.Notes != "") {
-                foundObject.Notes = req.body.Notes;
-            }
-            foundObject.save(function (err, updatedObject) {
-                if (err) {
-                    console.log(err);
-                    res.status(500).send();
-                } else {
-                    res.send(updatedObject); }
-            });
-        }   }
-})
-}) 
-
-
-
-
-app.post('/NewProducts',isLoggedIn, function(req, res) {
- 
-
-    var newProduct =  new products()
-        newProduct.ProductID=req.body.ProductID;
-         newProduct.ProductName =req.body.ProductName;
-        newProduct.SupplierID=req.body.SupplierID;
-        newProduct.CategoryID=req.body.CategoryID;
-        newProduct.QuantityPerUnit=req.body.QuantityPerUnit;
-        newProduct.UnitPrice=req.body.UnitPrice;
-        newProduct.UnitsInStock=req.body.StockLevel;
-       newProduct.UnitsOnOrder=req.body.UnitsOnOrder;
-        newProduct.ReorderLevel= req.body.ReorderLevel;
-        newProduct.Discontinued=req.body.Discontinued;
-
-
-    newProduct.save(function(err){
-        console.log(newProduct);
-        if(err){
-            console.log(err);
-            return res.status(500).send();
-        }
-        return res.status(200).send();
-    })
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.post('/userQueries',isLoggedIn,function(req,res){
-
-
-var newQuery = new queries();//need to create an instance of the object
-
-
-newQuery .querySubject= req.body.querySubject;
-    newQuery .queryBody= req.body.queryBody;
-    newQuery .firstName=req.body.firstName;
-    newQuery .lastName= req.body.LastName;
-    newQuery .email=req.body.email;
-    newQuery .UrgentLevel=req.body.UrgentLevel;
-    newQuery .lastName= req.body.LastName;
-    newQuery .email=req.body.email;
-    newQuery .query_date=req.body.query_date;
-    newQuery .Notes="Default";
-
-
-newQuery.save(function(err){
-
-    if(err){
-
-        res.send(newQuery );
-        return res.status(500).send;
-    }
-return res.status(200).send();
-
-})
-
-
-})
-
-
-
-app.get('/', function(req, res) {
-    res.render('index.ejs'); // load the index.ejs file
-});
-
-
-app.get('/OrdersView',isLoggedIn, function(req, res) {
-    res.render('OrdersView.ejs'); // load the index.ejs file
-});
-
-
-
-
-app.get('/login', function(req, res) {
-
-    // render the page and pass in any flash data if it exists
-    res.render('login.ejs', { message: req.flash('loginMessage') }); 
-});
-
-// process the login form
+})	
+	
 app.get('/findemployees',isLoggedIn,function(req,res){
 
 
@@ -372,6 +158,21 @@ orders.find({'OrderDate': {'$regex': OrderDate}}, function (err, foundObject) {
     }
 })
 });
+	app.get('/findCustomers',isLoggedIn,function(req,res){
+
+
+customers.find({}, function(err,foundData){
+    if(err){
+        console.log(err);
+        res.status(404);
+    }
+    else
+    {
+        repsonceObject = foundData;
+    }
+    res.send(repsonceObject)
+})
+});
 
 app.get('/findOrdersVia_O_ID/:OrderID',isLoggedIn, function (req, res) {
 var OrderID = req.params.OrderID;
@@ -392,6 +193,57 @@ orders.find({'OrderID': OrderID}, function (err, foundObject) {
     }
 })
 });   
+	
+	
+	
+	
+	
+app.get('/findOneEmployees/:name',isLoggedIn, function (req, res) {
+var name=req.params.name;
+
+employees.findOne({FirstName: name}, function (err, foundObject) {
+    if (err) {//start of outer if
+        console.log(err);
+        res.status(500).send()
+    } else {//start of outer else
+        if (!foundObject) {
+            res.status(404).send(404);
+        } else {
+            repsonceObject = foundObject
+            res.send(repsonceObject)
+			 res.status(200).send();
+        }
+
+    }
+})
+});
+    
+    
+    
+    app.get('/findOneCustomer/:id',isLoggedIn, function (req, res) {
+var id=req.params.id;
+
+customers.findOne({_id: id}, function (err, foundObject) {
+    if (err) {//start of outer if
+        console.log(err);
+        res.status(500).send()
+    } else {//start of outer else
+        if (!foundObject) {
+            res.status(404).send();
+        } else {
+            repsonceObject = foundObject
+            res.send(repsonceObject)
+            console.log(200)
+        }
+
+    }
+})
+});
+	
+	
+	
+	
+	
     
    app.get('/sales/:data/:amount', isLoggedIn,function (req, res) {
 var data;
@@ -554,47 +406,169 @@ var data;
 	
 	
     
-    
-app.get('/findOrdersVia_C_ID/:CustomerID',isLoggedIn, function (req, res) {
-var CustomerID = req.params.CustomerID;
 
 
-orders.find({'CustomerID': CustomerID}, function (err, foundObject) {
-    if (err) {//start of outer if
+//put area
+
+app.put('/updateStaff',isLoggedIn, function (req, res) {
+var id = req.body._id;
+console.log(req.body._id);
+    console.log(req.body.LastName );
+    console.log(req.body.FirstName);
+employees.findOne({_id: id}, function (err, foundObject) {
+    if(err) {//start of outer if
         console.log(err);
         res.status(500).send()
-    } else {//start of outer else
+    }else {//start of outer else
         if (!foundObject) {
-            res.status(404).send();
+            res.status(403).send();
         } else {
+             if (req.body.LastName != null && req.body.LastName !="") {
+                foundObject.LastName  = req.body.LastName  ;
+            }
+            if (req.body.FirstName != null&&req.body.FirstName !="") {
+                foundObject.FirstName  = req.body.FirstName ;
+            }
+              if (req.body.City != null&&req.body.City  !="") {
+                foundObject.City  = req.body.City ;
+            }
+            if (req.body.Title != null&&req.body.Title !="") {
+                foundObject.Title  = req.body.Title ;
+            }
+            if (req.body.Address != null&&req.body.Address !="") {
+                foundObject.Address  = req.body.Address ;
+            }
+            
+            
+            if (req.body.PostalCode != null&&req.body.PostalCode!="") {
+                foundObject.PostalCode  = req.body.PostalCode ;
+            }
+               if (req.body.Country != null&&req.body.Country !="") {
+                foundObject.Country   = req.body.Country  ;
+            }
+            
+             if (req.body.HomePhone != null&&req.body.HomePhone !="") {
+                foundObject.HomePhone  = req.body.HomePhone ;
+            }
+            if (req.body.ReportsTo != null&&req.body.ReportsTo !="") {
+                foundObject.ReportsTo  = req.body.ReportsTo ;
+            }
+           
+            foundObject.save(function (err, updatedObject) {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send();
+                } else {
+                    res.send(updatedObject); }
+            });
+        }   }
+})}
+) 
 
-            res.send(foundObject)
-        }
 
-    }
-})
-});    
 
-//do this when u come back
-app.get('/findOrdersDetailsVia_O_ID/:OrderID',isLoggedIn, function (req, res) {
-var OrderID = req.params.OrderID;
 
-console.log(OrderID);
-Order_Details.find({'OrderID': OrderID}, function (err, foundObject) {
-    if (err) {//start of outer if
+
+
+app.put('/updateRequests',isLoggedIn, function (req, res) {
+var id = req.body._id;
+console.log(id);
+queries.findOne({_id: id}, function (err, foundObject) {
+    if(err) {//start of outer if
         console.log(err);
         res.status(500).send()
-    } else {//start of outer else
+    }else {//start of outer else
         if (!foundObject) {
-            res.status(404).send();
+            res.status(403).send();
         } else {
-
-            res.send(foundObject)
-        }
-
-    }
+            if (req.body.Status != "") {
+                foundObject.Status = req.body.Status;
+            }
+            if (req.body.Notes != "") {
+                foundObject.Notes = req.body.Notes;
+            }
+            foundObject.save(function (err, updatedObject) {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send();
+                } else {
+                    res.send(updatedObject); }
+            });
+        }   }
 })
-});
+}) 
+
+//post area
+
+	app.post('/addReports', function(req, res) {
+ 
+
+    var newmyReports =  new myReports()
+        newmyReports.email=req.body.email;
+         newmyReports.myreports1 =req.body.myreports1;
+        newmyReports.myreports2=req.body.myreports2;
+       newmyReports.myreports3=req.body.myreports3;
+       newmyReports.myreports4=req.body.myreports4;
+ 
+
+
+     newmyReports.save(function(err){
+        console.log(newmyReports);
+        if(err){
+            console.log(err);
+            return res.status(500).send();
+        }
+        return res.status(200).send();
+    })
+})
+
+	app.post('/addNewReport',isLoggedIn,function(req,res){
+
+var report =req.body.reportNumber;	
+		//req.body.reportURL;
+		//query[name] = value;
+		var url=req.body.reportUR;
+		
+	var query = { email: req.body.email }
+	
+	var query2 = {};
+query2[report] = req.body.reportURL;
+	
+	console.log(query);console.log(query2);
+	myReports.findOneAndUpdate(query, query2, function(err, doc){
+    if (err) return res.send(500, { error: err });
+    return res.send("succesfully saved");
+}); 
+	
+	
+})
+
+
+app.post('/NewProducts',isLoggedIn, function(req, res) {
+ 
+
+    var newProduct =  new products()
+        newProduct.ProductID=req.body.ProductID;
+         newProduct.ProductName =req.body.ProductName;
+        newProduct.SupplierID=req.body.SupplierID;
+        newProduct.CategoryID=req.body.CategoryID;
+        newProduct.QuantityPerUnit=req.body.QuantityPerUnit;
+        newProduct.UnitPrice=req.body.UnitPrice;
+        newProduct.UnitsInStock=req.body.StockLevel;
+       newProduct.UnitsOnOrder=req.body.UnitsOnOrder;
+        newProduct.ReorderLevel= req.body.ReorderLevel;
+        newProduct.Discontinued=req.body.Discontinued;
+
+
+    newProduct.save(function(err){
+        console.log(newProduct);
+        if(err){
+            console.log(err);
+            return res.status(500).send();
+        }
+        return res.status(200).send();
+    })
+})
 
 
 app.post('/CreateNewOrder',isLoggedIn,function(req,res){
@@ -669,6 +643,51 @@ if (err) {
 
 
 
+
+
+app.post('/userQueries',isLoggedIn,function(req,res){
+
+
+var newQuery = new queries();//need to create an instance of the object
+
+console.log(req.body.LastName);
+newQuery .querySubject= req.body.querySubject;
+    newQuery .queryBody= req.body.queryBody;
+    newQuery .firstName=req.body.firstName;
+    newQuery .lastName= req.body.LastName;
+    newQuery .email=req.body.email;
+    newQuery .UrgentLevel=req.body.UrgentLevel;
+    newQuery .lastName= req.body.LastName;
+    newQuery .email=req.body.email;
+    newQuery .query_date=req.body.query_date;
+    newQuery .Notes="Default";
+
+
+newQuery.save(function(err){
+
+    if(err){
+
+        res.send(newQuery );
+        return res.status(500).send;
+    }
+return res.status(200).send();
+
+})
+
+
+})
+
+
+
+
+
+// process the login form
+
+
+
+//delete area
+
+
 app.delete('/deleteCustomers',isLoggedIn,function(req,res) {
 var id = req.body.id;
 
@@ -707,13 +726,33 @@ var id = req.params.id;
 products.findOneAndRemove({ProductID: id}, function (err) {
     if (err) {
         console.log(err);
+        res.status(500).send();
+    }else{
+	products.find({'ProductID': id}, function (err, foundObject) {
+    if (err) {//start of outer if
+        console.log(err);
         res.status(500).send()
+    } else {//start of outer else
+        if (!foundObject) {
+			console.log("Ea");
+            res.status(404).send();
+        } else {
+console.log("NNNN");
+           res.status(404).send();
+        }
+
     }
-    return res.status(200).send()
+})
+
+}
+}
+	
+	);    
 
 })
 
-});    
+
+
 
 
 app.delete('/deleteOrders',isLoggedIn,function(req,res) {
@@ -748,46 +787,6 @@ Order_Details.findOneAndRemove({_id: id}, function (err) {
 
 
 
-app.get('/findOneEmployees/:name',isLoggedIn, function (req, res) {
-var name=req.params.name;
-
-employees.findOne({FirstName: name}, function (err, foundObject) {
-    if (err) {//start of outer if
-        console.log(err);
-        res.status(500).send()
-    } else {//start of outer else
-        if (!foundObject) {
-            res.status(404).send();
-        } else {
-            repsonceObject = foundObject
-            res.send(repsonceObject)
-        }
-
-    }
-})
-});
-    
-    
-    
-    app.get('/findOneCustomer/:id',isLoggedIn, function (req, res) {
-var id=req.params.id;
-
-customers.findOne({_id: id}, function (err, foundObject) {
-    if (err) {//start of outer if
-        console.log(err);
-        res.status(500).send()
-    } else {//start of outer else
-        if (!foundObject) {
-            res.status(404).send();
-        } else {
-            repsonceObject = foundObject
-            res.send(repsonceObject)
-            console.log(200)
-        }
-
-    }
-})
-});
 
 
   /*app.get('/max',function(req,res){
@@ -809,21 +808,7 @@ customers.findOne({_id: id}, function (err, foundObject) {
     
     
     
-app.get('/findCustomers',isLoggedIn,function(req,res){
 
-
-customers.find({}, function(err,foundData){
-    if(err){
-        console.log(err);
-        res.status(404);
-    }
-    else
-    {
-        repsonceObject = foundData;
-    }
-    res.send(repsonceObject)
-})
-});
 
 app.post('/login', passport.authenticate('local-login', {
     successRedirect : '/profile', // redirect to the secure profile section
@@ -848,15 +833,10 @@ app.post('/login', passport.authenticate('local-login', {
 
      res.render('signup.ejs', { message: req.flash('signupMessage') });
 });
-/*app.get('/reports', function(req, res) {
-
-    // render the page and pass in any flash data if it exists
-    res.render('reports.ejs', { message: req.flash('signupMessage') });
-});*/
 
 app.get('/reports', isLoggedIn, function(req, res) {
 
-    res.render('reports.ejs', { message: req.flash('signupMessage') });
+    res.render('reports.ejs');
 });
   app.get('/testHome', isLoggedIn, function(req, res) {
 
@@ -873,6 +853,36 @@ app.post('/signup', passport.authenticate('local-signup', {
     failureRedirect : '/signup', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 }));
+	
+	
+	app.get('/', function(req, res) {
+    res.render('index.ejs'); // load the index.ejs file
+});
+
+
+app.get('/OrdersView',isLoggedIn, function(req, res) {
+    res.render('OrdersView.ejs'); // load the index.ejs file
+});
+
+
+
+
+app.get('/login', function(req, res) {
+
+    // render the page and pass in any flash data if it exists
+    res.render('login.ejs', { message: req.flash('loginMessage') }); 
+});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 // =====================================
 // PROFILE SECTION =====================
@@ -933,6 +943,12 @@ app.get('/noAccess', isLoggedIn, function(req, res) {
     res.render('register.ejs',  { message: req.flash('signupMessage') });
 });
 
+app.get('/makeRequests',isLoggedIn,function(req,res){
+
+    res.render('makeRequests.ejs');
+
+
+});
 
 
 
@@ -967,6 +983,24 @@ res.render('Customers.ejs');
 
 
 });
+	
+	
+	
+	app.get('/adminRequests',isLoggedIn,function(req,res){
+
+    res.render('adminRequest.ejs');
+
+
+});
+
+
+ app.get('/updateRequests',isLoggedIn,function(req,res){
+
+    res.render('updateRequests.ejs');
+
+
+});
+
     
   app.get('/Customers2',isLoggedIn, function(req, res, next) {
 res.render('Customers2.ejs' );
