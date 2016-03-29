@@ -321,14 +321,20 @@ var data;
 	
 	app.get('/sales2/:data/:amount',isLoggedIn, function (req, res) {
 var data;
-       var amount;
-        if(req.params.amount == 10){
-          amount = 10;
+       var amount = req.params.amount; 
+       if(req.params.amount == 20){
+         amount = 20;
            
-       }else if(req.params.amount == 5){
+      }else if(req.params.amount == 15){
            
-          amount = 5;
-       }
+        amount = 15;
+     }else if(req.params.amount == 10){
+         amount = 10;
+           
+      }else if(req.params.amount == 5){
+           
+        amount = 5;
+     }
        
        if(req.params.data == 1){
            data = 1;
@@ -532,7 +538,7 @@ queries.findOne({_id: id}, function (err, foundObject) {
         newmyReports.myreports2=req.body.myreports2;
        newmyReports.myreports3=req.body.myreports3;
        newmyReports.myreports4=req.body.myreports4;
- 
+ newmyReports.myreports5=req.body.myreports5;
 
 
      newmyReports.save(function(err){
@@ -922,7 +928,7 @@ app.get('/reports', isLoggedIn, function(req, res) {
 });
 // process the signup form
 app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect : '/profile', // redirect to the secure profile section
+    successRedirect : '/logout', // redirect to the secure profile section
     failureRedirect : '/signup', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 }));
@@ -945,16 +951,6 @@ app.get('/login', function(req, res) {
     // render the page and pass in any flash data if it exists
     res.render('login.ejs', { message: req.flash('loginMessage') }); 
 });
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 // =====================================
@@ -981,11 +977,11 @@ app.get('/data',isLoggedIn, function(req, res) {
 });
 
 	
-	app.get('/addReports',isLoggedIn, function(req, res) {
-  res.render('RegMyReports2.ejs', { message: req.flash('signupMessage') });
+	app.get('/CreateProfileReports',isLoggedIn, function(req, res) {
+  res.render('CreateProfileReports.ejs', { message: req.flash('signupMessage') });
 });
-		app.get('/myreportsUndate',isLoggedIn, function(req, res) {
-  res.render('RegMyReports.ejs', { message: req.flash('signupMessage') });
+		app.get('/AddPersonnelReport',isLoggedIn, function(req, res) {
+  res.render('AddPersonnelReport.ejs', { message: req.flash('signupMessage') });
 });
 	
 app.get('/chart', isLoggedIn,function(req, res) {
@@ -1037,7 +1033,7 @@ res.render('Products.ejs', { title: 'Express' });
 app.get('/StaffView', isLoggedIn,function(req, res, next) {
 res.render('AdminStaffView.ejs', { title: 'Express' });
 });
-app.get('/StaffView2',isLoggedIn, function(req, res, next) {
+app.get('/StaffReports',isLoggedIn, function(req, res, next) {
 res.render('ManStaffView.ejs', { title: 'Express' });
 });
 

@@ -12,22 +12,22 @@
     <% } %></div>
 	<div class="panel-body">
     <!-- LOGIN FORM -->
-    <form action="/addNewReport" method="post">
+    <form >
 
             
         <div class="form-group">
             <label>Email</label>
-            <input type="text" class="form-control" name="email">
+            <input ng-model="email" type="text" class="form-control" name="email">
         </div>
         <div class="form-group">
             <label>Add Report URL</label>
-            <input type="password" class="form-control" name="reportURL">
+            <input ng-model="reportURL"type="password" class="form-control" name="reportURL">
         </div>
 
         
         <div class="form-group">
   <label for="sel1">Reports Number:</label>
-  <select class="form-control" id="sel1" name="reportNumber">
+  <select ng-model="reportNumber"class="form-control" id="sel1" name="reportNumber">
     <option>myreports1</option>
     <option>myreports2</option>
     <option>myreports3</option>
@@ -38,8 +38,10 @@
     <option>myreports8</option>
   </select>
 </div>
-        <button type="submit" class="btn btn-warning btn-lg">Register</button>
+        <button ng-click="proReportsadd()"type="submit" class="btn btn-warning btn-lg">Submit</button>
     </form>
+<h3><span ng-show="added2">Profile Reports Added</span></h3>
+		<h3><span ng-show="Notadded">Profile Reports Not Added</span></h3>
 
     <hr>
 

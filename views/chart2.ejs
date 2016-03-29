@@ -28,10 +28,12 @@
 
 
 	<style>
- a{color: white;}
-body {
-
-}
+     body {
+    background-image: url('../images/analytics.jpg');
+   background-repeat:no-repeat;
+    background-position:350px 200px;
+		
+} 
 
 .axis path,
 .axis line {
@@ -117,7 +119,58 @@ body {
     </ul>
 	  </div></div>
 </nav>
-      
+    	
+	   <div class="panel-body">
+    <form class="form-inline" role="form" name ="theForm" >
+	
+	  <div class="form-group">
+  <label for="sel1">Reports Number:</label>
+  <select class="form-control" id="sel1" name="num">
+     <option>20</option>
+    <option>15</option>
+	 <option>10</option>
+    <option>5</option>
+  
+  </select>
+</div>
+	
+  <div class="form-group">
+  <label for="sel1">Reports Number:</label>
+  <select class="form-control" id="sel1" name="ps">
+    <option>1</option>
+    <option>-1</option>
+  
+  </select>
+</div>	
+	
+	
+		
+		
+	<button onClick="refreshPage()"  type="submit" class="btn btn-warning btn-lg" >Refresh</button>
+	<button onClick="fun();dis();"type="submit" class="btn btn-warning btn-lg" id="myBtn">Submit</button>
+    </form>
+	
+	</div>
+	
+<script>
+function refreshPage(){
+    window.location.reload();
+} 
+</script>	
+<script>
+function dis() {
+    document.getElementById("myBtn").disabled = true;
+}
+</script>
+		
+		
+		
+		
+		
+		
+	
+	</div>
+	  
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>
@@ -158,7 +211,12 @@ var svg = d3.select("body").append("svg")
 
 svg.call(tip);
 
-d3.json("/sales2/-1/10", function(error, data) {
+function fun() {
+	var ps = document.theForm.ps.value;
+        var num = document.theForm.num.value;
+	
+	
+	d3.json(d3.json("/sales2/"+ps+"/"+num, function(error, data) {
 
     data.forEach(function(d) {
         d._id = d._id;
@@ -200,7 +258,7 @@ d3.json("/sales2/-1/10", function(error, data) {
   return d;
 }
 
-})
+}))}
 
 
 	

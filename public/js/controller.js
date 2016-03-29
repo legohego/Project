@@ -17,20 +17,20 @@
                        // controller:'chartsController'
 
                     })
-				 .when('/myreportsUpdate',{
-                        templateUrl:'/myreportsUndate',
-                       // controller:'chartsController'
+				 .when('/CreateProfileReports',{
+                        templateUrl:'/CreateProfileReports',
+					controller:'ReportProController'
 
                     })
-				.when('/myreportsUpdate2',{
-                        templateUrl:'/addReports',
-                       // controller:'chartsController'
+				.when('/AddPersonnelReport',{
+                        templateUrl:'/AddPersonnelReport',
+                   controller:'ReportProController'
 
                     })
 				
 
- .when('/StaffView2',{
-                        templateUrl:'/StaffView2',
+ .when('/StaffReports',{
+                        templateUrl:'/StaffReports',
                         controller:'StaffController'
 
                     })
@@ -67,7 +67,7 @@
                     })
                  .when('/reg',{
                         templateUrl:'/register',
-                        controller:'URController'
+                        controller:'regController'
 
                     })
 
@@ -891,5 +891,170 @@ a.Notsubmitted=false;
 
 
                }])      
-            
+                 
+            myApp.controller('ReportProController',['$scope','$http',function(a,b){
+a.Notadded=false;
+				a.NotaddedFuc=function(){
+				a.Notadded=!a.Notadded;
+				}
+a.added=false;
+				a.addedFuc=function(){
+				a.added=!a.added;
+				}
+               a.proReports =function(){
+						
+		a.added=false;
+			a.Notadded=false;   
+						var reports ={
+							
+							email:a.email,
+							myreports1 :a.myreports1,
+							myreports2:a.myreports2,
+							myreports3:a.myreports3,
+							myreports4:a.myreports4,
+							myreports5:a.myreports5,
+						};
+						
+			  b({
+                  url: '/addReports', // No need of IP address
+                  method: 'POST',
+                  data: reports,
+                  headers: {'Content-Type': 'application/json'}
+						
+						}).success(function(){
+						 
+                                  a.myreports1="";
+                                   a.myreports2="";
+                                  a.myreports3="";
+                                   a.myreports4="";
+                                  a.myreports5="";
+                                  a.email="";
+                              
+a.addedFuc();
+                        })
+                        .error(function(){
+a.NotaddedFuc();
+                        })
+                  }; 
+
+
+				
+				
+				
+				  a.proReportsadd =function(){
+						
+		a.added2=false;
+			a.Notadded2=false;   
+						var reports2 ={
+							 
+							email:a.email,
+							reportNumber :a.reportNumber,
+							reportURL:a.reportURL,
+							
+						};
+						
+			  b({
+                  url: '/addNewReport', // No need of IP address
+                  method: 'POST',
+                  data: reports2,
+                  headers: {'Content-Type': 'application/json'}
+						
+						}).success(function(){
+						 
+                                  a.reportNumber="";
+                                   a.reportURL="";
+                                  	a.email="";
+                              
+a.added2=true;
+                        })
+                        .error(function(){
+a.Notadded2=true; 
+                        })
+                  }; 
+
+				
+				
+				
+				
+				
+				
+			a.Notadded2=false;
+				a.NotaddedFuc2=function(){
+				a.Notadded2=!a.Notadded2;
+				}
+a.added2=false;
+				a.addedFuc2=function(){
+				a.added2=!a.added2;
+				}	
+				
+			
+				
+				
+
+               }])
+			
+			
+			
+			
+			 myApp.controller('regController',['$scope','$http',function(a,b){
+
+
+				 
+				 a.NotRegistered=false;
+				a.NotRegisteredFuc=function(){
+				a.NotRegistered=!a.NotRegistered;
+				}
+a.Registered=false;
+				a.RegisteredFuc=function(){
+				a.Registered=!a.Registered;
+				}
+             
+				 
+				 
+				 
+				 
+				 
+				 
+                
+				  a.reg =function(){
+						
+		a.NotRegistered=false;
+			a.Registered=false;   
+						var user ={
+							 
+							email:a.email,
+							password :a.password,
+	
+						};
+						
+			  b({
+                  url: '/signup', // No need of IP address
+                  method: 'POST',
+                  data: user,
+                  headers: {'Content-Type': 'application/json'}
+						
+						}).success(function(){
+						 
+                                  a.password="";
+                              
+                                  	a.email="";
+                              
+a.Registered=true;
+                        })
+                        .error(function(){
+a.NotRegistered=true; 
+                        })
+                  }; 
+
+
+
+
+               }])
+			
+			
+			
+			
+			
+			
+			
             
