@@ -13,11 +13,17 @@
 
  .when('/charts',{
                         templateUrl:'/chart',
+                        templateUrl:'/chart',
                        // controller:'chartsController'
 
                     })
 				 .when('/myreportsUpdate',{
                         templateUrl:'/myreportsUndate',
+                       // controller:'chartsController'
+
+                    })
+				.when('/myreportsUpdate2',{
+                        templateUrl:'/addReports',
                        // controller:'chartsController'
 
                     })
@@ -332,13 +338,21 @@
 
 								a.addCustForm=false;
 												 a.addCustFormFuc= function() {
-
+													 				a.AllCust=false;
+																	a.FindCust=false;
+																	 a.DeleteShow= false;
 																	a.addCustForm=!a.addCustForm;
-																 }
+																	 a.Customerdelete=false;
+ a.CustRes =false; 
+																	a.NotDelete=false;
+
+																		a.NotAdded=false;							 													 a.CustomerAdded=false;									 
+												 
+												 }
 								 a.CustomerAdded=false;
 								 a.CustomerAddedFuc= function() {
 
-									 				a.CustomerAdded=true;
+									 				a.CustomerAdded=!a.CustomerAdded;
 								 }
 
 
@@ -346,12 +360,18 @@
 								  a.NotAdded=false;
 								 a.NotAddedFuc= function() {
 
-									 					a.NotAdded=true;
+									 					a.NotAdded=!a.NotAdded;
 								 }
 
 				 a.DeleteShow= false;
                  a.DeleteShowfun = function() {
 												a.DeleteShow = !a.DeleteShow;
+					 a.addCustForm=false;
+					 a.AllCust=false;
+						 a.CustRes =false; 											a.FindCust=false;
+					 a.Customerdelete=false;
+a.NotDelete=false;
+					 a.NotAdded=false;							 													 a.CustomerAdded=false;
 				 }
 								 
 								 
@@ -378,7 +398,7 @@
                   headers: {'Content-Type': 'application/json'}
 						
 						}).success(function(){
-						   //a.ProductAddedfuc();
+						  a.CustomerAddedFuc();
                          //a.ProductName,
                                   a.CustomerID="";
                                    a.CustomerName="";
@@ -392,34 +412,31 @@
  
                         })
                         .error(function(){
-//a.NotAddedfuc();
+a.NotAddedFuc();
                         })
                   };
-						
+a.Customerdelete=false;						
+a.CustomerdeleteFuc=function(){
+	
+	a.Customerdelete=true;
+}
 
-                	
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+a.NotDelete=false;
+a.NotDeleteFuc=function(){
+	a.NotDelete=!a.NotDelete;
+};
 								 
 				  a.DeleteCustomer =function(){
                     b.delete("/deleteCustomers/"+ a.id)
 						.success(function(status){
-						//a.CustomerAddedFuc();
+						a.CustomerdeleteFuc();
 														  console.log(done);
 														  console.log(status);
 
                         })
                         .error(function(data,status){
                             console.log(status);
-						a.NotAddedFuc();
+						a.NotDeleteFuc();
 
                         })
                 }
@@ -428,7 +445,12 @@
                     b.get("/findCustomers").success(function(result){
                             a.bosses =result;
                         a.CustRes =false;
-                        a.FindCust =false; 
+                        a.FindCust =false;
+							a.DeleteShow = a.DeleteShow=false;
+					 a.addCustForm=false;
+						a.Customerdelete=false;
+a.NotDelete=false;a.NotAdded=false;							 													 a.CustomerAdded=false;
+						
                         })
                         .error(function(data,status){
                         })
@@ -437,7 +459,7 @@
 
               
                a.findCustomer =function(){
-                    b.get("/findOneCustomer/"+ a.id).success(function(result){
+                    b.get("/findOneCustomer/"+ a._id).success(function(result){
                             a.bosses =result;
                       a.CustResFun();
                         console.log(result);
@@ -453,6 +475,11 @@
                 a.findCustFun=function(){
                     a.FindCust = !a.FindCust;
                       a.AllCust=false; 
+							a.DeleteShow = a.DeleteShow=false;
+					 a.addCustForm=false;
+					a.Customerdelete=false;
+a.NotDelete=false;a.NotAdded=false;							 													 a.CustomerAdded=false;
+					
              }
              a.AllCust=false;
                a.AllCustFun= function(){
@@ -468,20 +495,24 @@
                  a.showhide = function() {
                   a.FindCust =false;   
                      a.CustRes =false; 
-                     
+                     	
                  }
                  
                 a.clear=function(){
-                    a.id="";
-                    
+                    a._id="";
+                  	 
                 };
             
                  
  a.clearCustomerDelete = function() { 
 												a.id=""
+												 a.Customerdelete=false;
+a.NotDelete=false;
                 } 
                 a.hideCustomerDelete = function() {
 												a.DeleteShow= false;
+					 a.Customerdelete=false;
+a.NotDelete=false;
                 } 
                
                 
@@ -519,7 +550,7 @@
 					
 					
 			
-                    b.delete("/deleteproducts"+ a.id).success(function(status){
+                    b.delete("/deleteproducts/"+ a.id).success(function(status){
                           console.log("done");
                         console.log(status);
                         a.Deletefuc();
@@ -802,7 +833,7 @@ a.Notsubmitted=false;
                 
                 a.FindOrdersC =function(){ 
 
-                      b.get("/findOrdersVia_C_ID/"+a.CustomerID).success(function(result){
+                      b.get("/findOrdersVia/"+a.data+"/"+a.option).success(function(result){
                            a.rules =result;
                            a.show=true;
                           console.log(result);
@@ -828,7 +859,7 @@ a.Notsubmitted=false;
                  
                 a.FindOrdersD =function(){ 
 
-                      b.get("/findOrdersDetailsVia_O_ID/"+a.OrderID).success(function(result){
+                      b.get("/findOrdersDetailsVia_O_ID/"+a.data1+"/"+a.option1).success(function(result){
                            a.rules =result;
                            a.show2=true;
                           console.log(result);

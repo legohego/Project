@@ -14,11 +14,11 @@ var orders  = require('../app/models/orders');
 
 
     
-app.get('/findOrdersVia_C_ID/:CustomerID',isLoggedIn, function (req, res) {
-var CustomerID = req.params.CustomerID;
+app.get('/findOrdersVia_C_Name/:CustomerName',isLoggedIn, function (req, res) {
+var CustomerName = req.params.CustomerName;
 
 
-orders.find({'CustomerID': CustomerID}, function (err, foundObject) {
+orders.find({'CustomerName': CustomerName}, function (err, foundObject) {
     if (err) {//start of outer if
         console.log(err);
         res.status(500).send()
@@ -35,11 +35,14 @@ orders.find({'CustomerID': CustomerID}, function (err, foundObject) {
 });    
 
 //do this when u come back
-app.get('/findOrdersDetailsVia_O_ID/:OrderID',isLoggedIn, function (req, res) {
-var OrderID = req.params.OrderID;
+app.get('/findOrdersDetailsVia_O_ID/:data1/:option1',isLoggedIn, function (req, res) {
+var data = req.params.data1;
+var option = req.params.option1;
+		var query = {};
+query[option] = data;
 
-console.log(OrderID);
-Order_Details.find({'OrderID': OrderID}, function (err, foundObject) {
+
+Order_Details.find(query, function (err, foundObject) {
     if (err) {//start of outer if
         console.log(err);
         res.status(500).send()
@@ -55,7 +58,28 @@ Order_Details.find({'OrderID': OrderID}, function (err, foundObject) {
 })
 });
 	
+app.get('/findOrdersVia/:data/:option', function (req, res) {
+var data = req.params.data;
+var option = req.params.option;
+		var query = {};
+query[option] = data;
 	
+console.log(query);
+orders.find(query, function (err, foundObject) {
+    if (err) {//start of outer if
+        console.log(err);
+        res.status(500).send()
+    } else {//start of outer else
+        if (!foundObject) {
+            res.status(404).send();
+        } else {
+
+            res.send(foundObject)
+        }
+
+    }
+})
+});	
 	
 	
 

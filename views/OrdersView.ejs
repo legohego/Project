@@ -1,37 +1,16 @@
   <div class="container">
 <div class="panel panel-default">          
  <div class="panel-heading">
-<button type="button" class="btn btn-default" ng-click="OrdersIDfun()" >Find Orders</button>
+
 
             <button type="button" class="btn btn-default" ng-click="OrdersDate2fun()" >Find Order Via Date</button>
-                        <button type="button" class="btn btn-default" ng-click="OrdersCustfun()" >Find Order Via Customers</button>
+                        <button type="button" class="btn btn-default" ng-click="OrdersCustfun()" >Find Order</button>
 
             <button type="button" class="btn btn-default" ng-click="OrdersDfun()" >Find Order Detail</button>
                  
      </div>
      <div class="panel-body">
       
-         <form name="OrderIDForm" ng-show="OrdersID" class="form-horizontal" role="form" novalidate>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="OrderID">OrderID:</label>
-                            <div class="col-xs-2">
-                                <input ng-model="OrderID" required type="text" class="form-control" id="ID" placeholder="OrderID" name="OrderID" >
-
-                                                    <span style="color:red" ng-show="OrderIDForm.name.$dirty && OrderIDForm.name.$invalid">
-                                    <span ng-show="OrderIDForm.name.$error.required">Username is required.</span>
-                                    </span>
-                            </div>
-                        </div>
-
-
-                        <div class="btn-group">
-                            <input type="submit" 
-                                   ng-disabled="OrderIDForm.name.$untouched && OrderIDForm.name.$invalid " 
-                                   ng-click="FindOrders();" class="btn btn-primary"  >
-                            <button type="button" ng-click="" class="btn btn-primary">Clear</button>
-                            <button type="button" ng-click="" class="btn btn-primary">Hide</button>
-                        </div>
-                    </form>
       
          
             <form name="OrderIDForm2" ng-show="OrdersDate2" class="form-horizontal" role="form" novalidate>
@@ -58,12 +37,29 @@
          
    <form name="OrderIDForm3" ng-show="OrdersCust" class="form-horizontal" role="form" novalidate>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="CustomerID">CustomerID:</label>
+                            <label class="control-label col-sm-2" for="CustomerID">CustomerName:</label>
                             <div class="col-xs-2">
-                                <input ng-model="CustomerID" required type="text" class="form-control" id="CustomerID" placeholder="CustomerID" name="CustomerID" >
+								
+								<div class="form-group">
+  <label for="sel1">Select list:</label>
+  <select ng-model="option" class="form-control" id="sel1">
+    <option>OrderID</option>
+    <option>EmployeeID</option>
+    <option>CustomerID</option>
+    <option>CustomerName</option>
+	n>
+  </select>
+</div>
+								
+								
+								
+								
+								
+								
+                                <input ng-model="data" required type="text" class="form-control" id="data" placeholder="Enter Value" name="data" >
 
-                                                    <span style="color:red" ng-show="OrderIDForm3.CustomerID.$dirty && OrderIDForm3.CustomerID.$invalid">
-                                    <span ng-show="OrderIDForm3.CustomerID.$error.required">CustomerID is required.</span>
+                                                    <span style="color:red" ng-show="OrderIDForm3.data.$dirty && OrderIDForm3.data.$invalid">
+                                    <span ng-show="OrderIDForm3.data.$error.required">Data is required.</span>
                                     </span>
                             </div>
                         </div>
@@ -71,7 +67,7 @@
 
                         <div class="btn-group">
                             <input type="submit" 
-                                   ng-disabled="OrderIDForm3.CustomerID.$untouched && OrderIDForm3.CustomerID.$invalid " 
+                                   ng-disabled="OrderIDForm3.data.$untouched && OrderIDForm3.data.$invalid " 
                                    ng-click="FindOrdersC();" class="btn btn-primary"  >
                             <button type="button" ng-click="" class="btn btn-primary">Clear</button>
                             <button type="button" ng-click="" class="btn btn-primary">Hide</button>
@@ -91,12 +87,34 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="OrderID">OrderID:</label>
                             <div class="col-xs-2">
-                                <input ng-model="OrderID" required type="text" class="form-control" id="OrderID" placeholder="OrderID" name="OrderID" ><span style="color:red" ng-show="OrderDetForm.OrderID.$dirty && OrderDetForm.OrderID.$invalid"><span ng-show="OrderDetForm.OrderID.$error.required">OrderID is required.</span>
+                                <input ng-model="data1" required type="text" class="form-control" id="data1" placeholder="Data" name="data1" ><span style="color:red" ng-show="OrderDetForm.data1.$dirty && OrderDetForm.data1.$invalid"><span ng-show="OrderDetForm.data1.$error.required">Value is required.</span>
                                     </span></div> </div>
 
                         <div class="btn-group">
+							
+							
+														<div class="form-group">
+  <label for="option1">Select list:</label>
+  <select ng-model="option1" class="form-control" id="option1">
+    <option>OrderID</option>
+    <option>OrderDetailID</option>
+    <option>ProductID</option>
+    
+  </select>
+</div>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
                             <input type="submit" 
-                                   ng-disabled="OrderDetForm.OrderID.$untouched && OrderDetForm.OrderID.$invalid " 
+                                   ng-disabled="OrderDetForm.data1.$untouched && OrderDetForm.data1.$invalid " 
                                    ng-click="FindOrdersD();" class="btn btn-primary"  >
                             <button type="button" ng-click="" class="btn btn-primary">Clear</button>
                             <button type="button" ng-click="" class="btn btn-primary">Hide</button>
