@@ -1,4 +1,13 @@
-  <div class="container">
+<style> .me {
+   
+   
+
+    box-shadow: 2px 2px 1px 1px grey;
+}</style>
+<script></script>
+<div class="container">
+	<div class="col-sm-8 col-sm-offset-2">
+	<div class="me">
 <div class="panel panel-default">          
  <div class="panel-heading">
 
@@ -12,72 +21,118 @@
 
 <form name="myFormi" ng-show="showMeV3" ng-click="click()" class="form-inline" 
       role="form"  novalidate>
-        <div class="form-group">
+	<div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+            <div class = "col-md-2">
             <label for="ProductID">Product_ID:  </label>
-
+			 </div>
+			  <div class = "col-md-2">
                <input ng-model="ProductID" required type="number" class="form-control"
                       id="ProductID" placeholder="ProductID" name="ProductID" > 
-
-        </div>
-        <div class="form-group">
+			 </div></div>
+	<div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+			 
+         <div class = "col-md-2">
 
             <label for="ProductName">Product_Name:</label>
-
+			 </div>
+			  <div class = "col-md-2">
                 <input ng-model="ProductName" required type="text"class="form-control"
                    id="ProductName" placeholder="Product Name" name="ProductName" >
 
-        </div>
-
-        <div class="form-group">
+		</div></div>
+		
+		<div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+            <div class = "col-md-2">
             <label for="SupplierID">Supplier_ID:  </label>
 
-
+			</div>
+			<div class = "col-md-2">
                     <input ng-model="SupplierID" required type="number" class="form-control"
                    id="SupplierID" placeholder="SupplierID" name="SupplierID" >
 
         </div>
-        <div class="form-group">
-            <label for="CategoryID">CategoryID:</label>
-                    <input ng-model="CategoryID" type="Number" class="form-control" id="CategoryID" placeholder="Enter CategoryID:">
-            </div>
-            <div class="form-group">
-                <label for="QuantityPerUnit">Quant_Per_Unit:</label>
+		</div>
+		
+		
+		
+	
+	<div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+            <div class = "col-md-2">
+             <label for="CategoryID">CategoryID:</label>
 
-                    <input ng-model="QuantityPerUnit" required type="number" 
+			</div>
+			<div class = "col-md-2">
+                  <input ng-model="CategoryID" type="Number" class="form-control" id="CategoryID" placeholder="Enter CategoryID:">
+
+        </div>
+		</div>
+		
+	
+	
+	
+	
+	<div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+            <div class = "col-md-2">
+              <label for="QuantityPerUnit">Quant_Per_Unit:</label>
+
+			</div>
+			<div class = "col-md-2">
+                 <input ng-model="QuantityPerUnit" required type="number" 
                            class="form-control" id="QuantityPerUnit" placeholder="QuantityPerUnit" name="QuantityPerUnit" >
-            </div>
-            <div class="form-group">
+
+        </div>
+		</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+            <div class = "col-md-2">
                 <label for="UnitPrice">Unit_Price:</label>
 
-
-
-
+			</div>
+			<div class = "col-md-2">
+                 
                  <input ng-model="UnitPrice" required type="number" class="form-control"
                         id="UnitPrice" placeholder="UnitPrice" name="QuantityPerUnit" >
-            </div>
-            <div class="form-group">
-                <label for="UnitInStock">StockLevel:</label>
-                <input  ng-model="UnitInStock"type="Number" class="form-control" id="number" placeholder="Enter StockLevel:">
 
-            </div>
-           
-            <div class="form-group">
-                <label for="ReorderLevel">ReorderLevel:</label>
+        </div>
+		</div>
+	
+	
+	<div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+            <div class = "col-md-2">
+                 <label for="UnitInStock">StockLevel:</label>
 
+			</div>
+			<div class = "col-md-2">
+                 
+                 
 
                 <input ng-model="ReorderLevel" required type="number"
                        class="form-control" id="ReorderLevel" placeholder="ReorderLevel" name="ReorderLevel" >
-            </div>
+        </div>
+		</div>
+	
+	
+	
+	
+	
+	
+	
+		
+		
+		
+		
+		<br>
+		
+	
 
-            <div class="form-group">
-                <label for="Discontinued">Discontinued:</label>
 
-                  <input ng-model="Discontinued" required type="number" class="form-control" 
-                         id="Discontinued" placeholder="Discontinued" name="Discontinued" >
-            </div>
-<br><br>
-
-    <div class="btn-group">
+  <div class="col-xs-2"></div><div class="col-xs-2"></div><div class="col-xs-1"></div>  <div class="btn-group">
          <input type="submit" ng-click="addProduct()" ng-disabled="myFormi.ProductName.$untouched && myFormi.ProductName.$invalid ||
                                            myFormi.Discontinued.$untouched && myFormi.Discontinued.$invalid ||
                                            myFormi.ReorderLevel.$untouched && myFormi.ReorderLevel.$invalid||
@@ -91,22 +146,41 @@
 </form>
 
 
-       <form name="myForm1" ng-show="showMe4" class="form-horizontal" role="form" novalidate>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="id">Product ID:</label>
-        <div class="col-xs-2">
+		   <form name="myForm1" ng-show="showMe4" class="form-inline" 
+      role="form"  novalidate>
+		   
+		 <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+			 
+         <div class = "col-md-2">
+                  <label for="Product ID">Product ID:</label>
+			</div>
+			<div class = "col-md-2">
             <input ng-model="id"  required type="text" class="form-control" id="id" placeholder="id" name="id" >
-
+        </div>
+	
+		
+		
+		   </div>
+		
+		
+	<br>
+<div class="col-xs-2"></div><div class="col-xs-2"></div>
             <span style="color:red" ng-show="myForm1.id.$dirty && myForm1.id.$invalid">
 <span ng-show="myForm1.id.$error.required">id is required.</span>
 </span>
-        </div>  
-
-    </div>
+        
              <input type="submit" ng-disabled="myForm1.name.$untouched && myForm1.name.$invalid " ng-click="DeleteProducts()" class="btn btn-primary"  >
         </form>
-		<br><h3><span ng-show="NotAdded">Product Not Added</span></h3>
+		
+		
+		
+		
+		<h3><span ng-show="NotAdded"><br>Product Not Added</span></h3>
 				<h3><span ng-show="ProductAdded">Product Added</span></h3>
 		<h3><span ng-show="NotDelete">Product Not Deleted</span></h3>
 		<h3><span ng-show="Deleted">Product Deleted</span></h3>
-    </div></div></div>
+    </div>    
+        <div class="panel-footer"></div></div>  
+
+    </div>        
+			</div></div></div></div>

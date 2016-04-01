@@ -16,6 +16,12 @@
    background-repeat:no-repeat;
     background-position:350px 200px;
       a{color: white;}
+	 .me {
+   
+   
+
+    box-shadow: 2px 2px 1px 1px grey;
+}
   
   </style>
    <script src="https://code.angularjs.org/1.5.0-rc.2/angular.min.js"></script>
@@ -27,6 +33,7 @@
 
 
 <body ng-app ="myApp">
+		<div class="me">
     <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -41,11 +48,11 @@
     <ul class="nav navbar-nav">
       <li><a href="#/StaffReports" >Staff Reports</a></li>
      
-      <li><a  href="#/getCustomers2">Customers Reports</a></li>
+      <li><a  href="#/ManCustomersReports">Customers Reports</a></li>
       <li><a  href="#/ProductView">Products Reports</a></li>
         
         <li><a  href="#/OrdersView">Orders Reports</a></li>
-       <li> <a  href="#/makeRequests">Tickets</a></li>
+       <li> <a  href="#/CreateTicket">Tickets</a></li>
    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" >Analytics <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="/chart">Employee Sales analytics</a></li>
@@ -59,7 +66,7 @@
       <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
     </ul>
 	  </div></div>
-</nav>
+			</nav></div>
      
 <div class="container" >
  

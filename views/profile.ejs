@@ -43,10 +43,35 @@
       <div class="navbar-brand"><%= user.local.email %></div>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="/reports" >Reports</a></li>
-     <li><a href="/chart" >Charts</a></li>
-      
-    </ul>
+    <li><a href="#/StaffReports" >Staff Reports</a></li>
+     
+      <li><a  href="#/ManCustomersReports">Customers Reports</a></li>
+      <li><a  href="#/ProductView">Products Reports</a></li>
+        
+        <li><a  href="#/OrdersView">Orders Reports</a></li>
+       <li> <a  href="#/CreateTicket">Tickets</a></li>>
+     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Analytics <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/chart">Employee Sales</a></li>
+          <li><a href="/chart2">Customer Orders</a></li>
+          <li><a href="/chart3">Products</a></li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">My Reports <span class="caret"></span></a>
+        
+		   <ul class="dropdown-menu" ng-repeat="result in results">
+    <li><a ng-href="#/{{result.myreports1}}">{{result.myreports1}}</a></li>
+    <li><a ng-href="#/{{result.myreports2}}">{{result.myreports2}}</a></li>
+    <li><a ng-href="#/{{result.myreports3}}">{{result.myreports3}}</a></li>
+	<li><a ng-href="#/{{result.myreports1}}">{{result.myreports4}}</a></li>
+    <li><a ng-href="#/{{result.myreports2}}">{{result.myreports5}}</a></li>
+    <li><a ng-href="#/{{result.myreports3}}">{{result.myreports6}}</a></li>	
+	<li><a ng-href="#/{{result.myreports2}}">{{result.myreports7}}</a></li>
+    <li><a ng-href="#/{{result.myreports3}}">{{result.myreports8}}</a></li>	
+  
+		
+		  </ul>
+		</li></ul>
     <ul class="nav navbar-nav navbar-right">
       
       <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
@@ -60,31 +85,6 @@
 
  	
 	
-	  <table  class="table table-hover">
-            <thead>
-
-            <tr>
-                <th colspan="6"><h3>My Reports/Charts</h3></th>
-            </tr>
-                    <tr>
-                        
-                    </tr>
-            </thead>
-            <tbody>
-	
-	<tr ng-repeat="result in results">
-    <td><a ng-href="#/{{result.myreports1}}">{{result.myreports1}}</a></td>
-    <td><a ng-href="#/{{result.myreports2}}">{{result.myreports2}}</a></td>
-    <td><a ng-href="#/{{result.myreports3}}">{{result.myreports3}}</a></td>
-	 <td><a ng-href="#/{{result.myreports1}}">{{result.myreports4}}</a></td>
-    <td><a ng-href="#/{{result.myreports2}}">{{result.myreports5}}</a></td>
-    <td><a ng-href="#/{{result.myreports3}}">{{result.myreports6}}</a></td>	
-	<td><a ng-href="#/{{result.myreports2}}">{{result.myreports7}}</a></td>
-    <td><a ng-href="#/{{result.myreports3}}">{{result.myreports8}}</a></td>	
-</tr>
-	 </tbody>
-
-        </table>
 	
     <div ng-view>
 

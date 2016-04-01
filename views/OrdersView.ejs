@@ -1,4 +1,13 @@
-  <div class="container">
+<style> .me {
+   
+   
+
+    box-shadow: 2px 2px 1px 1px grey;
+}</style>
+<script></script>
+<div class="container">
+	<div class="me">
+
 <div class="panel panel-default">          
  <div class="panel-heading">
 
@@ -11,13 +20,15 @@
      </div>
      <div class="panel-body">
       
-      
+      	<br>		
          
             <form name="OrderIDForm2" ng-show="OrdersDate2" class="form-horizontal" role="form" novalidate>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="OrderDate">Order Date:</label>
+                         <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+			 
+         <div class = "col-md-2">
+			 <label for="OrderDate">Order Date:</label></div>
                             <div class="col-xs-2">
-                                <input ng-model="OrderDate" required type="text" class="form-control" id="OrderDate" placeholder="OrderDate" name="OrderDate" >
+                                <input ng-model="OrderDate" required type="text" class="form-control" id="OrderDate" placeholder="eg: 1996-02-01" name="OrderDate" >
 
                                                     <span style="color:red" ng-show="OrderIDForm2.OrderDate.$dirty && OrderIDForm2.OrderDate.$invalid">
                                     <span ng-show="OrderIDForm2.OrderDate.$error.required">Order Date is required.</span>
@@ -25,53 +36,60 @@
                             </div>
                         </div>
 
-
+  <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
                         <div class="btn-group">
                             <input type="submit" 
                                    ng-disabled="OrderIDForm2.OrderDate.$untouched && OrderIDForm2.OrderDate.$invalid " 
                                    ng-click="FindOrders2();" class="btn btn-primary"  >
                             <button type="button" ng-click="" class="btn btn-primary">Clear</button>
                             <button type="button" ng-click="" class="btn btn-primary">Hide</button>
-                        </div>
+	  </div></div>
                     </form>
          
    <form name="OrderIDForm3" ng-show="OrdersCust" class="form-horizontal" role="form" novalidate>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="CustomerID">CustomerName:</label>
+                       <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+			 
+         <div class = "col-md-2">
+			 <label for="CustomerID">CustomerName:</label></div>
                             <div class="col-xs-2">
 								
-								<div class="form-group">
-  <label for="sel1">Select list:</label>
+								
+ 
   <select ng-model="option" class="form-control" id="sel1">
     <option>OrderID</option>
     <option>EmployeeID</option>
     <option>CustomerID</option>
-    <option>CustomerName</option>
-	n>
+    <option>Customer Name</option>
+	
   </select>
-</div>
-								
-								
-								
-								
-								
-								
-                                <input ng-model="data" required type="text" class="form-control" id="data" placeholder="Enter Value" name="data" >
 
-                                                    <span style="color:red" ng-show="OrderIDForm3.data.$dirty && OrderIDForm3.data.$invalid">
+								
+	</div>							
+	   </div>						
+								
+		 <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+			 
+         <div class = "col-md-2"><label for="CustomerID">CustomerName:</label></div>	<div class = "col-md-2">				
+								
+     <input ng-model="data" required type="text" class="form-control" id="data" placeholder="Enter Value" name="data" >
+
+                            <span style="color:red" ng-show="OrderIDForm3.data.$dirty && OrderIDForm3.data.$invalid">
                                     <span ng-show="OrderIDForm3.data.$error.required">Data is required.</span>
                                     </span>
                             </div>
                         </div>
 
-
+						
+		 <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+			 
+         <div class = "col-md-3">	
                         <div class="btn-group">
                             <input type="submit" 
                                    ng-disabled="OrderIDForm3.data.$untouched && OrderIDForm3.data.$invalid " 
                                    ng-click="FindOrdersC();" class="btn btn-primary"  >
                             <button type="button" ng-click="" class="btn btn-primary">Clear</button>
                             <button type="button" ng-click="" class="btn btn-primary">Hide</button>
-                        </div>
+			 </div></div></div>
                     </form>  
          
          
@@ -84,43 +102,58 @@
          
          
     <form name="OrderDetForm" ng-show="OrdersD" class="form-horizontal" role="form" novalidate>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="OrderID">OrderID:</label>
-                            <div class="col-xs-2">
-                                <input ng-model="data1" required type="text" class="form-control" id="data1" placeholder="Data" name="data1" ><span style="color:red" ng-show="OrderDetForm.data1.$dirty && OrderDetForm.data1.$invalid"><span ng-show="OrderDetForm.data1.$error.required">Value is required.</span>
-                                    </span></div> </div>
-
-                        <div class="btn-group">
-							
-							
-														<div class="form-group">
-  <label for="option1">Select list:</label>
-  <select ng-model="option1" class="form-control" id="option1">
+		
+			<div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+			 
+         <div class = "col-md-2">					
+													
+			 <label for="option1">Search By:</label></div> <div class="col-xs-2">
+  <select ng-model="option1" class="form-control" id="option1" placeholder="Select">
     <option>OrderID</option>
     <option>OrderDetailID</option>
     <option>ProductID</option>
     
   </select>
-</div>
+			</div></div>
+		
+		
+                        <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+			 
+         <div class = "col-md-2">
+			 <label for="OrderID">OrderID:</label></div>
+                            <div class="col-xs-2">
+                                <input ng-model="data1" required type="text" class="form-control" id="data1" placeholder="Data" name="data1" ><span style="color:red" ng-show="OrderDetForm.data1.$dirty && OrderDetForm.data1.$invalid"><span ng-show="OrderDetForm.data1.$error.required">Value is required.</span>
+                                    </span></div> </div>
+
+                        
 							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
+	
+			<br>		<br>			
+	 <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+			 
+         <div class = "col-md-3">	<div class="btn-group">
                             <input type="submit" 
                                    ng-disabled="OrderDetForm.data1.$untouched && OrderDetForm.data1.$invalid " 
                                    ng-click="FindOrdersD();" class="btn btn-primary"  >
                             <button type="button" ng-click="" class="btn btn-primary">Clear</button>
                             <button type="button" ng-click="" class="btn btn-primary">Hide</button>
                         </div>
-                    </form>           
+		 </div> </div>  </form>       
          
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
           <table ng-show="show" class="table table-hover" >
                             <thead>
                                         <tr>
@@ -191,6 +224,8 @@
          
          
          
-     </div>
+
+
+     </div><div class="panel-footer"></div> 
       </div>
-</div>
+</div></div>

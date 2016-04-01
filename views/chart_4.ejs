@@ -1,6 +1,5 @@
 
 	<style>
-  
 
 .axis path,
 .axis line {
@@ -10,11 +9,11 @@
 }
 
 .bar {
-  fill:lightgreen;
+  fill: orange;
 }
 
 .bar:hover {
-  fill: green ;
+  fill: orangered ;
 }
 
 .x.axis path {
@@ -53,15 +52,16 @@
 
   <div class="panel panel-default">          
  <div class="panel-heading">
+
   
-	
-	  
     <form class="form-inline" role="form" name ="theForm" >
 	
 	  <div class="form-group">
   <label for="sel1">Reports Number:</label>
   <select class="form-control" id="sel1" name="num">
-    <option>10</option>
+     <option>20</option>
+    <option>15</option>
+	 <option>10</option>
     <option>5</option>
   
   </select>
@@ -75,13 +75,23 @@
   
   </select>
 </div>	
+	
+	
+		
+	<button onClick="fun();dis();"type="submit" class="btn btn-warning btn-lg" id="myBtn">Submit</button>	
 	<button onClick="refreshPage()"  type="submit" class="btn btn-warning btn-lg" >Refresh</button>
-	<button onClick="fun();dis();"type="submit" class="btn btn-warning btn-lg" id="myBtn">Submit</button>
-	 </form></div> <div class="panel-body">
+	
+    </form>
+	
+	</div>
+	
+<div class="panel-body">
 		<br><br><br><br>
 	  </div>
-</div>
-
+</div>	
+		
+		
+	
 	
 
 <script>
@@ -127,7 +137,7 @@ function fun() {
         var num = document.theForm.num.value;
 	
 	
-	d3.json("/sales3/"+ps+"/"+num, function(error, data) {
+	d3.json(d3.json("/sales2/"+ps+"/"+num, function(error, data) {
 
     data.forEach(function(d) {
         d._id = d._id;
@@ -169,11 +179,13 @@ function fun() {
   return d;
 }
 
-})}
+}))}
 
 
 	
-		  </script><script>
+	</script>
+
+<script>
 function refreshPage(){
     window.location.reload();
 } 
@@ -183,3 +195,5 @@ function dis() {
     document.getElementById("myBtn").disabled = true;
 }
 </script>
+		
+		

@@ -2,11 +2,15 @@
 <html>
 <head>
 
+
+	
 <script src="http://d3js.org/d3.v3.min.js"></script>
  
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 
-	
+		  
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 	
 	
 	
@@ -50,29 +54,42 @@
     </div>
 	   <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav">
-      <li><a href="#/StaffView" >Staff Reports</a></li>
+      <li><a href="#/AdminStaffView" >Staff Reports</a></li>
      
       <li><a  href="#/getCustomers">Customers Reports</a></li>
       <li><a  href="#/ProductView">Products Reports</a></li>
        
         <li><a  href="#/OrdersView">Orders Reports</a></li>
-       <li><a  href="#/reg">Register Users</a></li>
-     <li> <a  href="#/makeRequests">My Tickets</a></li>
-      <li><a href="#/getRequests" >Staff Tickets</a></li>
-		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Profile Reports <span class="caret"></span></a>
+       
+ 
+		
+		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Tickets <span class="caret"></span></a>
         <ul class="dropdown-menu">
-			<li> <a  href="#/CreateProfileReports">Create Profile Reports</a></li>
-			<li><a href="#/AddPersonnelReport" >Add Personnel Report</a></li>
-          
+			<li> <a  href="#/CreateTicket">My Tickets</a></li>
+			<li><a href="#/StaffTickets" >Staff Tickets</a></li>
       
         </ul>
 		
-
-		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Analytics <span class="caret"></span></a>
+		</li>
+		
+		
+		
+		
+		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Users <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+			<li> <a  href="#/CreateProfileReports">Create Profile Reports</a></li>
+			<li><a href="#/AddPersonnelReport" >Add Personnel Report</a></li>
+          <li><a  href="#/reg">Register Users</a></li>
+      
+        </ul>
+		
+		</li>
+		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Analytics <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="/chart">Employee Sales</a></li>
           <li><a href="/chart2">Customer Orders</a></li>
-          <li><a href="/chart3">Products</a></li>
+          <li><a href="#/chart3">Products</a></li>
+			<li><a href="#/chart4">test</a></li>
         </ul>
       </li>
     </ul>

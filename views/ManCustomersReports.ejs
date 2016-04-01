@@ -1,4 +1,12 @@
-  <div class="container">
+<style> .me {
+   
+   
+
+    box-shadow: 2px 2px 1px 1px grey;
+}</style>
+<script></script>
+<div class="container">
+	<div class="me">
 <div class="panel panel-default">          
  <div class="panel-heading">
 
@@ -13,29 +21,33 @@
         
         
        <form name="myForm" ng-show="FindCust" class="form-horizontal" role="form" novalidate>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="id">CustomerID:</label>
+                        <div class = "row" style="padding: 2px">
+			 
+         <div class = "col-md-2">
+                  <label for="CustomerID">
+					  CustomerID:</label></div>
                             <div class="col-xs-2">
-                                <input ng-model="id" required type="text" class="form-control" id="id" placeholder="id" name="id" >
+                                <input ng-model="_id" required type="text" class="form-control" id="_id" placeholder="_id" name="_id" >
 
-                                                    <span style="color:red" ng-show="myForm.id.$dirty && myForm.id.$invalid">
-                                    <span ng-show="myForm.id.$error.required">ID is required.</span>
+                                                    <span style="color:red" ng-show="myForm._id.$dirty && myForm._id.$invalid">
+                                    <span ng-show="myForm._id.$error.required">ID is required.</span>
                                     </span>
                             </div>
-                        </div>
+		   </div><br>
+ <div class = "row" style="padding: 2px">
 
-
+	 
                         <div class="btn-group">
-                       <input type="submit" 
-                                   ng-disabled="myForm.id.$untouched && myForm.id.$invalid " 
+                     <input type="submit" 
+                                   ng-disabled="myForm._id.$untouched && myForm._id.$invalid " 
                                    ng-click="findCustomer();" class="btn btn-primary"  >
                           <button type="button" ng-click="clear()" class="btn btn-primary">Clear</button>
                             <button type="button" ng-click="showhide()" class="btn btn-primary">Hide</button>
-           </div>
+	 </div></div>
                     </form>  
         
-        <br>
-		<h3><span ng-show="NotFound">Customer not found</span></h3>
+        
+		<h3><span ng-show="NotFound"><br>Customer not found</span></h3>
         
         
         
@@ -95,7 +107,8 @@
             </tbody>
 
         </table>
-           </div>
-    </div>
+		   </div>  <div class="panel-footer">
+	
+		</div>
     </div>
     </div>

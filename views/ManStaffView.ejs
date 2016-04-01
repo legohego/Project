@@ -1,4 +1,13 @@
+
+<style> .me {
+   
+   
+
+    box-shadow: 2px 2px 1px 1px grey;
+}</style>
+<script></script>
 <div class="container">
+	<div class="me">
 <div class="panel panel-default">
       <div class="panel-heading"><button type="button" class="btn btn-default" ng-click="FindAllStaff();" >Staff Details Report</button>
 
@@ -8,7 +17,6 @@
           
           </div>
 
-  
 
             <div class="panel-body">
                         <table ng-show="showAllStaff" class="table table-hover" >
@@ -41,18 +49,23 @@
 
 
                     <form name="myForm" ng-show="showStaffSearch" class="form-horizontal" role="form" novalidate>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Staff First Name:</label>
-                            <div class="col-xs-2">
+                        
+						 <div class = "row" style="padding: 2px">
+			 
+         <div class = "col-md-2">
+			 <label for="name">Staff First Name:</label></div>
+                            <div class = "col-md-2">
                                 <input ng-model="name" required type="text" class="form-control" id="name" placeholder="name" name="name" >
-
+							 
                                                     <span style="color:red" ng-show="myForm.name.$dirty && myForm.name.$invalid">
                                     <span ng-show="myForm.name.$error.required">Username is required.</span>
                                     </span>
                             </div>
                         </div>
-
-
+<br>
+ <div class = "row" style="padding: 2px">
+			 
+        
                         <div class="btn-group">
                             <input type="submit" 
                                    ng-disabled="myForm.name.$untouched && myForm.name.$invalid " 
@@ -60,9 +73,10 @@
                             <button type="button" ng-click="clearStaffSearch()" class="btn btn-primary">Clear</button>
                             <button type="button" ng-click="hideStaffSearch()" class="btn btn-primary">Hide</button>
                         </div>
+	 </div>
                     </form>
-<br>
-				<h3><span ng-show="NotFound">Staff Memeber not found</span></h3>
+
+				<h3><span ng-show="NotFound"><br>Staff Memeber not found</span></h3>
                     <table ng-show="showStaff" class="table table-hover" >
                         <thead>
                                 <tr>
@@ -98,13 +112,13 @@
 
 </div>
            
-                
+        <div class="panel-footer"></div>        
 
         </div>
 </div>
+</div>    
         
-        
-</div>  
+
      
         
         
