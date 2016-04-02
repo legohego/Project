@@ -5,16 +5,16 @@
     box-shadow: 2px 2px 1px 1px grey;
 }</style>
 <script></script>
-<div class="container">
+<div class="col-xs-9" >
 	<div class="me">
 <div class="panel panel-default">          
  <div class="panel-heading">
 
 
 
-    <button type="button" class="btn btn-default" ng-click="FindAllCust();AllCustFun()" > Customers Details Reports</button>
+    <button type="button" class="btn btn-default" ng-click="FindAllCust();AllCustFun()" > Customers Details Reports  <span class="glyphicon glyphicon-search"> </span></button>
 
-<button type="button" class="btn btn-default" ng-click="findCustFun();" >Find Customer Details</button>
+<button type="button" class="btn btn-default" ng-click="findCustFun();" > Find Customer Details <span class="glyphicon glyphicon-chevron-down"> </span></button>
     </div>
     
     <div class="panel-body">
@@ -38,11 +38,11 @@
 
 	 
                         <div class="btn-group">
-                     <input type="submit" 
+                     <button type="button" 
                                    ng-disabled="myForm._id.$untouched && myForm._id.$invalid " 
-                                   ng-click="findCustomer();" class="btn btn-primary"  >
-                          <button type="button" ng-click="clear()" class="btn btn-primary">Clear</button>
-                            <button type="button" ng-click="showhide()" class="btn btn-primary">Hide</button>
+                                   ng-click="findCustomer();" class="btn btn-primary"> Search <span class="glyphicon glyphicon-search"></span></button>
+                          <button type="button" ng-click="clear()" class="btn btn-primary"> Clear <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" ng-click="showhide()" class="btn btn-primary"> Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
 	 </div></div>
                     </form>  
         

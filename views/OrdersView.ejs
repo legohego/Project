@@ -5,17 +5,17 @@
     box-shadow: 2px 2px 1px 1px grey;
 }</style>
 <script></script>
-<div class="container">
+<div class="col-xs-9" >
 	<div class="me">
 
 <div class="panel panel-default">          
  <div class="panel-heading">
 
 
-            <button type="button" class="btn btn-default" ng-click="OrdersDate2fun()" >Find Order Via Date</button>
-                        <button type="button" class="btn btn-default" ng-click="OrdersCustfun()" >Find Order</button>
+            <button type="button" class="btn btn-default" ng-click="OrdersDate2fun()" >Find Order Via Date <span class="glyphicon glyphicon-chevron-down"> </span></button>
+                        <button type="button" class="btn btn-default" ng-click="OrdersCustfun()" >Find Order <span class="glyphicon glyphicon-chevron-down"> </span></button>
 
-            <button type="button" class="btn btn-default" ng-click="OrdersDfun()" >Find Order Detail</button>
+            <button type="button" class="btn btn-default" ng-click="OrdersDfun()" >Find Order Detail  <span class="glyphicon glyphicon-chevron-down"> </span></button>
                  
      </div>
      <div class="panel-body">
@@ -23,7 +23,7 @@
       	<br>		
          
             <form name="OrderIDForm2" ng-show="OrdersDate2" class="form-horizontal" role="form" novalidate>
-                         <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+                         <div class = "row" style="padding: 2px">
 			 
          <div class = "col-md-2">
 			 <label for="OrderDate">Order Date:</label></div>
@@ -36,18 +36,18 @@
                             </div>
                         </div>
 
-  <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+  <div class = "row" style="padding: 2px">
                         <div class="btn-group">
-                            <input type="submit" 
+                            <button type="button" 
                                    ng-disabled="OrderIDForm2.OrderDate.$untouched && OrderIDForm2.OrderDate.$invalid " 
-                                   ng-click="FindOrders2();" class="btn btn-primary"  >
-                            <button type="button" ng-click="" class="btn btn-primary">Clear</button>
-                            <button type="button" ng-click="" class="btn btn-primary">Hide</button>
+									ng-click="FindOrders2();" class="btn btn-primary"  >Search <span class="glyphicon glyphicon-search"></span></button>
+                            <button type="button" ng-click="" class="btn btn-primary">Clear <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" ng-click="" class="btn btn-primary">Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
 	  </div></div>
                     </form>
          
    <form name="OrderIDForm3" ng-show="OrdersCust" class="form-horizontal" role="form" novalidate>
-                       <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+                       <div class = "row" style="padding: 2px">
 			 
          <div class = "col-md-2">
 			 <label for="CustomerID">CustomerName:</label></div>
@@ -67,7 +67,7 @@
 	</div>							
 	   </div>						
 								
-		 <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+		 <div class = "row" style="padding: 2px">
 			 
          <div class = "col-md-2"><label for="CustomerID">CustomerName:</label></div>	<div class = "col-md-2">				
 								
@@ -80,15 +80,15 @@
                         </div>
 
 						
-		 <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+		 <div class = "row" style="padding: 2px">
 			 
-         <div class = "col-md-3">	
+         <div class = "col-md-4">	
                         <div class="btn-group">
-                            <input type="submit" 
+                            <button type="button"
                                    ng-disabled="OrderIDForm3.data.$untouched && OrderIDForm3.data.$invalid " 
-                                   ng-click="FindOrdersC();" class="btn btn-primary"  >
-                            <button type="button" ng-click="" class="btn btn-primary">Clear</button>
-                            <button type="button" ng-click="" class="btn btn-primary">Hide</button>
+                                   ng-click="FindOrdersC();" class="btn btn-primary"  >Search <span class="glyphicon glyphicon-search"></span></button>
+                            <button type="button" ng-click="" class="btn btn-primary">Clear <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" ng-click="" class="btn btn-primary">Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
 			 </div></div></div>
                     </form>  
          
@@ -103,7 +103,7 @@
          
     <form name="OrderDetForm" ng-show="OrdersD" class="form-horizontal" role="form" novalidate>
 		
-			<div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+			<div class = "row" style="padding: 2px">
 			 
          <div class = "col-md-2">					
 													
@@ -117,7 +117,7 @@
 			</div></div>
 		
 		
-                        <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+                        <div class = "row" style="padding: 2px">
 			 
          <div class = "col-md-2">
 			 <label for="OrderID">OrderID:</label></div>
@@ -128,15 +128,15 @@
                         
 							
 	
-			<br>		<br>			
-	 <div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
+						
+	 <div class = "row" style="padding: 2px">
 			 
-         <div class = "col-md-3">	<div class="btn-group">
-                            <input type="submit" 
+         <div class = "col-md-4">	<div class="btn-group">
+                           <button type="button" 
                                    ng-disabled="OrderDetForm.data1.$untouched && OrderDetForm.data1.$invalid " 
-                                   ng-click="FindOrdersD();" class="btn btn-primary"  >
-                            <button type="button" ng-click="" class="btn btn-primary">Clear</button>
-                            <button type="button" ng-click="" class="btn btn-primary">Hide</button>
+                                   ng-click="FindOrdersD();" class="btn btn-primary"  >Search <span class="glyphicon glyphicon-search"></span></button>
+                            <button type="button" ng-click="" class="btn btn-primary">Clear <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" ng-click="" class="btn btn-primary">Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
                         </div>
 		 </div> </div>  </form>       
          

@@ -2,14 +2,11 @@
 <html>
 <head>
 
-
 	
 <script src="http://d3js.org/d3.v3.min.js"></script>
- 
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-
+ <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> 
 		  
-<script src="http://d3js.org/d3.v3.min.js"></script>
+
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 	
 	
@@ -36,12 +33,12 @@
      
                                                                                                                                      
     <script  src="../js/controller.js"></script>                                                                                                     
-                                                                                                                                               <script src="//code.angularjs.org/1.5.0/angular-route.min.js"></script>                                                                                                  <script>                                                                                 src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"        </script>                                                                                 
+   <script src="//code.angularjs.org/1.5.0/angular-route.min.js"></script>                                                      <script> src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"  </script>                                                                                 
 </head>
 
 
 
-<body ng-app ="myApp">
+<body ng-app ="myApp" >
  <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -50,20 +47,25 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Admin View</a>
+		  <a class="navbar-brand" href="#">Admin View</a>
     </div>
 	   <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav">
-      <li><a href="#/AdminStaffView" >Staff Reports</a></li>
-     
-      <li><a  href="#/getCustomers">Customers Reports</a></li>
-      <li><a  href="#/ProductView">Products Reports</a></li>
-       
-        <li><a  href="#/OrdersView">Orders Reports</a></li>
-       
- 
 		
-		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Tickets <span class="caret"></span></a>
+		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><span class="fa fa-table fa-fw"></span> Reports <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#/AdminStaffView" >Staff Reports <span class="fa fa-table fa-fw"></span></a></li>
+     
+     <li><a  href="#/getCustomers">Customers Reports <span class="fa fa-table fa-fw"></span></a></li>
+      <li><a  href="#/ProductView">Products Reports <span class="fa fa-table fa-fw"></span></a></li>
+        
+          <li><a  href="#/OrdersView">Orders Reports <span class="fa fa-table fa-fw"></span></a></li>
+        </ul>
+      </li>
+		
+
+		
+		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><span class="fa fa-edit fa-fw"></span>Tickets <span class="caret"></span></a>
         <ul class="dropdown-menu">
 			<li> <a  href="#/CreateTicket">My Tickets</a></li>
 			<li><a href="#/StaffTickets" >Staff Tickets</a></li>
@@ -84,7 +86,7 @@
         </ul>
 		
 		</li>
-		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Analytics <span class="caret"></span></a>
+		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><span class="fa fa-bar-chart-o fa-fw"></span> Analytics <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="/chart">Employee Sales</a></li>
           <li><a href="/chart2">Customer Orders</a></li>
@@ -100,7 +102,13 @@
 	  </div></div>
 </nav>
       
-    
+   
+	
+	<div class = "row" style="padding: 2px">
+		
+		
+		
+	
 <div class="container" >
 
       
@@ -113,6 +121,6 @@
 
 </div>
 
+	</div>
 
-
-</body>
+	</body></html>

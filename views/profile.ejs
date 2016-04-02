@@ -1,15 +1,26 @@
 <!-- views/profile.ejs -->
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Node Authentication</title>
+    <title>Hego Reports</title>
+	
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+ <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> 
+	
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+	
+	
+ 
+ 
      <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+ 
+	<script> src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"  </script>  
 
   <style>
      body {
@@ -18,8 +29,16 @@
     background-position:350px 200px;
 		
 } 
+
+	  
+	  
+	  
+	#sidebar {
  
-  
+ top:1;
+ right:1;
+		padding:5;
+}
   </style>
    <script src="https://code.angularjs.org/1.5.0-rc.2/angular.min.js"></script>
 
@@ -31,7 +50,7 @@
        
     </style>
 </head>
-<body>
+
     
     
     
@@ -43,48 +62,70 @@
       <div class="navbar-brand"><%= user.local.email %></div>
     </div>
     <ul class="nav navbar-nav">
-    <li><a href="#/StaffReports" >Staff Reports</a></li>
-     
-      <li><a  href="#/ManCustomersReports">Customers Reports</a></li>
-      <li><a  href="#/ProductView">Products Reports</a></li>
-        
-        <li><a  href="#/OrdersView">Orders Reports</a></li>
-       <li> <a  href="#/CreateTicket">Tickets</a></li>>
-     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Analytics <span class="caret"></span></a>
+		
+		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><span class="fa fa-table fa-fw"></span> Reports <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="/chart">Employee Sales</a></li>
-          <li><a href="/chart2">Customer Orders</a></li>
-          <li><a href="/chart3">Products</a></li>
+          <li><a href="#/StaffReports" >Staff Reports <span class="fa fa-table fa-fw"></span></a></li>
+     
+      <li><a  href="#/ManCustomersReports">Customers Reports <span class="fa fa-table fa-fw"></span></a></li>
+      <li><a  href="#/ProductView">Products Reports <span class="fa fa-table fa-fw"></span></a></li>
+        
+        <li><a  href="#/OrdersView">Orders Reports <span class="fa fa-table fa-fw"></span></a></li>
         </ul>
       </li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">My Reports <span class="caret"></span></a>
-        
-		   <ul class="dropdown-menu" ng-repeat="result in results">
-    <li><a ng-href="#/{{result.myreports1}}">{{result.myreports1}}</a></li>
-    <li><a ng-href="#/{{result.myreports2}}">{{result.myreports2}}</a></li>
-    <li><a ng-href="#/{{result.myreports3}}">{{result.myreports3}}</a></li>
-	<li><a ng-href="#/{{result.myreports1}}">{{result.myreports4}}</a></li>
-    <li><a ng-href="#/{{result.myreports2}}">{{result.myreports5}}</a></li>
-    <li><a ng-href="#/{{result.myreports3}}">{{result.myreports6}}</a></li>	
-	<li><a ng-href="#/{{result.myreports2}}">{{result.myreports7}}</a></li>
-    <li><a ng-href="#/{{result.myreports3}}">{{result.myreports8}}</a></li>	
-  
 		
-		  </ul>
-		</li></ul>
+		
+		
+		
+		
+		
+		
+		
+		
+   
+       
+		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><span class="fa fa-bar-chart-o fa-fw"></span> Analytics <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+			<li><a href="/chart"><span class="fa fa-bar-chart-o fa-fw"></span> Employee Sales</a></li>
+          <li><a href="/chart2"><span class="fa fa-bar-chart-o fa-fw"></span> Customer Orders</a></li>
+          <li><a href="#/chart3"><span class="fa fa-bar-chart-o fa-fw"></span> Products</a></li>
+			<li><a href="#/chart4"><span class="fa fa-bar-chart-o fa-fw"></span> test</a></li>
+        </ul>
+      </li>
+		<li> <a  href="#/CreateTicket"><span class="fa fa-edit fa-fw"></span> Tickets </a></li>
+     </ul>
     <ul class="nav navbar-nav navbar-right">
       
       <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
     </ul>
   </div>
 </nav>
-    
-    
-<div class="container">
-
-
- 	
 	
+	
+	
+	<div class = "row" style="padding: 2px">
+    <div class="col-xs-4 col-sm-2" id="sidebar" >
+<div class="panel panel-default">
+		<div class="panel-heading">My Reports</div> 
+<ul class="list-group" ng-repeat="result in results">
+	
+		  
+  <li class="list-group-item"><a ng-href="#/{{result.myreports1}}">{{result.myreports1}}</a></li>
+    <li class="list-group-item"><a ng-href="#/{{result.myreports2}}">{{result.myreports2}}</a></li>
+    <li class="list-group-item"><a ng-href="#/{{result.myreports3}}">{{result.myreports3}}</a></li>
+	<li class="list-group-item"><a ng-href="#/{{result.myreports1}}">{{result.myreports4}}</a></li>
+    <li class="list-group-item"><a ng-href="#/{{result.myreports2}}">{{result.myreports5}}</a></li>
+    <li class="list-group-item"><a ng-href="#/{{result.myreports3}}">{{result.myreports6}}</a></li>	
+	<li class="list-group-item"><a ng-href="#/{{result.myreports2}}">{{result.myreports7}}</a></li>
+    <li class="list-group-item"><a ng-href="#/{{result.myreports3}}">{{result.myreports8}}</a></li>	
+  </ul>
+		</div></div>
+	  
+
+
+		
+		
+
 	
     <div ng-view>
 
@@ -92,18 +133,14 @@
   </div>
 
 
-        
-
-  
-
-
 
 </div>
             
-        
+	
+	
 
-    </div>
+ 
 
-</div>
+
 </body>
 </html>

@@ -6,12 +6,12 @@
     box-shadow: 2px 2px 1px 1px grey;
 }</style>
 <script></script>
-<div class="container">
+<div class="col-xs-10" >
 	<div class="me">
 <div class="panel panel-default">
-      <div class="panel-heading"><button type="button" class="btn btn-default" ng-click="FindAllStaff();" >Staff Details Report</button>
+	<div class="panel-heading"><button type="button" class="btn btn-default" ng-click="FindAllStaff();" > Staff Details Report <span class="glyphicon glyphicon-search"></span> </button>
 
-            <button type="button" class="btn btn-default" ng-click="showStaffSearchFunc()" >Find Staff Details</button>
+            <button type="button" class="btn btn-default" ng-click="showStaffSearchFunc()" > Find Staff Details <span class="glyphicon glyphicon-chevron-down"></span></button>
           
 
           
@@ -67,11 +67,11 @@
 			 
         
                         <div class="btn-group">
-                            <input type="submit" 
+                            <button type="submit" 
                                    ng-disabled="myForm.name.$untouched && myForm.name.$invalid " 
-                                   ng-click="FindOneStaff();" class="btn btn-primary"  >
-                            <button type="button" ng-click="clearStaffSearch()" class="btn btn-primary">Clear</button>
-                            <button type="button" ng-click="hideStaffSearch()" class="btn btn-primary">Hide</button>
+                                   ng-click="FindOneStaff();" class="btn btn-primary"  > Search <span class="glyphicon glyphicon-search"></span></button>
+                            <button type="button" ng-click="clearStaffSearch()" class="btn btn-primary"> Clear <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" ng-click="hideStaffSearch()" class="btn btn-primary"> Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
                         </div>
 	 </div>
                     </form>
