@@ -3,14 +3,16 @@
 <html>
 <head>
     <title>Hego Reports</title>
-	
+	<link href="../js/xeditable.css" rel="stylesheet">
+
 	<script src="http://d3js.org/d3.v3.min.js"></script>
  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> 
 	
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 	
-	
+	<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
  
  
      <meta charset="utf-8">
@@ -30,7 +32,13 @@
 		
 } 
 
-	  
+	 div[ng-app] {  }
+
+/* customize xeditable css */
+a.editable-click { 
+    color: black;
+    border-bottom: solid 2px green;
+} 
 	  
 	  
 	#sidebar {
@@ -42,8 +50,7 @@
   </style>
    <script src="https://code.angularjs.org/1.5.0-rc.2/angular.min.js"></script>
 
-                                                                                                                                                              <script  src="../js/controller.js"></script>                                                                                                     
-                                                                                                                                                               <script src="//code.angularjs.org/1.5.0/angular-route.min.js"></script>     
+                                                                                                                                                              <script  src="../js/controller.js"></script>                                                                                                                                                                                                                                                           <script src="//code.angularjs.org/1.5.0/angular-route.min.js"></script>     
     <style>
                 
    
@@ -143,4 +150,5 @@
 
 
 </body>
+	<script  src="../js/xeditable.js"></script>  
 </html>

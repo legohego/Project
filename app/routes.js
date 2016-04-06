@@ -466,6 +466,87 @@ module.exports = function(app, passport) {
 
 
 	//put area
+	
+	
+	
+					
+					
+	
+	
+	app.put('/updateCustomers',isLoggedIn, function (req, res) {
+		var id = req.body._id;
+		console.log(req.body._id);
+		console.log(req.body.LastName );
+		console.log(req.body.FirstName);
+		customers.findOne({_id: id}, function (err, foundObject) {
+			if(err) {//start of outer if
+				console.log(err);
+				res.status(500).send()
+			}else {//start of outer else
+				if (!foundObject) {
+					res.status(403).send();
+				} else {
+					if (req.body.CustomerName != null && req.body.CustomerName !="") {
+						foundObject.CustomerName  = req.body.CustomerName  ;
+					}
+					if (req.body.CompanyName != null&&req.body.CompanyName !="") {
+						foundObject.CompanyName  = req.body.CompanyName ;
+					}
+					if (req.body.City != null&&req.body.City  !="") {
+						foundObject.City  = req.body.City ;
+					}
+					if (req.body.Title != null&&req.body.Title !="") {
+						foundObject.ContactTitle  = req.body.Title ;
+					}
+					
+					if (req.body.PostalCode != null&&req.body.PostalCode!="") {
+						foundObject.PostalCode  = req.body.PostalCode ;
+					}
+					if (req.body.Country != null&&req.body.Country !="") {
+						foundObject.Country   = req.body.Country  ;
+					}
+					if (req.body.Address != null&&req.body.Address !="") {
+						foundObject.Address   = req.body.Address  ;
+					}
+					if (req.body.Phone != null&&req.body.Phone !="") {
+						foundObject.Phone   = req.body.Phone  ;
+					}
+
+
+					foundObject.save(function (err, updatedObject) {
+						if (err) {
+							console.log(err);
+							res.status(500).send();
+						} else {
+							res.send(updatedObject); }
+					});
+				}   }
+		})}
+			) 
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	app.put('/updateStaff',isLoggedIn, function (req, res) {
 		var id = req.body._id;
@@ -1092,6 +1173,16 @@ app.get('/tables',isLoggedIn, function(req, res) {
 
 
 	});
+	
+	app.get('/tte',isLoggedIn,function(req, res, next) {
+		res.render('testTableEdit.ejs');
+
+
+
+
+
+	});
+	//testTableEdit.ejs
 	//app.get('/adminRequests',isLoggedIn,function(req,res){
 
 		//res.render('adminRequest.ejs');

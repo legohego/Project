@@ -1,6 +1,14 @@
-var myApp = angular.module('myApp', ['ngRoute']);
 
+ //<script  src="../js/xeditable"></script>  
+//<script  src="../js/xeditable.min"></script>  
+// <script  src="../js/xeditable.min"></script> 
+	//<script  src="../js/xeditable"></script> 
+//,"xeditable"
+var myApp = angular.module('myApp', ['ngRoute',"xeditable"]);
 
+ myApp.run(function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
 myApp.config(function($routeProvider){
 
 	$routeProvider
@@ -11,7 +19,11 @@ myApp.config(function($routeProvider){
 		controller:'ManagerStaffContr'
 
 	})
-	
+	.when('/tte',{
+		templateUrl:'/tte',
+		controller:'CustomerController2'
+
+	})
 	
 	.when('/tables',{
 		templateUrl:'/tables',
@@ -389,7 +401,9 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 	
 	
 	
-	
+	// $scope.removeUser = function(index) {
+   // $scope.users.splice(index, 1);
+ // };
 	
 	
 	
@@ -509,20 +523,22 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 	}
 	
 	
-	a.DeleteCustomer2 =function(myid){
-		b.delete("/deleteCustomers/"+ myid)
-		.success(function(status){
-			a.CustomerdeleteFuc();
-			console.log(done);
-			console.log(status);
+	//a.DeleteCustomer2 =function(myid){
+		//b.delete("/deleteCustomers/"+ myid)
+		//.success(function(status){
+			//a.CustomerdeleteFuc();
+			//console.log(done);
+			//console.log(status);
+			
+			
 
-		})
-		.error(function(data,status){
-			console.log(status);
-			a.NotDeleteFuc();
+		//})
+		//.error(function(data,status){
+			//console.log(status);
+			//a.NotDeleteFuc();
 
-		})
-	}
+		//})
+	//}
 
 	a.FindAllCust =function(){
 		b.get("/findCustomers").success(function(result){
@@ -1414,6 +1430,306 @@ a.NotFound= false;
 	a.StaffNotDeletedFun	=function(){ 
 		a.StaffNotDeleted=!a.StaffNotDeleted;
 	}
+
+}]);
+
+
+
+
+myApp.controller('CustomerController2',['$scope','$http', function(a,b){
+
+	
+	
+	a.sortType  = 'LastName'; // set the default sort type
+ a.sortReverse  = false;  
+	a.searchFish   = '';
+	
+	a.mySort=function(){
+		a.sortReverse = !a.sortReverse;
+	}
+	
+	
+	
+	
+	a.UpdateCustomer =function(_id,PostalCode,City,ContactTitle,CompanyName,ContactName){ 
+
+
+		var update ={
+				_id:_id,
+				CompanyName:CompanyName,
+				ContactName:ContactName,
+				City:City,
+				Title:ContactTitle,
+				City:City,
+				PostalCode:PostalCode,
+				
+				
+				
+		};
+
+
+		b({
+			url: '/updateCustomers', // No need of IP address
+			method: 'PUT',
+			data: update,
+			headers: {'Content-Type': 'application/json'}
+
+		}).success(function(){
+			
+			console.log(update);
+			a.updateFun();
+		}).error(function(){a.NotUpdateFun();})}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//a.sortBy =function(){
+	//	a.sortType  = a.option2;
+	//}
+	
+	a.removeUser = function(index) {
+	index=index	-1;
+    a.bosses.splice(index, 1);
+  };
+	// a.sortType  = 'CompanyName'; // set the default sort type
+ //a.sortReverse  = false;  
+	//a.searchFish   = '';
+	
+	
+	
+	
+	
+	
+	
+	
+	a.NotFound=false;
+
+	a.NotFoundFuc= function() {
+
+		a.NotFound=true;
+	}
+
+	a.addCustForm=false;
+	a.addCustFormFuc= function() {
+		a.AllCust=false;
+		a.FindCust=false;
+		a.DeleteShow= false;
+		a.addCustForm=!a.addCustForm;
+		a.Customerdelete=false;
+		a.CustRes =false; 
+		a.NotDelete=false;
+		a.NotAdded=false;							 													
+		a.CustomerAdded=false;									 
+
+	}
+	a.CustomerAdded=false;
+	a.CustomerAddedFuc= function() {
+
+		a.CustomerAdded=!a.CustomerAdded;
+	}
+
+
+
+	a.NotAdded=false;
+	a.NotAddedFuc= function() {
+
+		a.NotAdded=!a.NotAdded;
+	}
+
+	a.DeleteShow= false;
+	a.DeleteShowfun = function() {
+		a.DeleteShow = !a.DeleteShow;
+		a.addCustForm=false;
+		a.AllCust=false;
+		a.CustRes =false; 											
+		a.FindCust=false;
+		a.Customerdelete=false;
+		a.NotDelete=false;
+		a.NotAdded=false;							 													 
+		a.CustomerAdded=false;
+	}
+
+
+	a.addCustomer =function(){
+
+
+		var customer ={
+
+				CustomerID:a.CustomerID,
+				CustomerName :a.CustomerName,
+				CompanyName:a.CompanyName,
+				ContactTitle:a.ContactTitle,
+				Address:a.Address,
+				City :a.City,
+				Country:a.Country,
+				Phone:a.Phone,
+
+		};
+
+		b({
+			url: '/addCustomers', // No need of IP address
+			method: 'POST',
+			data: customer,
+			headers: {'Content-Type': 'application/json'}
+
+		}).success(function(){
+			a.CustomerAddedFuc();
+			//a.ProductName,
+			a.CustomerID="";
+			a.CustomerName="";
+			a.CompanyName="";
+			a.ContactTitle="";
+			a.Address="";
+			a.City="";
+			a.Discontinued="";
+			a.Country="";
+			a.Phone="";
+
+		})
+		.error(function(){
+			a.NotAddedFuc();
+		})
+	};
+	a.Customerdelete=false;						
+	a.CustomerdeleteFuc=function(){
+
+		a.Customerdelete=true;
+	}
+
+	a.NotDelete=false;
+	a.NotDeleteFuc=function(){
+		a.NotDelete=!a.NotDelete;
+	};
+
+	a.DeleteCustomer =function(){
+		b.delete("/deleteCustomers/"+ a.id)
+		.success(function(status){
+			a.CustomerdeleteFuc();
+			console.log(done);
+			console.log(status);
+
+		})
+		.error(function(data,status){
+			console.log(status);
+			a.NotDeleteFuc();
+
+		})
+	}
+	
+	
+	a.DeleteCustomer2 =function(myid){
+		b.delete("/deleteCustomers/"+ myid)
+		.success(function(status){
+			a.CustomerdeleteFuc();
+			console.log(done);
+			console.log(status);
+			
+			
+
+		})
+		.error(function(data,status){
+			console.log(status);
+			a.NotDeleteFuc();
+
+		})
+	}
+
+	a.FindAllCust =function(){
+		b.get("/findCustomers").success(function(result){
+			a.bosses =result;
+			a.CustRes =false;
+			a.FindCust =false;
+			a.DeleteShow = a.DeleteShow=false;
+			a.addCustForm=false;
+			a.Customerdelete=false;
+			a.NotDelete=false;a.NotAdded=false;							 													 a.CustomerAdded=false;
+			a.NotFound=false;
+
+		})
+		.error(function(data,status){
+		})
+	}
+
+
+
+	a.findCustomer =function(){
+		b.get("/findOneCustomer/"+a.data6+"/"+a.option3).success(function(result){
+			a.bosses =result;
+			a.CustResFun();
+			console.log(result);
+			a.NotFound=false;
+		})
+		.error(function(data,status){
+			a.NotFound=true;
+			a.CustRes =false;
+		})
+	}
+
+	a.FindCust=false;
+	a.findCustFun=function(){
+		a.FindCust = !a.FindCust;
+		a.AllCust=false; 
+		a.DeleteShow = a.DeleteShow=false;
+		a.addCustForm=false;
+		a.Customerdelete=false;
+		a.NotDelete=false;a.NotAdded=false;							 													 a.CustomerAdded=false;
+
+	}
+	a.AllCust=false;
+	a.AllCustFun= function(){
+
+		a.AllCust = !a.AllCust;
+	}
+
+	a.CustRes =false;
+	a.CustResFun=function(){
+
+		a.CustRes =!a.CustRes;
+	}
+	a.showhide = function() {
+		a.FindCust =false;   
+		a.CustRes =false; 
+		a.NotFound=false;
+
+	}
+
+	a.clear=function(){
+		a.data6="";a.option3="";
+		a.NotFound=false;
+
+	};
+
+
+	a.clearCustomerDelete = function() { 
+		a.id=""
+				a.Customerdelete=false;
+		a.NotDelete=false;
+	} 
+	a.hideCustomerDelete = function() {
+		a.DeleteShow= false;
+		a.Customerdelete=false;
+		a.NotDelete=false;
+	} 
+
+
 
 }]);
 

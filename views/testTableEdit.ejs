@@ -1,9 +1,21 @@
+
+
 <style> .me {
    
    
 
     box-shadow: 2px 2px 1px 1px grey;
-}</style>
+}
+div[ng-app] {  }
+
+/* customize xeditable css */
+a.editable-click { 
+    color: black;
+    border-bottom: solid 2px green;
+}
+
+	a{color: Black;}
+</style>
 <script></script>
 <div class="col-xs-9" >
 	<div class="me">
@@ -83,27 +95,53 @@
                 <th colspan="6"><h3>Customer Details Report</h3></th>
             </tr>
                     <tr>
-                        <th>Company Name</th>
-                        <th>ContactName</th>
-                        <th>ContactTitle</th>
-                        <th>City</th>
+						
+						
+						         <th text-align="center"> <button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'CompanyName'; sortReverse = !sortReverse">CompanyName<span class="glyphicon glyphicon-sort"></span></button></th>
                         
-                        <th>Postal-Code</th>
-						<th>Delete</th>
-						<th>Update</th>
+                                            <th align="center"> <button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'ContactName'; sortReverse = !sortReverse">ContactName<span class="glyphicon glyphicon-sort"></span></button></th>
+						<th text-align="center"> <button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'ContactTitle'; sortReverse = !sortReverse">ContactTitle <span class="glyphicon glyphicon-sort"></span></button></th>
+                                            <th align="center"> <button type="button" class="btn btn-default btn-sm" <button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'City'; sortReverse = !sortReverse">City<span class="glyphicon glyphicon-sort"></span></button></th>
+                                            <th align="center"> <button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'PostalCode'; sortReverse = !sortReverse">PostalCode<span class="glyphicon glyphicon-sort"></span></button></th>
+						
+	<th>Update</th>
+						<th>Delete</th>					
+						
+					
                     </tr>
             </thead>
             <tbody>
                     <tr ng-repeat="boss in bosses | orderBy:sortType:sortReverse| filter:Data">
 						
-                        <td data-ng-bind="boss.CompanyName" />
-                        <td data-ng-bind="boss.ContactName" />
-                        <td data-ng-bind="boss.ContactTitle" />
-                        <td data-ng-bind="boss.City" />
-                       
-                        <td data-ng-bind="boss.PostalCode" />
- <td><button  ng-click="DeleteCustomer2(boss._id)">Delete</button></td>
-						<td><button  ng-click="DeleteCustomer2(boss._id)">Update</button></td>
+						<td>
+        <!-- editable username (text with validation) -->
+        <span editable-text="boss.CompanyName ">{{ boss.CompanyName || 'empty' }}
+        </span>
+      </td>
+			
+					<td>
+        <!-- editable username (text with validation) -->
+        <span editable-text="boss.ContactName">{{ boss.ContactName || 'empty' }}
+        </span>
+      </td>	
+							<td>
+        <!-- editable username (text with validation) -->
+        <span editable-text="boss.ContactTitle">{{ boss.ContactTitle || 'empty' }}
+        </span>
+      </td>	
+							<td>
+        <!-- editable username (text with validation) -->
+        <span editable-text="boss.City">{{ boss.City || 'empty' }}
+        </span>
+      </td>	
+							<td>
+        <!-- editable username (text with validation) -->
+        <span editable-text="boss.PostalCode">{{ boss.PostalCode || 'empty' }}
+        </span>
+      </td>	
+			<td><button class="btn btn-primary" ng-click="UpdateCustomer(boss._id,boss.PostalCode,boss.City,boss.ContactTitle,boss.CompanyName,boss.ContactName )">Save Edits</button></td>		 
+ <td><button class=" btn btn-danger" ng-click="DeleteCustomer2(boss._id); removeUser($index)">Delete</button></td>
+						</tr>
                     <tr>
             </tbody>
 
