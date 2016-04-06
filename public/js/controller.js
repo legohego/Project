@@ -12,6 +12,13 @@ myApp.config(function($routeProvider){
 
 	})
 	
+	
+	.when('/tables',{
+		templateUrl:'/tables',
+		//controller:'ManagerStaffContr'
+
+	})
+	
 	.when('/ManCustomersReports',{
 		templateUrl:'/ManCustomersReports',
 		controller:'CustomerController'
@@ -101,6 +108,17 @@ myApp.config(function($routeProvider){
 });
 myApp.controller('test',['$scope','$http', function(a,b){
 
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	a.me=function(){ 
 		b.get("/MyReports").success(function(result){
 
@@ -115,7 +133,13 @@ myApp.controller('test',['$scope','$http', function(a,b){
 }])
 
 myApp.controller('StaffController',['$scope','$http', function(a,b){
-
+ a.sortType  = 'LastName'; // set the default sort type
+ a.sortReverse  = false;  
+	a.searchFish   = '';
+	
+	a.mySort=function(){
+		a.sortReverse = !a.sortReverse;
+	}
 
 	a.FindAllStaff =function(){
 		b.get("/findemployees").success(function(result){
@@ -152,10 +176,10 @@ a.NotFound=false;
 
 
 	a.showUpdateStaff = !a.showUpdateStaff;
-
+//:Search/:Data
 
 	a.FindOneStaff =function(){
-		b.get("/findOneEmployees/"+ a.name).success(function(result){
+		b.get("/findOneEmployees/"+a.data6+"/"+a.option3).success(function(result){
 			console.log(result);
 			a.empes =result;
 			a.NotFound=false;
@@ -353,6 +377,23 @@ a.NotFound=false;
 
 myApp.controller('CustomerController',['$scope','$http', function(a,b){
 
+	
+	//a.sortBy =function(){
+	//	a.sortType  = a.option2;
+	//}
+	
+	
+	 a.sortType  = 'CompanyName'; // set the default sort type
+ a.sortReverse  = false;  
+	a.searchFish   = '';
+	
+	
+	
+	
+	
+	
+	
+	
 	a.NotFound=false;
 
 	a.NotFoundFuc= function() {
@@ -466,6 +507,22 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 
 		})
 	}
+	
+	
+	a.DeleteCustomer2 =function(myid){
+		b.delete("/deleteCustomers/"+ myid)
+		.success(function(status){
+			a.CustomerdeleteFuc();
+			console.log(done);
+			console.log(status);
+
+		})
+		.error(function(data,status){
+			console.log(status);
+			a.NotDeleteFuc();
+
+		})
+	}
 
 	a.FindAllCust =function(){
 		b.get("/findCustomers").success(function(result){
@@ -486,7 +543,7 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 
 
 	a.findCustomer =function(){
-		b.get("/findOneCustomer/"+ a._id).success(function(result){
+		b.get("/findOneCustomer/"+a.data6+"/"+a.option3).success(function(result){
 			a.bosses =result;
 			a.CustResFun();
 			console.log(result);
@@ -527,7 +584,7 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 	}
 
 	a.clear=function(){
-		a._id="";
+		a.data6="";a.option3="";
 		a.NotFound=false;
 
 	};
@@ -639,9 +696,20 @@ myApp.controller('ProductController',['$scope','$http', function(a,b){
 	};
 
 
+a.ClearProduct =function(){
+			a.ProductName,
+			a.SupplierID="";
+			a.CategoryID="";
+			a.QuantityPerUnit="";
+			a.UnitPrice="";
+			a.UnitsInStock="";
+			a.ReorderLevel="";
+			a.Discontinued="";
+			a.ProductID="";
+			a.ProductName="";
+			a.UnitInStock="";
 
-
-
+}
 
 	a.showMeV3 = false;
 	a.myFuncV3 = function() {
@@ -804,7 +872,16 @@ myApp.controller('URController',['$scope','$http',function(a,b){
 
 myApp.controller('OrdersController',['$scope','$http',function(a,b){
 
+a.clearOrders=function(){
+	a.data="";a.option="";
+	
+	
+}
+a.clearOrdersdate=function(){
+a.OrderDate="";}
 
+a.clearOrdersDetails=function(){
+a.data1="";a.option1="";}
 
 	a.FindOrders =function(){ 
 
@@ -856,9 +933,24 @@ myApp.controller('OrdersController',['$scope','$http',function(a,b){
 	}
 
 
-
-
-
+a.OrdersDateHide = function(){
+	
+		a.OrdersDate2 =false;
+		a.show =false;
+		
+	}
+a.OrdersHide = function(){
+	
+		a.OrdersCust =false;
+		a.show =false;
+		
+	}
+a.OrdersHideDetails = function(){
+	
+		a.OrdersD =false;
+		a.show2 =false;
+		
+	}
 
 	a.FindOrdersC =function(){ 
 
@@ -1126,7 +1218,7 @@ myApp.controller('ManagerStaffContr',['$scope','$http', function(a,b){
 
 
 	a.FindOneStaff =function(){
-		b.get("/findOneEmployees/"+ a.name).success(function(result){
+		b.get("/findOneEmployees/"+a.data6+"/"+a.option3).success(function(result){
 			console.log(result);
 			a.empes =result;
 			a.NotFound=false;
@@ -1294,7 +1386,7 @@ a.NotFound=false;
 a.NotFound= false;
 	}
 	a.clearStaffSearch = function() {
-		a.name="";
+		a.data6="";a.option3="";
 		a.showStaff=false;
 		a.NotFound= false;
 	} 

@@ -19,22 +19,36 @@
 
 
             <div class="panel-body">
-                        <table ng-show="showAllStaff" class="table table-hover" >
+				<div class="table-responsive" ng-show="showAllStaff">
+					<form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+
+        <input type="text" class="form-control" placeholder="Search Results" ng-model="Data">
+
+      </div>      
+    </div>
+  </form>
+					
+	
+				
+                        <table  class="table table-hover" >
                             <thead>
                                         <tr>
                                             <th colspan="6"><h3>Staff Details Report</h3></th>
                                         </tr>
                                         <tr>
-                                            <th text-align="center">LastName</th>
-                                            <th align="center">FirstName</th>
-                                            <th align="center">Title</th>
-                                            <th text-align="center">City</th>
-                                            <th align="center">Region</th>
-                                            <th align="center">PostalCode</th>
+                                            <th text-align="center"><a ng-click="sortType = 'LastName'; sortReverse = !sortReverse">LastName</th>
+                                            <th align="center"><a ng-click="sortType = 'FirstName'; sortReverse = !sortReverse">FirstName</th>
+                                            <th align="center"><a ng-click="sortType = 'Title'; sortReverse = !sortReverse">Title</th>
+                                            <th text-align="center"><a ng-click="sortType = 'City'; sortReverse = !sortReverse">City</th>
+                                            <th align="center"><a ng-click="sortType = 'Region'; sortReverse = !sortReverse">Region</th>
+                                            <th align="center"><a ng-click="sortType = 'PostalCode'; sortReverse = !sortReverse">PostalCode</th>
                                         </tr>
                             </thead>
                             <tbody>
-                                        <tr ng-repeat="rule in rules">
+                                        <tr ng-repeat="rule in rules |orderBy:sortType:sortReverse| filter:Data">
                                             <td data-ng-bind="rule.LastName" />
                                             <td data-ng-bind="rule.FirstName" />
                                             <td data-ng-bind="rule.Title" />
@@ -47,7 +61,7 @@
 
                         </table>
 
-
+				</div>
                     <form name="myForm" ng-show="showStaffSearch" class="form-horizontal" role="form" novalidate>
                         
 						 <div class = "row" style="padding: 2px">
@@ -55,7 +69,18 @@
          <div class = "col-md-2">
 			 <label for="name">Staff First Name:</label></div>
                             <div class = "col-md-2">
-                                <input ng-model="name" required type="text" class="form-control" id="name" placeholder="name" name="name" >
+                                <input ng-model="data6" required type="text" class="form-control" id="data" placeholder="data" name="data" >
+								
+								  <select ng-model="option3" class="form-control" id="sel1">
+    <option>LastName</option>
+    <option>FirstName</option>
+    <option>City</option>
+    
+	
+  </select>
+								
+								
+								
 							 
                                                     <span style="color:red" ng-show="myForm.name.$dirty && myForm.name.$invalid">
                                     <span ng-show="myForm.name.$error.required">Username is required.</span>
@@ -77,7 +102,7 @@
                     </form>
 
 				<h3><span ng-show="NotFound"><br>Staff Memeber not found</span></h3>
-                    <table ng-show="showStaff" class="table table-hover" >
+                   <div class="table-responsive" ng-show="showStaff" > <table class="table table-hover" >
                         <thead>
                                 <tr>
                                     <th colspan="6">Staff Details Report</th></tr>
@@ -91,13 +116,13 @@
                                 </tr>
                         </thead>
                         <tbody>
-                                <tr>
-                                    <td data-ng-bind="empes.LastName" />
-                                    <td data-ng-bind="empes.FirstName" />
-                                    <td data-ng-bind="empes.Title" />
-                                    <td data-ng-bind="empes.City" />
-                                    <td data-ng-bind="empes.Region" />
-                                    <td data-ng-bind="empes.PostalCode" />
+                                <tr><tr ng-repeat="empe in empes">
+                                    <td data-ng-bind="empe.LastName" />
+                                    <td data-ng-bind="empe.FirstName" />
+                                    <td data-ng-bind="empe.Title" />
+                                    <td data-ng-bind="empe.City" />
+                                    <td data-ng-bind="empe.Region" />
+                                    <td data-ng-bind="empe.PostalCode" />
 
                                 <tr>
                         </tbody>
@@ -106,7 +131,7 @@
 
                 
                 
-                
+				</div>
                 
 
 

@@ -222,10 +222,25 @@ module.exports = function(app, passport) {
 
 
 
-	app.get('/findOneEmployees/:name',isLoggedIn, function (req, res) {
-		var name=req.params.name;
+	app.get('/findOneEmployees/:data/:option3',isLoggedIn, function (req, res) {
+		//var name=req.params.name;
+		//var name=
+		
+		var Search =req.params.option3;	
+		//req.body.reportURL;
+		//query[name] = value;
+		//var url=req.body.reportUR;
 
-		employees.findOne({'FirstName': name}, function (err, foundObject) {
+		//var query = { email: req.body.email }
+
+		var query2 = {};
+		query2[Search] = req.params.data;
+
+		//console.log(query);console.log(query2);
+		employees.find(query2, function(err, foundObject){
+		
+
+		//employees.findOne({'FirstName': name}, function (err, foundObject) {
 			if (err) {//start of outer if
 				console.log(err);
 				res.status(500).send()
@@ -243,10 +258,23 @@ module.exports = function(app, passport) {
 
 
 
-	app.get('/findOneCustomer/:_id',isLoggedIn, function (req, res) {
-		var id=req.params._id;
+	app.get('/findOneCustomer/:data/:option3',isLoggedIn, function (req, res) {
+		//var name=req.params.name;
+		//var name=
+		
+		var Search =req.params.option3;	
+		//req.body.reportURL;
+		//query[name] = value;
+		//var url=req.body.reportUR;
 
-		customers.findOne({_id: id}, function (err, foundObject) {
+		//var query = { email: req.body.email }
+
+		var query2 = {};
+		query2[Search] = req.params.data;
+
+		//console.log(query);console.log(query2);
+		
+		customers.find(query2, function (err, foundObject) {
 			if (err) {//start of outer if
 				console.log(err);
 				res.status(500).send()
@@ -976,7 +1004,9 @@ var  data= [
 	//	res.json(obj);
 	//});
 
-
+app.get('/tables',isLoggedIn, function(req, res) {
+		res.render('Table_test.ejs', { message: req.flash('signupMessage') });
+	});
 	app.get('/CreateProfileReports',isLoggedIn, function(req, res) {
 		res.render('CreateProfileReports.ejs', { message: req.flash('signupMessage') });
 	});

@@ -42,7 +42,7 @@
                                    ng-disabled="OrderIDForm2.OrderDate.$untouched && OrderIDForm2.OrderDate.$invalid " 
 									ng-click="FindOrders2();" class="btn btn-primary"  >Search <span class="glyphicon glyphicon-search"></span></button>
                             <button type="button" ng-click="" class="btn btn-primary">Clear <span class="glyphicon glyphicon-remove"></span></button>
-                            <button type="button" ng-click="" class="btn btn-primary">Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
+                            <button type="button" ng-click="OrdersDateHide()" class="btn btn-primary">Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
 	  </div></div>
                     </form>
          
@@ -87,8 +87,8 @@
                             <button type="button"
                                    ng-disabled="OrderIDForm3.data.$untouched && OrderIDForm3.data.$invalid " 
                                    ng-click="FindOrdersC();" class="btn btn-primary"  >Search <span class="glyphicon glyphicon-search"></span></button>
-                            <button type="button" ng-click="" class="btn btn-primary">Clear <span class="glyphicon glyphicon-remove"></span></button>
-                            <button type="button" ng-click="" class="btn btn-primary">Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
+                            <button type="button" ng-click="clearOrders()" class="btn btn-primary">Clear <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" ng-click="OrdersHide()" class="btn btn-primary">Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
 			 </div></div></div>
                     </form>  
          
@@ -135,8 +135,8 @@
                            <button type="button" 
                                    ng-disabled="OrderDetForm.data1.$untouched && OrderDetForm.data1.$invalid " 
                                    ng-click="FindOrdersD();" class="btn btn-primary"  >Search <span class="glyphicon glyphicon-search"></span></button>
-                            <button type="button" ng-click="" class="btn btn-primary">Clear <span class="glyphicon glyphicon-remove"></span></button>
-                            <button type="button" ng-click="" class="btn btn-primary">Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
+                            <button type="button" ng-click="clearOrdersDetails()" class="btn btn-primary">Clear <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" ng-click="OrdersHideDetails()" class="btn btn-primary">Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
                         </div>
 		 </div> </div>  </form>       
          
@@ -151,10 +151,10 @@
 	
 	
 	
+	<div class="table-responsive" ng-show="show">
 	
 	
-	
-          <table ng-show="show" class="table table-hover" >
+          <table  class="table table-hover" >
                             <thead>
                                         <tr>
                                             <th colspan="6"><h3>Order Report</h3></th>
@@ -183,10 +183,10 @@
                             </tbody>
 
                         </table>
+		 </div>
          
-         
-         
-         <table ng-show="show2" class="table table-hover" >
+         <div class="table-responsive" ng-show="show2">
+         <table  class="table table-hover" >
                             <thead>
                                         <tr>
                                             <th colspan="6"><h3>Order Details</h3></th>
@@ -217,14 +217,8 @@
                         </table>
          
          
+		 </div>
          
-         
-         
-         
-         
-         
-         
-
 
      </div><div class="panel-footer"></div> 
       </div>
