@@ -1,0 +1,155 @@
+
+<style> .me {
+   
+   
+
+    box-shadow: 2px 2px 1px 1px grey;
+}</style>
+<script></script>
+<div class="col-xs-10" >
+	<div class="me">
+<div class="panel panel-default">
+	<div class="panel-heading"><button type="button" class="btn btn-default" ng-click="FindAllStaff();" > Staff Details Report <span class="glyphicon glyphicon-search"></span> </button>
+
+            <button type="button" class="btn btn-default" ng-click="showStaffSearchFunc()" > Find Staff Details <span class="glyphicon glyphicon-chevron-down"></span></button>
+          
+
+          
+          </div>
+
+
+            <div class="panel-body">
+				<div class="table-responsive" ng-show="showAllStaff">
+					<form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+
+        <input type="text" class="form-control" placeholder="Search Results" ng-model="Data">
+
+      </div>      
+    </div>
+  </form>
+					
+	
+				
+                        <table  class="table table-hover" >
+                            <thead>
+                                        <tr>
+                                            <th colspan="6"><h3>Staff Details Report</h3></th>
+                                        </tr>
+                                        <tr>
+                                            <th text-align="center"><a ng-click="sortType = 'LastName'; sortReverse = !sortReverse">LastName</th>
+                                            <th align="center"><a ng-click="sortType = 'FirstName'; sortReverse = !sortReverse">FirstName</th>
+                                            <th align="center"><a ng-click="sortType = 'Title'; sortReverse = !sortReverse">Title</th>
+                                            <th text-align="center"><a ng-click="sortType = 'City'; sortReverse = !sortReverse">City</th>
+                                            <th align="center"><a ng-click="sortType = 'Region'; sortReverse = !sortReverse">Region</th>
+                                            <th align="center"><a ng-click="sortType = 'PostalCode'; sortReverse = !sortReverse">PostalCode</th>
+                                        </tr>
+                            </thead>
+                            <tbody>
+                                        <tr ng-repeat="rule in rules |orderBy:sortType:sortReverse| filter:Data">
+                                            <td data-ng-bind="rule.LastName" />
+                                            <td data-ng-bind="rule.FirstName" />
+                                            <td data-ng-bind="rule.Title" />
+                                            <td data-ng-bind="rule.City" />
+                                            <td data-ng-bind="rule.Region" />
+                                            <td data-ng-bind="rule.PostalCode" />
+
+                                        <tr>
+                            </tbody>
+
+                        </table>
+
+				</div>
+                    <form name="myForm" ng-show="showStaffSearch" class="form-horizontal" role="form" novalidate>
+                        
+						 <div class = "row" style="padding: 2px">
+			 
+         <div class = "col-md-2">
+			 <label for="name">Staff First Name:</label></div>
+                            <div class = "col-md-2">
+                                <input ng-model="data6" required type="text" class="form-control" id="data" placeholder="data" name="data" >
+								
+								  <select ng-model="option3" class="form-control" id="sel1">
+    <option>LastName</option>
+    <option>FirstName</option>
+    <option>City</option>
+    
+	
+  </select>
+								
+								
+								
+							 
+                                                    <span style="color:red" ng-show="myForm.name.$dirty && myForm.name.$invalid">
+                                    <span ng-show="myForm.name.$error.required">Username is required.</span>
+                                    </span>
+                            </div>
+                        </div>
+<br>
+ <div class = "row" style="padding: 2px">
+			 
+        
+                        <div class="btn-group">
+                            <button type="submit" 
+                                   ng-disabled="myForm.name.$untouched && myForm.name.$invalid " 
+                                   ng-click="FindOneStaff();" class="btn btn-primary"  > Search <span class="glyphicon glyphicon-search"></span></button>
+                            <button type="button" ng-click="clearStaffSearch()" class="btn btn-primary"> Clear <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" ng-click="hideStaffSearch()" class="btn btn-primary"> Hide <span class="glyphicon glyphicon-chevron-up"></span></button>
+                        </div>
+	 </div>
+                    </form>
+
+				<h3><span ng-show="NotFound"><br>Staff Memeber not found</span></h3>
+                   <div class="table-responsive" ng-show="showStaff" > <table class="table table-hover" >
+                        <thead>
+                                <tr>
+                                    <th colspan="6">Staff Details Report</th></tr>
+                                <tr>
+                                    <th text-align="center">LastName</th>
+                                    <th align="center">FirstName</th>
+                                    <th align="center">Title</th>
+                                    <th text-align="center">City</th>
+                                    <th align="center">Region</th>
+                                    <th align="center">PostalCode</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr><tr ng-repeat="empe in empes">
+                                    <td data-ng-bind="empe.LastName" />
+                                    <td data-ng-bind="empe.FirstName" />
+                                    <td data-ng-bind="empe.Title" />
+                                    <td data-ng-bind="empe.City" />
+                                    <td data-ng-bind="empe.Region" />
+                                    <td data-ng-bind="empe.PostalCode" />
+
+                                <tr>
+                        </tbody>
+
+                    </table>
+
+                
+                
+				</div>
+                
+
+
+</div>
+           
+        <div class="panel-footer"></div>        
+
+        </div>
+</div>
+</div>    
+        
+
+     
+        
+        
+        
+        
+        
+        
+        
+        

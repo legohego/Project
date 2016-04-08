@@ -9,7 +9,7 @@
 <div class="col-xs-10" >
 	<div class="me">
 <div class="panel panel-default">
-	<div class="panel-heading"><button type="button" class="btn btn-default" ng-click="FindAllStaff();" > Staff Details Report <span class="glyphicon glyphicon-search"></span> </button>
+	<div class="panel-heading"><button type="button" class="btn btn-default" ng-click="FindAllStaff();showAllStaffFuc();" > Staff Details Report <span class="glyphicon glyphicon-search"></span> </button>
 
             <button type="button" class="btn btn-default" ng-click="showStaffSearchFunc()" > Find Staff Details <span class="glyphicon glyphicon-chevron-down"></span></button>
           
@@ -39,25 +39,39 @@
                                             <th colspan="6"><h3>Staff Details Report</h3></th>
                                         </tr>
                                         <tr>
-                                            <th text-align="center"><a ng-click="sortType = 'LastName'; sortReverse = !sortReverse">LastName</th>
-                                            <th align="center"><a ng-click="sortType = 'FirstName'; sortReverse = !sortReverse">FirstName</th>
-                                            <th align="center"><a ng-click="sortType = 'Title'; sortReverse = !sortReverse">Title</th>
-                                            <th text-align="center"><a ng-click="sortType = 'City'; sortReverse = !sortReverse">City</th>
-                                            <th align="center"><a ng-click="sortType = 'Region'; sortReverse = !sortReverse">Region</th>
-                                            <th align="center"><a ng-click="sortType = 'PostalCode'; sortReverse = !sortReverse">PostalCode</th>
-                                        </tr>
+                                            <th text-align="center"><button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'LastName'; sortReverse = !sortReverse"><h4>LastName<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                            <th align="center"><button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'FirstName'; sortReverse = !sortReverse"><h4>FirstName<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                            <th align="center"><button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'Title'; sortReverse = !sortReverse"><h4>Title<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                            <th text-align="center"><button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'City'; sortReverse = !sortReverse"><h4>City<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                            <th align="center"><button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'Region'; sortReverse = !sortReverse"><h4>Region<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                            <th align="center"><button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'PostalCode'; sortReverse = !sortReverse"><h4>PostalCode<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                       
+									   
+									   
+				
+						
+												<th><h4>Save Updates</h4></th>
+												<th><h4>Delete Rows</h4></th>
                             </thead>
                             <tbody>
                                         <tr ng-repeat="rule in rules |orderBy:sortType:sortReverse| filter:Data">
-                                            <td data-ng-bind="rule.LastName" />
-                                            <td data-ng-bind="rule.FirstName" />
-                                            <td data-ng-bind="rule.Title" />
-                                            <td data-ng-bind="rule.City" />
-                                            <td data-ng-bind="rule.Region" />
-                                            <td data-ng-bind="rule.PostalCode" />
+                                                      
+							
+        
+							<td>  <span editable-text="rule.LastName">{{ rule.LastName || 'empty' }}</span> </td>	
+							<td>  <span editable-text="rule.FirstName">{{ rule.FirstName || 'empty' }} </span>  </td>	
+							<td>  <span editable-text="rule.Title">{{ rule.Title || 'empty' }}</span> </td>	
+							<td>   <span editable-text=" rule.City">{{ rule.City || 'empty' }} </span> </td>	
+							<td> <span editable-text="rule.Region">{{ rule.Region || 'empty' }} </span>   </td>	
+							<td> <span editable-text="rule.PostalCode">{{ rule.PostalCode || 'empty' }}   </span>  </td>	
+						   
 
-                                        <tr>
-                            </tbody>
+							<td><button class="btn btn-primary" ng-click="UpdateStaff2(rule._id,rule.PostalCode,rule.City,rule.Title,rule.FirstName,rule.LastName,rule.Region )">Save Edits</button></td>		 
+ <td><button class=" btn btn-danger" ng-click="DeleteStaff2(rule._id); removestaff($index)">Delete</button></td>
+						</tr>
+                    <tr>
+            </tbody>
+
 
                         </table>
 
@@ -103,29 +117,44 @@
 
 				<h3><span ng-show="NotFound"><br>Staff Memeber not found</span></h3>
                    <div class="table-responsive" ng-show="showStaff" > <table class="table table-hover" >
-                        <thead>
-                                <tr>
-                                    <th colspan="6">Staff Details Report</th></tr>
-                                <tr>
-                                    <th text-align="center">LastName</th>
-                                    <th align="center">FirstName</th>
-                                    <th align="center">Title</th>
-                                    <th text-align="center">City</th>
-                                    <th align="center">Region</th>
-                                    <th align="center">PostalCode</th>
-                                </tr>
-                        </thead>
+                       <table  class="table table-hover" >
+                            <thead>
+                                        <tr>
+                                            <th colspan="6"><h3>Staff Details Report</h3></th>
+                                        </tr>
+                                        <tr>
+                                            <th text-align="center"><button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'LastName'; sortReverse = !sortReverse"><h4>LastName<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                            <th align="center"><button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'FirstName'; sortReverse = !sortReverse"><h4>FirstName<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                            <th align="center"><button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'Title'; sortReverse = !sortReverse"><h4>Title<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                            <th text-align="center"><button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'City'; sortReverse = !sortReverse"><h4>City<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                            <th align="center"><button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'Region'; sortReverse = !sortReverse"><h4>Region<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                            <th align="center"><button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'PostalCode'; sortReverse = !sortReverse"><h4>PostalCode<span class="glyphicon glyphicon-sort"></span</h4></button></th>
+                                       
+									   
+									   
+				
+						
+												<th><h4>Save Updates</h4></th>
+												<th><h4>Delete Rows</h4></th>
+                            </thead>
                         <tbody>
-                                <tr><tr ng-repeat="empe in empes">
-                                    <td data-ng-bind="empe.LastName" />
-                                    <td data-ng-bind="empe.FirstName" />
-                                    <td data-ng-bind="empe.Title" />
-                                    <td data-ng-bind="empe.City" />
-                                    <td data-ng-bind="empe.Region" />
-                                    <td data-ng-bind="empe.PostalCode" />
+                               <tr ng-repeat="empe in empes">
+							
+        		
+        
+							<td>  <span editable-text="empe.LastName">{{ empe.LastName || 'empty' }}</span> </td>	
+							<td>  <span editable-text="empe.FirstName">{{ empe.FirstName || 'empty' }} </span>  </td>	
+							<td>  <span editable-text="empe.Title">{{empe.Title || 'empty' }}</span> </td>	
+							<td>   <span editable-text="empe.City">{{empe.City || 'empty' }} </span> </td>	
+							<td> <span editable-text="empe.Region">{{empe.Region || 'empty' }} </span>   </td>	
+							<td> <span editable-text="empe.PostalCode">{{empe.PostalCode || 'empty' }}   </span>  </td>	
+						   
 
-                                <tr>
-                        </tbody>
+							<td><button class="btn btn-primary" ng-click="UpdateStaff2(rule._id,rule.PostalCode,rule.City,rule.Title,rule.FirstName,rule.LastName,rule.Region )">Save Edits</button></td>		 
+ <td><button class=" btn btn-danger" ng-click="DeleteStaff2(rule._id); removestaff($index)">Delete</button></td>
+						</tr>
+                    <tr>
+            </tbody>
 
                     </table>
 

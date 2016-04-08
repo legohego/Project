@@ -19,7 +19,7 @@ myApp.config(function($routeProvider){
 		controller:'ManagerStaffContr'
 
 	})
-	.when('/tte',{
+	.when('/ManCustomersReports',{
 		templateUrl:'/tte',
 		controller:'CustomerController2'
 
@@ -31,12 +31,17 @@ myApp.config(function($routeProvider){
 
 	})
 	
-	.when('/ManCustomersReports',{
-		templateUrl:'/ManCustomersReports',
+	//.when('/ManCustomersReports',{
+		//templateUrl:'/ManCustomersReports',
+		//controller:'CustomerController2'
+
+	//})
+	
+	.when('/getCustomers',{
+		templateUrl:'/AdminCustomers',
 		controller:'CustomerController'
 
 	})
-	
 	
 	
 	.when('/ProductView',{
@@ -48,7 +53,7 @@ myApp.config(function($routeProvider){
 	.when('/charts',{
 		templateUrl:'/chart',
 		templateUrl:'/chart',
-		// controller:'chartsController'
+		controller:'chartsController'
 
 	})
 	.when('/CreateProfileReports',{
@@ -77,11 +82,6 @@ myApp.config(function($routeProvider){
 	})
 	
 
-	.when('/getCustomers',{
-		templateUrl:'/AdminCustomers',
-		controller:'CustomerController'
-
-	})
 	
 	.when('/AdminStaffView',{
 		templateUrl:'/AdminStaffView',
@@ -395,6 +395,82 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 	//}
 	
 	
+	
+		
+  a.removeUser = function(index) {
+	index=index	-1;
+    a.bosses.splice(index, 1);
+  };
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+	a.UpdateCustomer =function(_id,PostalCode,City,ContactTitle,CompanyName,ContactName){ 
+
+
+		var update ={
+				_id:_id,
+				CompanyName:CompanyName,
+				ContactName:ContactName,
+				City:City,
+				Title:ContactTitle,
+				City:City,
+				PostalCode:PostalCode,
+				
+				
+				
+		};
+
+
+		b({
+			url: '/updateCustomers', // No need of IP address
+			method: 'PUT',
+			data: update,
+			headers: {'Content-Type': 'application/json'}
+
+		}).success(function(){
+			
+			console.log(update);
+			a.updateFun();
+		}).error(function(){a.NotUpdateFun();})}
+	
+	
+	a.DeleteCustomer2 =function(myid){
+		b.delete("/deleteCustomers/"+ myid)
+		.success(function(status){
+			a.CustomerdeleteFuc();
+			console.log(done);
+			console.log(status);
+			
+			
+
+		})
+		.error(function(data,status){
+			console.log(status);
+			a.NotDeleteFuc();
+
+		})
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	 a.sortType  = 'CompanyName'; // set the default sort type
  a.sortReverse  = false;  
 	a.searchFish   = '';
@@ -548,7 +624,8 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 			a.DeleteShow = a.DeleteShow=false;
 			a.addCustForm=false;
 			a.Customerdelete=false;
-			a.NotDelete=false;a.NotAdded=false;							 													 a.CustomerAdded=false;
+			a.NotDelete=false;a.NotAdded=false;							 													
+			a.CustomerAdded=false;
 			a.NotFound=false;
 
 		})
@@ -887,6 +964,16 @@ myApp.controller('URController',['$scope','$http',function(a,b){
 
 
 myApp.controller('OrdersController',['$scope','$http',function(a,b){
+	
+	
+	a.sortType  = 'OrderID'; // set the default sort type
+ a.sortReverse  = false;  
+	a.searchFish   = '';
+	
+	a.mySort=function(){
+		a.sortReverse = !a.sortReverse;
+	}
+	
 
 a.clearOrders=function(){
 	a.data="";a.option="";
@@ -1023,7 +1110,11 @@ a.OrdersHideDetails = function(){
 myApp.controller('chartsController',['$scope','$http',function(a,b){
 
 
-
+a.my=function(){
+	
+	
+	
+}
 
 
 
@@ -1194,12 +1285,84 @@ myApp.controller('regController',['$scope','$http',function(a,b){
 
 myApp.controller('ManagerStaffContr',['$scope','$http', function(a,b){
 
+	a.removestaff = function(index) {
+	index=index	-1;
+    a.rules.splice(index, 1);
+		a.FindAllStaff();
+		//a.showAllStaffFuc();
+  };
+		a.DeleteStaff2 =function(myid){
+		b.delete("/deleteEmployees/"+ myid)
+		.success(function(status){a.DeletedStaffFun();
+		console.log(done);
+		console.log(status);
+
+		})
+		.error(function(data,status){
+			console.log(status);
+			a.StaffNotDeleted();
+
+		})
+	}
+	
+		
+		
+			
+	
+	a.UpdateStaff2 =function(_id,PostalCode,City,Title,FirstName,LastName,Region){ 
+
+
+		var update ={
+				_id:_id,
+				LastName:LastName,
+				FirstName:FirstName,
+				City:City,
+				Title:Title,
+				Region:Region,
+				PostalCode:PostalCode,
+				
+		};
+
+
+		b({
+			url: '/updateStaff', // No need of IP address
+			method: 'PUT',
+			data: update,
+			headers: {'Content-Type': 'application/json'}
+
+		}).success(function(){
+			a._id="";
+			a.LastName="";
+			a.FirstName="";
+			a.City="";
+			a.Title="";
+			a.Address="";
+			Region="";
+			a.Region="";
+			a.PostalCode="";
+			a.Country="";
+			a.HomePhone="";
+			a.ReportsTo="";
+			console.log(update);
+			a.updateFun();
+		}).error(function(){a.NotUpdateFun();})
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	a.FindAllStaff =function(){
 		b.get("/findemployees").success(function(result){
 			a.rules =result;
 			console.log(result);
-			a.showAllStaffFuc();
+			//a.showAllStaff=true;
 			a.showStaff = false;
 			a.showStaffSearch = false;
 			a.DeleteShow= false;
@@ -1660,7 +1823,8 @@ myApp.controller('CustomerController2',['$scope','$http', function(a,b){
 			a.DeleteShow = a.DeleteShow=false;
 			a.addCustForm=false;
 			a.Customerdelete=false;
-			a.NotDelete=false;a.NotAdded=false;							 													 a.CustomerAdded=false;
+			a.NotDelete=false;a.NotAdded=false;							 													
+			a.CustomerAdded=false;
 			a.NotFound=false;
 
 		})

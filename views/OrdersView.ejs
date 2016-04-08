@@ -144,42 +144,76 @@
 	
 	
 	
+
 	
 	
 	
 	
 	
+<div class="table-responsive" ng-show="show">
 	
 	
-	<div class="table-responsive" ng-show="show">
-	
-	
-          <table  class="table table-hover" >
-                            <thead>
-                                        <tr>
-                                            <th colspan="6"><h3>Order Report</h3></th>
-                                        </tr>
-                                        <tr>
-                                            <th text-align="center">OrderID</th>
-                                            <th align="center">CustomerID</th>
-                                            <th align="center">EmployeeID</th>
-                                            <th text-align="center">OrderDate</th>
-                                            <th align="center">RequireDate</th>
-                                            <th align="center">ShippedDate</th>
-                                             <th text-align="center">ShipName</th>
-                                          
-                                        </tr>
+    <table  class="table table-hover" >
+        
+		<thead>
+         <tr>
+            <th colspan="6"><h3>Order Report</h3></th>
+         </tr>
+			<tr>
+   			<th align="center">
+				<button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'OrderID'; sortReverse = !sortReverse">								<h4>OrderID<span class="glyphicon glyphicon-sort"></span></h4>
+					</button>
+		</th>
+				
+		<th align="center">
+			<button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'CustomerID'; sortReverse = !sortReverse">
+				<h4>CustomerID<span class="glyphicon glyphicon-sort"></span></h4></button>
+		</th>
+  
+		<th align="center">
+			<button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'EmployeeID'; sortReverse = !sortReverse">
+				<h4>EmployeeID<span class="glyphicon glyphicon-sort"></span></h4>
+			</button>
+		</th>
+                
+											
+																				
+		<th align="center">
+			<button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'OrderDate'; sortReverse = !sortReverse">
+				<h4>OrderDate<span class="glyphicon glyphicon-sort"></span></h4>
+					</button>
+		</th>	
+											
+								
+																	
+		<th align="center">
+			<button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'RequireDate'; sortReverse = !sortReverse">
+				<h4>RequireDate<span class="glyphicon glyphicon-sort"></span></h4>
+			</button>
+		</th>
+
+																	
+	<th align="center">
+		<button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'ShippedDate'; sortReverse = !sortReverse">
+			<h4>ShippedDate<span class="glyphicon glyphicon-sort"></span></h4>
+		</button></th>           		
+											
+											
+	 
+		</tr>
                             </thead>
                             <tbody>
-                                        <tr ng-repeat="rule in rules">
+                                        <tr ng-repeat="rule in rules |orderBy:sortType:sortReverse| filter:Data">
                                             <td data-ng-bind="rule.OrderID" />
                                             <td data-ng-bind="rule.CustomerID" />
                                             <td data-ng-bind="rule.EmployeeID" />
                                             <td data-ng-bind="rule.OrderDate" />
                                             <td data-ng-bind="rule.RequiredDate" />
                                             <td data-ng-bind="rule.ShippedDate" />
-                                            <td data-ng-bind="rule.ShipName" />
-                                        <tr>
+                                           
+				
+								</tr>
+                                      
                             </tbody>
 
                         </table>
@@ -191,20 +225,46 @@
                                         <tr>
                                             <th colspan="6"><h3>Order Details</h3></th>
                                         </tr>
-                                        <tr>
-                                            <th text-align="center">Order Details ID</th>
-                                            <th align="center">Order ID</th>
-                                            <th align="center">Product ID</th>
-                                            <th text-align="center">Unit Price</th>
-                                            <th align="center">Quantity</th>
-                                            <th align="center">Discount</th>
-                                             
-                                          
+  
+											  <tr>
+          
+   			<th align="center">
+				<button type="button" class="btn btn-default btn-sm" ng-click="sortType = 'OrderID'; sortReverse = !sortReverse">								<h4>OrderID<span class="glyphicon glyphicon-sort"></span></h4>
+					</button>
+		</th>
+				
+		<th align="center">
+			<button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'ProductID'; sortReverse = !sortReverse">
+				<h4>CustomerID<span class="glyphicon glyphicon-sort"></span></h4></button>
+		</th>
+  
+		<th align="center">
+			<button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'UnitPrice'; sortReverse = !sortReverse">
+				<h4>UnitPrice<span class="glyphicon glyphicon-sort"></span></h4>
+			</button>
+		</th>
+                
+											
+																				
+		<th align="center">
+			<button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'Quantity'; sortReverse = !sortReverse">
+				<h4>Quantity<span class="glyphicon glyphicon-sort"></span></h4>
+					</button>
+		</th>	
+											
+								
+																	
+		<th align="center">
+			<button type="button" class="btn btn-default btn-sm"ng-click="sortType = 'Discount'; sortReverse = !sortReverse">
+				<h4>Discount<span class="glyphicon glyphicon-sort"></span></h4>
+			</button>
+		</th>
+                            
                                         </tr>
                             </thead>
                             <tbody>
-                                        <tr ng-repeat="rule in rules">
-                                            <td data-ng-bind="rule._id" />
+                                        <tr ng-repeat="rule in rules |orderBy:sortType:sortReverse| filter:Data">
+                                       
                                             <td data-ng-bind="rule.OrderID" />
                                             <td data-ng-bind="rule.ProductID" />
                                             <td data-ng-bind="rule.UnitPrice" />

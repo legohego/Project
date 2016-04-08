@@ -25,7 +25,69 @@
 	<script> src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"  </script>  
 
   <style>
-     body {
+	  	  .navbar-inverse {
+  background-color: #337ab7;
+  border-color:  #337ab7;
+}
+	 .panel > .panel-heading { background-color: #337ab7;
+  border-color:  #337ab7;
+	  color: white;}
+ .panel > .panel-footer { background-color:#337ab7;
+  border-color:  #337ab7;}
+	 
+	.navbar-inverse .navbar-nav > li > a {
+    color: white;
+		
+}  	.navbar-inverse .navbar-nav> li > a:hover {
+    color: black;
+		
+}  
+	  
+	  
+	.navbar-inverse .navbar-brand {
+  color: white;
+}
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: Black;
+  background-color: transparent;
+}
+	  .navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  color: Black;
+  background-color: #337ab7;
+}
+	  
+	  
+	  
+	    .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
+    border-color: #337ab7;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+    background-color: #337ab7;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #337ab7;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: Black;
+    background-color: transparent;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: black
+    background-color: #337ab7;
+  }
+	  
+	  
+	  a{
+
+font-weight:bold;
+}
+     body { background-color:#e6e6ff;
     background-image: url('../images/analytics.jpg');
    background-repeat:no-repeat;
     background-position:350px 200px;
@@ -66,7 +128,7 @@ a.editable-click {
     <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <div class="navbar-brand"><%= user.local.email %></div>
+		<div class="navbar-brand"><%= user.local.email %></div>
     </div>
     <ul class="nav navbar-nav">
 		
@@ -113,7 +175,7 @@ a.editable-click {
 	<div class = "row" style="padding: 2px">
     <div class="col-xs-4 col-sm-2" id="sidebar" >
 <div class="panel panel-default">
-		<div class="panel-heading">My Reports</div> 
+	<div class="panel-heading"><h4>My Reports</h4></div> 
 <ul class="list-group" ng-repeat="result in results">
 	
 		  
