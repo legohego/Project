@@ -129,17 +129,19 @@ module.exports = function(app, passport) {
 
 
 
-	app.get('/GetAllOpenTickets',isLoggedIn,function(req,res){
+	app.get('/GetAllOpenTickets',isLoggedIn2,function(req,res){
+		//user look for all open ticket, isloggedIn send params of api
+		
 
 		queries.find({ Status: { $ne: "Complete" } },function(err,foundqueries){
+		//seches the database for tickets with status not Complete
 
-
-			if(err){
+			if(err){// if error resend error message
 				console.log(err);
 				res.status(404);
-			}else{
+			}else{//else resend result and 200 status
 				res.send(foundqueries);
-
+				res.status(200);
 			}
 
 		})
@@ -222,33 +224,19 @@ module.exports = function(app, passport) {
 
 
 
-	app.get('/findOneEmployees/:data/:option3',isLoggedIn, function (req, res) {
-		//var name=req.params.name;
-		//var name=
-		
-		var Search =req.params.option3;	
-		//req.body.reportURL;
-		//query[name] = value;
-		//var url=req.body.reportUR;
-
-		//var query = { email: req.body.email }
-
-		var query2 = {};
-		query2[Search] = req.params.data;
-
-		//console.log(query);console.log(query2);
-		employees.find(query2, function(err, foundObject){
-		
-
-		//employees.findOne({'FirstName': name}, function (err, foundObject) {
+	app.get('/findemployees/:data/:feild',isLoggedIn, function (req, res) {
+		var feild =req.params.feild;	
+		var query = {};
+		query[feild] = req.params.data;
+		employees.find(query, function(err, foundObject){
 			if (err) {//start of outer if
 				console.log(err);
 				res.status(500).send()
 			} else {//start of outer else
-				if (!foundObject) {
+				if (!foundObject.length) {
 					res.status(404).send();
-				} else {
-
+				} else  {
+					res.status(204).send();
 					res.send(foundObject)
 				}
 
@@ -544,64 +532,48 @@ module.exports = function(app, passport) {
 	
 	
 	
-	
+	//
 	
 	
 
 	app.put('/updateStaff',isLoggedIn, function (req, res) {
-		var id = req.body._id;
-		console.log(req.body._id);
-		console.log(req.body.LastName );
-		console.log(req.body.FirstName);
+		var id = req.body._id;//gets json objects id
 		employees.findOne({_id: id}, function (err, foundObject) {
-			if(err) {//start of outer if
+			if(err) {//looks for object in databse with given id
 				console.log(err);
-				res.status(500).send()
-			}else {//start of outer else
-				if (!foundObject) {
-					res.status(403).send();
-				} else {
+				res.status(500).send()//if error resends status 500
+			}else {//else
+				if (!foundObject) {//if object not found
+					res.status(403).send();//resend status 403
+				} else {//else object found, update given fields
 					if (req.body.LastName != null && req.body.LastName !="") {
 						foundObject.LastName  = req.body.LastName  ;
-					}
-					if (req.body.FirstName != null&&req.body.FirstName !="") {
+					}if (req.body.FirstName != null&&req.body.FirstName !="") {
 						foundObject.FirstName  = req.body.FirstName ;
-					}
-					if (req.body.City != null&&req.body.City  !="") {
+					}if (req.body.City != null&&req.body.City  !="") {
 						foundObject.City  = req.body.City ;
-					}
-					if (req.body.Title != null&&req.body.Title !="") {
+					}if (req.body.Title != null&&req.body.Title !="") {
 						foundObject.Title  = req.body.Title ;
-					}
-					if (req.body.Address != null&&req.body.Address !="") {
+					}if (req.body.Address != null&&req.body.Address !="") {
 						foundObject.Address  = req.body.Address ;
-					}
-
-
-					if (req.body.PostalCode != null&&req.body.PostalCode!="") {
+					}if (req.body.PostalCode != null&&req.body.PostalCode!="") {
 						foundObject.PostalCode  = req.body.PostalCode ;
-					}
-					if (req.body.Country != null&&req.body.Country !="") {
+					}if (req.body.Country != null&&req.body.Country !="") {
 						foundObject.Country   = req.body.Country  ;
-					}
-
-					if (req.body.HomePhone != null&&req.body.HomePhone !="") {
+					}if (req.body.HomePhone != null&&req.body.HomePhone !="") {
 						foundObject.HomePhone  = req.body.HomePhone ;
-					}
-					if (req.body.ReportsTo != null&&req.body.ReportsTo !="") {
+					}if (req.body.ReportsTo != null&&req.body.ReportsTo !="") {
 						foundObject.ReportsTo  = req.body.ReportsTo ;
 					}
-
-					foundObject.save(function (err, updatedObject) {
-						if (err) {
-							console.log(err);
+					foundObject.save(function (err, updatedObject) {//save objects
+						if (err) {//if error 
+							console.log(err);//console log error and send 500
 							res.status(500).send();
-						} else {
-							res.send(updatedObject); }
-					});
-				}   }
-		})}
-			) 
+						} else {//else resend updated object and status 200
+							//res.send(updatedObject); 
+						res.status(200).send(foundObject);}
+					});}}
+		})}) 
 
 
 
@@ -638,7 +610,7 @@ module.exports = function(app, passport) {
 
 	//post area
 
-	app.post('/addReports', function(req, res) {
+	app.post('/addReports',isLoggedIn, function(req, res) {
 
 
 		var newmyReports =  new myReports()
@@ -661,11 +633,11 @@ module.exports = function(app, passport) {
 	})
 
 
-	app.post('/addCustomers', function(req, res) {
+	app.post('/addCustomers',isLoggedIn, function(req, res) {
 
 
 		var newcustomers  =  new customers()
-				newcustomers.CustomerID=req.body.CustomerID;
+		newcustomers.CustomerID=req.body.CustomerID;
 		newcustomers.CustomerName =req.body.CustomerName;
 		newcustomers.CompanyName=req.body.CompanyName;
 		newcustomers.ContactTitle=req.body.ContactTitle;
@@ -677,11 +649,12 @@ module.exports = function(app, passport) {
 
 		newcustomers.save(function(err){
 
-			if(err){
+			if(err){//if error send back the following
 				console.log(err);
-				return res.status(500).send();
-			}
-			return res.status(200).send();
+				return res.status(500).send("User Not added");
+			}else //send back following
+			return res.status(200).send("succesfully saved");
+			
 		})
 	})	
 
@@ -862,7 +835,7 @@ module.exports = function(app, passport) {
 		customers.find({'_id':  myid}, function (err, foundObject) {
 			if (err) {//if error
 				console.log(err);
-				res.status(500).send()
+				res.status(500).send("use has been deleted"+err)
 			} 
 			else 
 			{//if no error
@@ -875,11 +848,11 @@ module.exports = function(app, passport) {
 
 						if (err) {//if error
 							console.log(err);
-							res.status(500).send();
+							res.status(500).send("use has been deleted"+err);
 						}else{
 							console.log(myid);
 							//if no error
-							res.status(200).send();
+							res.status(200).send("use has been deleted");
 
 						}
 					}); 
@@ -1038,7 +1011,8 @@ var  data= [
 	//process the signup form
 	app.post('/signup', passport.authenticate('local-signup', {
 		successRedirect : '/logout', // redirect to the secure profile section
-		failureRedirect : '/signup', // redirect back to the signup page if there is an error
+		failureRedirect : '/signup',
+		 // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));
 

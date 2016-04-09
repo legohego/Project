@@ -1269,11 +1269,14 @@ myApp.controller('regController',['$scope','$http',function(a,b){
 			a.password="";
 
 			a.email="";
-
+console.log(status);
 			a.Registered=true;
+			if(status ==="500"){
+			a.NotRegistered=true; }
 		})
 		.error(function(){
 			a.NotRegistered=true; 
+			console.log(status);
 		})
 	}; 
 
@@ -1455,7 +1458,8 @@ myApp.controller('ManagerStaffContr',['$scope','$http', function(a,b){
 			data: update,
 			headers: {'Content-Type': 'application/json'}
 
-		}).success(function(){
+		}).success(function(result){
+			console.log(result);
 			a._id="";
 			a.LastName="";
 			a.FirstName="";
