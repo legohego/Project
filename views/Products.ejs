@@ -51,10 +51,7 @@
 
         </div>
 		</div>
-		
-		
-		
-	
+
 	<div class = "row" style="padding: 2px"><div class="col-xs-2"></div>
             <div class = "col-md-2">
              <label for="CategoryID">CategoryID:</label>
@@ -132,8 +129,7 @@
 
 
   <div class="col-xs-2"></div><div class="col-xs-2"></div><div class="col-xs-1"></div>  <div class="btn-group">
-         <button type="button" ng-click="addProduct()" ng-disabled="myFormi.ProductName.$untouched && myFormi.ProductName.$invalid ||
-                                           myFormi.Discontinued.$untouched && myFormi.Discontinued.$invalid ||
+         <button type="button" ng-click="addProduct()" ng-disabled="myFormi.ProductName.$untouched && myFormi.ProductName.$invalid ||myFormi.Discontinued.$untouched && myFormi.Discontinued.$invalid ||
                                            myFormi.ReorderLevel.$untouched && myFormi.ReorderLevel.$invalid||
                                            myFormi.UnitsOnOrder.$untouched && myFormi.UnitsOnOrder.$invalid ||
                                            myFormi.UnitInStock.$untouched && myFormi.UnitInStock.$invalid ||

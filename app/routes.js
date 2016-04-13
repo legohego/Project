@@ -225,9 +225,13 @@ module.exports = function(app, passport) {
 
 
 	app.get('/findemployees/:data/:feild',isLoggedIn, function (req, res) {
+		var data = req.params.data;
+		
+		
+		
 		var feild =req.params.feild;	
 		var query = {};
-		query[feild] = req.params.data;
+		query[feild] = data;
 		employees.find(query, function(err, foundObject){
 			if (err) {//start of outer if
 				console.log(err);
@@ -236,8 +240,8 @@ module.exports = function(app, passport) {
 				if (!foundObject.length) {
 					res.status(404).send();
 				} else  {
-					res.status(204).send();
-					res.send(foundObject)
+					res.send(foundObject);
+					console.log(foundObject);
 				}
 
 			}
@@ -462,18 +466,15 @@ module.exports = function(app, passport) {
 	
 	
 	app.put('/updateCustomers',isLoggedIn, function (req, res) {
-		var id = req.body._id;
-		console.log(req.body._id);
-		console.log(req.body.LastName );
-		console.log(req.body.FirstName);
-		customers.findOne({_id: id}, function (err, foundObject) {
-			if(err) {//start of outer if
+		var id = req.body._id;//assigns the id from the body to id variable
+		customers.findOne({_id: id}, function (err, foundObject) {//searches database for document with same id
+			if(err) {//if error
 				console.log(err);
-				res.status(500).send()
-			}else {//start of outer else
-				if (!foundObject) {
-					res.status(403).send();
-				} else {
+				res.status(500).send()//return status 500
+			}else {
+				if (!foundObject) {//if document not found
+					res.status(403).send();//send back 403 status
+				} else {//else check to see what fields were updated and assign new values to document
 					if (req.body.CustomerName != null && req.body.CustomerName !="") {
 						foundObject.CustomerName  = req.body.CustomerName  ;
 					}
@@ -485,28 +486,21 @@ module.exports = function(app, passport) {
 					}
 					if (req.body.Title != null&&req.body.Title !="") {
 						foundObject.ContactTitle  = req.body.Title ;
-					}
-					
-					if (req.body.PostalCode != null&&req.body.PostalCode!="") {
+					}if (req.body.PostalCode != null&&req.body.PostalCode!="") {
 						foundObject.PostalCode  = req.body.PostalCode ;
-					}
-					if (req.body.Country != null&&req.body.Country !="") {
+					}if (req.body.Country != null&&req.body.Country !="") {
 						foundObject.Country   = req.body.Country  ;
-					}
-					if (req.body.Address != null&&req.body.Address !="") {
+					}if (req.body.Address != null&&req.body.Address !="") {
 						foundObject.Address   = req.body.Address  ;
-					}
-					if (req.body.Phone != null&&req.body.Phone !="") {
+					}if (req.body.Phone != null&&req.body.Phone !="") {
 						foundObject.Phone   = req.body.Phone  ;
 					}
-
-
-					foundObject.save(function (err, updatedObject) {
-						if (err) {
+					foundObject.save(function (err, updatedObject) {//save document
+						if (err) {//if error
 							console.log(err);
-							res.status(500).send();
-						} else {
-							res.send(updatedObject); }
+							res.status(500).send();//send back 500 and updated object
+						} else {//send back
+							res.status(200).send(updatedObject); }
 					});
 				}   }
 		})}
@@ -683,12 +677,10 @@ module.exports = function(app, passport) {
 
 	})
 
-
+//isLoggedIn fucntion is invoke followed by the callback function
 	app.post('/NewProducts',isLoggedIn, function(req, res) {
-
-
-		var newProduct =  new products()
-				newProduct.ProductID=req.body.ProductID;
+		var newProduct =  new products()//new product object is created
+		newProduct.ProductID=req.body.ProductID;//values assigned from http body
 		newProduct.ProductName =req.body.ProductName;
 		newProduct.SupplierID=req.body.SupplierID;
 		newProduct.CategoryID=req.body.CategoryID;
@@ -698,15 +690,14 @@ module.exports = function(app, passport) {
 		newProduct.UnitsOnOrder=req.body.UnitsOnOrder;
 		newProduct.ReorderLevel= req.body.ReorderLevel;
 		newProduct.Discontinued=req.body.Discontinued;
-
-
-		newProduct.save(function(err){
-			console.log(newProduct);
-			if(err){
-				console.log(err);
-				return res.status(500).send();
+		
+		newProduct.save(function(err){//save the user in the mongo database
+	
+			if(err){//if error
+				console.log(err);//console log error
+				return res.status(500).send();//send back 500 status
 			}
-			return res.status(200).send();
+			return res.status(200).send();//eslse reurn status 200
 		})
 	})
 
@@ -829,31 +820,30 @@ module.exports = function(app, passport) {
 
 
 	app.delete('/deleteCustomers/:id',isLoggedIn,function(req,res) {
-		var myid = req.params.id;
-
-		console.log(myid);
+		var myid = req.params.id;//url varable is set to function variable
+		//mongodb is search by customer document with give id
 		customers.find({'_id':  myid}, function (err, foundObject) {
-			if (err) {//if error
+			if (err) {//if error return 500 & err message
 				console.log(err);
 				res.status(500).send("use has been deleted"+err)
 			} 
 			else 
 			{//if no error
-				if (!foundObject) {//if product not found
-
+				if (!foundObject.length) {//if product not found
+						//if document not found send 404(not found status)
 					res.status(404).send();//send back not found
-				} else {//if found
-					console.log(foundObject);
+					res.status(404).send("user has not been deleted"+err);
+				} else {//if found remove document
+					
 					customers.findOneAndRemove({_id:  myid}, function (err) {
 
 						if (err) {//if error
 							console.log(err);
-							res.status(500).send("use has been deleted"+err);
+							res.status(500).send("user has not been deleted"+err);
 						}else{
 							console.log(myid);
 							//if no error
-							res.status(200).send("use has been deleted");
-
+							res.status(200).send("user has been deleted");
 						}
 					}); 
 
@@ -999,6 +989,10 @@ var  data= [
 
 		res.render('reports.ejs');
 	});
+		app.get('/reports3', isLoggedIn, function(req, res) {
+
+		res.render('reports3.ejs');
+	});
 	app.get('/testHome', isLoggedIn, function(req, res) {
 
 		res.render('testHome.ejs');
@@ -1018,8 +1012,8 @@ var  data= [
 
 
 	app.get('/', function(req, res) {
-		res.render('index.ejs'); // load the index.ejs file
-	});
+		res.render('login.ejs',{ message: req.flash('loginMessage')}); // load the index.ejs file
+	});//index
 
 
 	app.get('/OrdersView',isLoggedIn, function(req, res) {

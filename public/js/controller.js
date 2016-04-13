@@ -15,7 +15,7 @@ myApp.config(function($routeProvider){
 
 	//mangers
 	.when('/StaffReports',{
-		templateUrl:'/ManStaffReports',
+		templateUrl:'/AdminStaffView',
 		controller:'ManagerStaffContr'
 
 	})
@@ -152,6 +152,69 @@ myApp.controller('StaffController',['$scope','$http', function(a,b){
 	a.mySort=function(){
 		a.sortReverse = !a.sortReverse;
 	}
+	
+	
+	a.removestaff = function(index) {
+	index=index	-1;
+    a.rules.splice(index, 1);
+		a.FindAllStaff();
+		//a.showAllStaffFuc();
+  };
+		a.DeleteStaff2 =function(){
+		b.delete("/deleteEmployees/"+ a.myid)
+		.success(function(status){
+			a.DeletedStaffFun();
+			a.FindAllStaff();
+		console.log(done);
+		console.log(status);
+
+		})
+		.error(function(data,status){
+			console.log(status);
+			a.StaffNotDeleted();
+
+		})
+	}
+	
+	a.UpdateStaff2 =function(_id,PostalCode,City,Title,FirstName,LastName,Region){ 
+
+
+		var update ={
+				_id:_id,
+				LastName:LastName,
+				FirstName:FirstName,
+				City:City,
+				Title:Title,
+				Region:Region,
+				PostalCode:PostalCode,
+				
+		};
+
+
+		b({
+			url: '/updateStaff', // No need of IP address
+			method: 'PUT',
+			data: update,
+			headers: {'Content-Type': 'application/json'}
+
+		}).success(function(){
+			a._id="";
+			a.LastName="";
+			a.FirstName="";
+			a.City="";
+			a.Title="";
+			a.Address="";
+			Region="";
+			a.Region="";
+			a.PostalCode="";
+			a.Country="";
+			a.HomePhone="";
+			a.ReportsTo="";
+			console.log(update);
+			a.updateFun();
+		}).error(function(){a.NotUpdateFun();})
+
+	}
 
 	a.FindAllStaff =function(){
 		b.get("/findemployees").success(function(result){
@@ -191,7 +254,7 @@ a.NotFound=false;
 //:Search/:Data
 
 	a.FindOneStaff =function(){
-		b.get("/findOneEmployees/"+a.data6+"/"+a.option3).success(function(result){
+		b.get("/findemployees/"+a.data6+"/"+a.option3).success(function(result){
 			console.log(result);
 			a.empes =result;
 			a.NotFound=false;
@@ -223,7 +286,9 @@ a.NotFound=false;
 		})
 	}
 
-
+	a.hold =function(myid){
+		a.myid=myid;
+	}
 
 	a.UpdateStaff =function(){ 
 
@@ -340,10 +405,10 @@ a.NotFound=false;
 	a.showStaffSearch = false;
 	a.showStaffSearchFunc =function() {
 		a.showStaffSearch = !a.showStaffSearch;
-		/*a.showAllStaff = false;
+		a.showAllStaff = false;
 									 a.DeleteShow= false;
 								     a.showRegStaff= false;
-									 a.showUpdateStaff=false;*/
+									 a.showUpdateStaff=false;
 
 		//aded
 		a.box="5px 5px grey";
@@ -359,7 +424,8 @@ a.NotFound=false;
 
 	}
 	a.clearStaffSearch = function() {
-		a.name=""
+		a.option3="";
+		a.data6="";
 	} 
 	a.clearStaffDelete = function() { 
 		a.id=""
@@ -439,11 +505,13 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 			
 			console.log(update);
 			a.updateFun();
-		}).error(function(){a.NotUpdateFun();})}
+		}).error(function(){a.NotUpdatedfun();})}
+	a.hold =function(myid){
+		a.myid=myid;
+	}
 	
-	
-	a.DeleteCustomer2 =function(myid){
-		b.delete("/deleteCustomers/"+ myid)
+	a.DeleteCustomer2 =function(){
+		b.delete("/deleteCustomers/"+ a.myid)
 		.success(function(status){
 			a.CustomerdeleteFuc();
 			console.log(done);
@@ -458,10 +526,22 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 
 		})
 	}
+	a.CustomerUpdated =false;
 	
+	a.updateFun =function(){
+		a.CustomerUpdated =! a.CustomerUpdated;
+		
+		
+	};
+	a.CustomerUpdated =false;
+	a.NotUpdated=false;
+	a.NotUpdatedfun=function(){
+		a.NotUpdated =! a.NotUpdated;
+		
+		
+	};
 	
-	
-	
+                   
 	
 	
 	
@@ -501,7 +581,8 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 		a.CustRes =false; 
 		a.NotDelete=false;
 		a.NotAdded=false;							 													
-		a.CustomerAdded=false;									 
+		a.CustomerAdded=false;	
+		
 
 	}
 	a.CustomerAdded=false;
@@ -662,23 +743,31 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 	a.AllCustFun= function(){
 
 		a.AllCust = !a.AllCust;
+		a.CustomerUpdated =false;
+	a.NotUpdated=false;
 	}
 
 	a.CustRes =false;
 	a.CustResFun=function(){
 
 		a.CustRes =!a.CustRes;
+		a.CustomerUpdated =false;
+	a.NotUpdated=false;
 	}
 	a.showhide = function() {
 		a.FindCust =false;   
 		a.CustRes =false; 
 		a.NotFound=false;
+		a.CustomerUpdated =false;
+	a.NotUpdated=false;
 
 	}
 
 	a.clear=function(){
 		a.data6="";a.option3="";
 		a.NotFound=false;
+		a.CustomerUpdated =false;
+	a.NotUpdated=false;
 
 	};
 
@@ -747,8 +836,8 @@ myApp.controller('ProductController',['$scope','$http', function(a,b){
 
 
 	a.addProduct =function(){ 
-
-		var product ={ProductName:a.ProductName,
+		var product ={//user input stored in a JSON object
+				ProductName:a.ProductName,
 				SupplierID:a.SupplierID,
 				CategoryID:a.CategoryID,
 				QuantityPerUnit:a.QuantityPerUnit,
@@ -760,18 +849,15 @@ myApp.controller('ProductController',['$scope','$http', function(a,b){
 				CategoryID:a.CategoryID,
 				StockLevel:a.UnitInStock,};
 
-		b({
-			url: '/NewProducts', // No need of IP address
-			method: 'POST',
-			data: product,
-			headers: {'Content-Type': 'application/json'}
+		$http({//http post request is invoked
+			url: '/NewProducts',//url to be hit 
+			method: 'POST',//http method
+			data: product,//json object
+			headers: {'Content-Type': 'application/json'}//header info
 
-
-
-
-		}).success(function(){
-			a.ProductAddedfuc();
-			a.ProductName,
+		}).success(function(){//chained method
+			a.ProductAddedfuc();//triggers show method
+			a.ProductName="";//empties user input
 			a.SupplierID="";
 			a.CategoryID="";
 			a.QuantityPerUnit="";
@@ -783,7 +869,7 @@ myApp.controller('ProductController',['$scope','$http', function(a,b){
 			a.ProductName="";
 			a.UnitInStock="";
 		})
-		.error(function(){
+		.error(function(){//error trigger show method
 			a.NotAddedfuc();
 		})
 	};
@@ -1400,9 +1486,9 @@ myApp.controller('ManagerStaffContr',['$scope','$http', function(a,b){
 
 
 	a.FindOneStaff =function(){
-		b.get("/findOneEmployees/"+a.data6+"/"+a.option3).success(function(result){
+		b.get("/findemployees/"+a.data6+"/"+a.option3).success(function(result){
 			console.log(result);
-			a.empes =result;
+			a.rules =result;
 			a.NotFound=false;
 			a.name=" ";
 
@@ -1619,7 +1705,7 @@ myApp.controller('CustomerController2',['$scope','$http', function(a,b){
 	
 	
 	a.UpdateCustomer =function(_id,PostalCode,City,ContactTitle,CompanyName,ContactName){ 
-
+//takes in the table row content as input and asign it to json object
 
 		var update ={
 				_id:_id,
@@ -1629,23 +1715,20 @@ myApp.controller('CustomerController2',['$scope','$http', function(a,b){
 				Title:ContactTitle,
 				City:City,
 				PostalCode:PostalCode,
-				
-				
-				
 		};
-
-
-		b({
+		b({ //sends http put request
 			url: '/updateCustomers', // No need of IP address
 			method: 'PUT',
 			data: update,
 			headers: {'Content-Type': 'application/json'}
 
-		}).success(function(){
-			
-			console.log(update);
-			a.updateFun();
-		}).error(function(){a.NotUpdateFun();})}
+		}).success(function(){//chaining the method(if successful)
+			console.log(update);//
+			a.updateFun();//call ng-show function
+		}).error(function(){
+			a.NotUpdateFun();//call ng-show function
+						   
+		})}
 	
 	
 	
@@ -1704,7 +1787,8 @@ myApp.controller('CustomerController2',['$scope','$http', function(a,b){
 		a.CustRes =false; 
 		a.NotDelete=false;
 		a.NotAdded=false;							 													
-		a.CustomerAdded=false;									 
+		a.CustomerAdded=false;	
+		
 
 	}
 	a.CustomerAdded=false;
@@ -1802,16 +1886,13 @@ myApp.controller('CustomerController2',['$scope','$http', function(a,b){
 	}
 	
 	
-	a.DeleteCustomer2 =function(myid){
-		b.delete("/deleteCustomers/"+ myid)
-		.success(function(status){
-			a.CustomerdeleteFuc();
+	a.DeleteCustomer2 =function(myid){//takes in document ID
+		b.delete("/deleteCustomers/"+ myid)//delete http request to  url + id
+		.success(function(status){//chained method
+			a.CustomerdeleteFuc();//method called
 			console.log(done);
 			console.log(status);
-			
-			
-
-		})
+		})//chained method
 		.error(function(data,status){
 			console.log(status);
 			a.NotDeleteFuc();
