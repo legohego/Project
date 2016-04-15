@@ -1,14 +1,14 @@
-
-    <style> .me {
+   <style> .me {
 
 
 
         box-shadow: 2px 2px 1px 1px grey;
-    }</style>
-    <script></script>
-    <div class="container">
-        <div class="me">
+    }
 
+</style>
+
+    <div class="col-xs-12" >
+        <div class="me">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <button type="button" class="btn btn-default" ng-click="FindAllStaff();" >All Staff Details</button>
@@ -16,13 +16,16 @@
                     
                 </div>
 
-                <h3><span ng-show="NotFound">Staff Memeber Not Found</span></h3>
+               
+                <div class="panel-body">
+					
+					
+					 <h3><span ng-show="NotFound">Staff Memeber Not Found</span></h3>
                 <h3><span ng-show="update">Staff Details Updated</span></h3>
                 <h3><span ng-show="NotUpdate">Staff Details Not Updated</span></h3>
                 <h3><span ng-show="DeletedStaff">Deleted Staff Memember</span></h3>
                 <h3><span ng-show="StaffNotDeleted">Staff Memember Deleted</span></h3>
-                <div class="panel-body">
-                    <div class="table-responsive" ng-show="showAllStaff">
+                  <div class="table-responsive" ng-show="showAllStaff">
                         <form>
                             <div class="form-group">
                                 <div class="input-group">
@@ -131,7 +134,7 @@
 
 
                             </select><br>
-                                <input ng-model="data6" required type="text" class="form-control" id="data" placeholder="data" name="data" >
+                               <input ng-model="data6" required type="text" class="form-control" id="data" placeholder="data" name="data" >
 
                                 
 
@@ -156,7 +159,7 @@
                             </div>
                         </div>
                     </form>
-<div class="table-responsive" ng-show="showStaff"><br><br>
+					<div class="table-responsive" ng-show="showStaff"><br><br>
                         <form>
                             <div class="form-group">
                                 <div class="input-group">
@@ -245,7 +248,10 @@
         </div>
 
 
-								</div></div>
+	</div>
+							
+							
+</div>
 
 
 

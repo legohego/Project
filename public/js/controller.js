@@ -16,12 +16,12 @@ myApp.config(function($routeProvider){
 	//mangers
 	.when('/StaffReports',{
 		templateUrl:'/AdminStaffView',
-		controller:'ManagerStaffContr'
+		controller:'StaffController'
 
 	})
 	.when('/ManCustomersReports',{
-		templateUrl:'/tte',
-		controller:'CustomerController2'
+		templateUrl:'/AdminCustomers',
+		controller:'CustomerController'
 
 	})
 	
@@ -49,10 +49,16 @@ myApp.config(function($routeProvider){
 		controller:'ProductController'
 
 	})
+	.when('/chart5',{
+		templateUrl:'/chart5',
+		
+		controller:'chartsController'
+
+	})
 
 	.when('/charts',{
 		templateUrl:'/chart',
-		templateUrl:'/chart',
+	
 		controller:'chartsController'
 
 	})
@@ -69,14 +75,19 @@ myApp.config(function($routeProvider){
 
 
 	
-	.when('/chart3',{
-		templateUrl:'/chart3',
+	.when('/StoreSales',{
+		templateUrl:'/StoreSales',
 		controller:'chartsController'
 
 	})
 	
-	.when('/chart4',{
-		templateUrl:'/chart4',
+	.when('/ProductChartsView',{
+		templateUrl:'/ProductChartsView',
+		controller:'chartsController'
+
+	})
+		.when('/CustomersOrdersChart',{
+		templateUrl:'/CustomersOrdersChart',
 		controller:'chartsController'
 
 	})
@@ -506,17 +517,24 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 			console.log(update);
 			a.updateFun();
 		}).error(function(){a.NotUpdatedfun();})}
+	
+	
+	
 	a.hold =function(myid){
 		a.myid=myid;
-	}
-	
+	}								   
+									   
+									   
+									   
+									   
 	a.DeleteCustomer2 =function(){
-		b.delete("/deleteCustomers/"+ a.myid)
+		console.log(a.myid);
+		b.delete("/deleteCustomers/"+a.myid)
 		.success(function(status){
 			a.CustomerdeleteFuc();
 			console.log(done);
 			console.log(status);
-			
+			a.AllCustFun();
 			
 
 		})
@@ -617,7 +635,8 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 
 
 		var customer ={
-
+			ContactName:a.ContactName,
+PostalCode:a.PostalCode,
 				CustomerID:a.CustomerID,
 				CustomerName :a.CustomerName,
 				CompanyName:a.CompanyName,
@@ -642,11 +661,13 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 			a.CustomerName="";
 			a.CompanyName="";
 			a.ContactTitle="";
+			a.ContactName="";
+			a.PostalCode="";
 			a.Address="";
 			a.City="";
 			a.Discontinued="";
 			a.Country="";
-			a.Phone="";
+			a.Phone=0;
 
 		})
 		.error(function(){
@@ -680,22 +701,7 @@ myApp.controller('CustomerController',['$scope','$http', function(a,b){
 	}
 	
 	
-	//a.DeleteCustomer2 =function(myid){
-		//b.delete("/deleteCustomers/"+ myid)
-		//.success(function(status){
-			//a.CustomerdeleteFuc();
-			//console.log(done);
-			//console.log(status);
-			
-			
-
-		//})
-		//.error(function(data,status){
-			//console.log(status);
-			//a.NotDeleteFuc();
-
-		//})
-	//}
+	
 
 	a.FindAllCust =function(){
 		b.get("/findCustomers").success(function(result){
@@ -849,7 +855,7 @@ myApp.controller('ProductController',['$scope','$http', function(a,b){
 				CategoryID:a.CategoryID,
 				StockLevel:a.UnitInStock,};
 
-		$http({//http post request is invoked
+		b({//http post request is invoked
 			url: '/NewProducts',//url to be hit 
 			method: 'POST',//http method
 			data: product,//json object
@@ -1018,10 +1024,22 @@ myApp.controller('URController',['$scope','$http',function(a,b){
 	}
 
 
-	a.UpdateRequests =function(){ 
+	a.UpdateRequests =function(_id,querySubject,
+                                                                                  queryBody,query_date,firstName,lastName,email,UrgentLevel,Status,Notes ){ 
 
 
-		var update ={_id:a._id,Status:a.Status,Notes:a.Notes};
+		var update ={_id:_id,
+					 Status:Status,
+					 Notes:Notes,
+					querySubject:querySubject,
+                     queryBody:queryBody,
+					 query_date:query_date,
+					 firstName:firstName,
+					 lastName:lastName,
+					 email:email,
+					 UrgentLevel:UrgentLevel,
+					 Status:Status
+					};
 		console.log(update);
 
 		b({
@@ -1063,8 +1081,8 @@ myApp.controller('OrdersController',['$scope','$http',function(a,b){
 
 a.clearOrders=function(){
 	a.data="";a.option="";
-	
-	
+	a.Month=""
+	a.OrderDate="";
 }
 a.clearOrdersdate=function(){
 a.OrderDate="";}
@@ -1087,7 +1105,7 @@ a.data1="";a.option1="";}
 
 	a.FindOrders2 =function(){ 
 
-		b.get("/findOrdersVia_Date/"+a.OrderDate).success(function(result){
+		b.get("/findOrdersVia_Date/"+a.OrderDate+"/"+a.Month).success(function(result){
 			a.rules =result;
 			a.show=true;
 			console.log(result);
@@ -1709,6 +1727,7 @@ myApp.controller('CustomerController2',['$scope','$http', function(a,b){
 
 		var update ={
 				_id:_id,
+			PostalCode:PostalCode,
 				CompanyName:CompanyName,
 				ContactName:ContactName,
 				City:City,

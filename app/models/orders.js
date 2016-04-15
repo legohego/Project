@@ -3,11 +3,11 @@
  */
 
 var mongoose = require('mongoose');
-var OrdersSchema  = mongoose.Schema(
+var OrderSchema  = mongoose.Schema(
     {
         OrderID:Number,
         CustomerID:String,
-        EmployeeID:Number,
+        Stores:String,
         OrderDate:String,
         RequiredDate:String,
         ShippedDate:String,
@@ -22,4 +22,4 @@ var OrdersSchema  = mongoose.Schema(
     });
 
 
-module.exports = mongoose.model('orders',  OrdersSchema);
+module.exports = mongoose.model('order',  OrderSchema);

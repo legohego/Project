@@ -12,35 +12,10 @@
  <div class="panel-heading">
 
 
-<button type="button" class="btn btn-default" ng-click="myFunc2()" >Update Tickets</button>
+
 <button type="button" class="btn btn-default" ng-click="FindQueries(); myFunc()" >View Tickets</button>
 	</div><div class="panel-body"><br>
-    <form name="myForm"class="form-inline" role="form" ng-show="showMe2" novalidate>
-        <div class="form-group">
-            <label for="_id">_id:  </label>
-            <input type="text" ng-model="_id" class="form-control" id="_id" placeholder="Enter _id" name="id" required>
-
-        </div>
-        
-        <div class="form-group">
-            <label for=" Status"> Status:  </label>
-            <input type="text" ng-model="Status" class="form-control" id="Status" placeholder="Complete/Pending:">
-
-        </div>
-        <div class="form-group">
-            <label for="Notes">Notes:</label>
-            <input type="text" ng-model="Notes" class="form-control" id="Notes" placeholder="Notes:">
-        </div>
    
-
-<br>
-<br>
-            
-            <input type="submit"  ng-disabled="myForm.id.$untouched && myForm.id.$invalid " class="btn btn-primary" ng-click="UpdateRequests();">
-            <button type="button" class="btn btn-primary" ng-click="myFunc2()">Hide</button>
-            
-    </form>
-
       
     <div class="panel panel-default" ng-show="showMe">
 
@@ -51,37 +26,93 @@
                 <th colspan="6"><h3>Open Staff Requests</h3></th>
             </tr>
             <tr>
-                <th text-align="center">ID</th>
-                <th text-align="center">Request Subject</th>
-                <th align="center">Request Body</th>
-                <th text-align="center">Request Status</th>
-                <th text-align="center">Admin Notes</th>
-                <th align="center">FirstName</th>
-                <th text-align="center">Request Date</th>
+                
+                <th text-align="center">Ticket Subject</th>
+                <th align="center">Ticket Body</th>
+                <th text-align="center">Status</th>
+                <th text-align="center">Ticket Date</th>
+                
+                
                 <th align="center">UrgentLevel</th>
                 <th align="center">Email</th>
                 <th text-align="center">LastName</th>
                 <th align="center">FirstName</th>
+				 <th text-align="center">Update</th>
+				<th text-align="center">Update</th>
+             
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="rule in rules">
-                <td data-ng-bind="rule._id" />
-                <td data-ng-bind="rule.querySubject" />
-                <td data-ng-bind="rule.queryBody" />
-                <td data-ng-bind="rule.Status" />
-                <td data-ng-bind="rule.Notes" />
-                <td data-ng-bind="rule.query_date" />
-                <td data-ng-bind="rule.UrgentLevel" />
-                <td data-ng-bind="rule.email" />
-                <td data-ng-bind="rule.lastName" />
-                <td data-ng-bind="rule.firstName" />
-                
-               
+             <tr ng-repeat="rule in rules |orderBy:sortType:sortReverse| filter:Data">
+      
+                                <td>
+                                    <span editable-text="rule.querySubject">{{ rule.querySubject || 'empty' }} </span>
+                                </td>
+                                <td>
+                                    <span editable-text="rule.queryBody">{{ rule.queryBody || 'empty' }}</span>
+                                </td>
+                                <td>
+                                    <span editable-text=" rule.Status">{{rule.Status || 'empty' }} </span>
+                                </td>
+                                <td>
+                                    <span editable-text="rule.query_date">{{rule.query_date || 'empty' }} </span>
+                                </td>
+                                <td>
+                                    <span editable-text="rule.UrgentLevel">{{rule.UrgentLevel || 'empty' }}   </span>
+                                </td>
+
+     <td>                         <span editable-text=" rule.email">{{rule.email || 'empty' }} </span>
+                                </td>
+                                <td>
+                                    <span editable-text="rule.lastName">{{ rule.lastName|| 'empty' }} </span>
+                                </td>
+                                <td>
+                                    <span editable-text="rule.firstName">{{ rule.firstName|| 'empty' }}   </span>
+                                </td>
+				  <td>
+                                    <span editable-text="rule.Notes">{{ rule.Notes|| 'empty' }}   </span>
+                                </td>
+                             
+                             
+                 <td>
+                                    <button class="btn btn-primary" ng-click="UpdateRequests(rule._id,rule.querySubject,
+                                                                                  rule.queryBody,rule.query_date,rule.firstName,rule.lastName,rule.email,rule.UrgentLevel,rule.Status,rule.Notes )">Save Edits
+                                    </button>
+                                </td>
+                                <td>
 
             <tr>
         </tbody>
 
+		
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
     </table>
       
         </div>       

@@ -38,28 +38,36 @@ a.editable-click {
     <div class="panel-body">
         
         
-       <form name="myForm" ng-show="FindCust" class="form-horizontal" role="form" novalidate>
-                        <div class = "row" style="padding: 2px">
-			 
-         <div class = "col-md-2">
-                  <label for="CustomerID">
-					  CustomerID:</label></div>
-                            <div class="col-xs-2">
-                                <input ng-model="data6" required type="text" class="form-control" id="data" placeholder="data" name="data" >
-								
-								  <select ng-model="option3" class="form-control" id="sel1">
-    <option>ContactName</option>
-    <option>ContactTitle</option>
-    <option>City</option>
-    <option>CompanyName</option>
 	
-  </select>
-								
-						
+		
+       <form name="myForm" ng-show="FindCust" class="form-horizontal" role="form" novalidate>
+         <div class = "row" style="padding: 2px">
 
-                                                    <span style="color:red" ng-show="myForm._data6.$dirty && myForm.data6.$invalid">
+			 <div class = "col-md-2">
+					  <label for="CustomerID">
+						  CustomerID:
+					</label>
+				<br><br><br>
+					<label for="name">
+						Customer Details:
+                    </label>
+			 
+					</div>
+				
+                  <div class="col-xs-2">
+                                
+				 <select ng-model="option3" class="form-control" id="sel1">
+									<option>ContactName</option>
+									<option>ContactTitle</option>
+									<option>City</option>
+									<option>CompanyName</option>
+
+  					</select><br>
+						<input ng-model="data6" required type="text" class="form-control" id="data" placeholder="data" name="data" >
+
+                                     <span style="color:red" ng-show="myForm._data6.$dirty && myForm.data6.$invalid"></span>
                                     <span ng-show="myForm.data6.$error.required">ID is required.</span>
-                                    </span>
+                                    
                             </div>
 		   </div><br>
  <div class = "row" style="padding: 2px">

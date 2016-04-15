@@ -25,6 +25,9 @@
 	<script> src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"  </script>  
 
   <style>
+	  .nav-stacked > li {
+  background-color: White;
+}
 	  	  .navbar-inverse {
   background-color: #337ab7;
   border-color:  #337ab7;
@@ -37,9 +40,11 @@
 	 
 	.navbar-inverse .navbar-nav > li > a {
     color: white;
+		border-color:  white;
 		
 }  	.navbar-inverse .navbar-nav> li > a:hover {
     color: black;
+	border-color:  white;
 		
 }  
 	  
@@ -58,17 +63,29 @@
   color: Black;
   background-color: #337ab7;
 }
-	  
-	  
+	.navbar-inverse .navbar-toggle {
+  border-color: white;
+}
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+  background-color: #337ab7;
+}
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #fff;
+}
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+  border-color: white;
+}
 	  
 	    .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
-    border-color: #337ab7;
+    border-color: white;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-    background-color: #337ab7;
+    background-color: white;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-    color: #337ab7;
+    color: white;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -88,7 +105,7 @@
 font-weight:bold;
 }
      body { background-color:#e6e6ff;
-    background-image: url('../images/analytics.jpg');
+   
    background-repeat:no-repeat;
     background-position:350px 200px;
 		
@@ -128,9 +145,17 @@ a.editable-click {
     <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
+		
+		
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
 		<div class="navbar-brand"><%= user.local.email %></div>
     </div>
-    <ul class="nav navbar-nav">
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
 		
 		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><span class="fa fa-table fa-fw"></span> Reports <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -155,42 +180,73 @@ a.editable-click {
        
 		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><span class="fa fa-bar-chart-o fa-fw"></span> Analytics <span class="caret"></span></a>
         <ul class="dropdown-menu">
-			<li><a href="/chart"><span class="fa fa-bar-chart-o fa-fw"></span> Employee Sales</a></li>
-          <li><a href="/chart2"><span class="fa fa-bar-chart-o fa-fw"></span> Customer Orders</a></li>
-          <li><a href="#/chart3"><span class="fa fa-bar-chart-o fa-fw"></span> Products</a></li>
-			<li><a href="#/chart4"><span class="fa fa-bar-chart-o fa-fw"></span> test</a></li>
+		
+          <li><a href="#/StoreSales"><span class="fa fa-bar-chart-o fa-fw"></span>Store Sales</a></li>
+			<li><a href="#/ProductChartsView"><span class="fa fa-bar-chart-o fa-fw"></span>Product Charts</a></li>
+			<li><a href="#/CustomersOrdersChart"><span class="fa fa-bar-chart-o fa-fw"></span>Customer Orders</a></li>
         </ul>
       </li>
 		<li> <a  href="#/CreateTicket"><span class="fa fa-edit fa-fw"></span> Tickets </a></li>
-     </ul>
+    
+	  
+	  
+	  <li class="dropdown">
+		  <a class="dropdown-toggle" data-toggle="dropdown" href="">
+			  <span class="fa fa-table fa-fw"></span> My Reports 
+			  <span class="caret">
+			  </span>
+		  </a>
+        <ul class="dropdown-menu " ng-repeat="result in results">
+		
+            <li><a ng-href="#/{{result.myreports1}}"><span class="fa fa-table fa-fw"></span> {{result.myreports1}}</a></li>
+        <li><a ng-href="#/{{result.myreports3}}"> <span class="fa fa-table fa-fw"></span> {{result.myreports3}}</a></li>
+        <li><a ng-href="#/{{result.myreports5}}"><span class="fa fa-table fa-fw"></span> {{result.myreports5}}</a></li>
+		 <li><a ng-href="#/{{result.myreports4}}"><span class="fa fa-table fa-fw"></span> {{result.myreports4}}</a></li>
+		<li ><a ng-href="#/{{result.myreports5}}"><span class="fa fa-table fa-fw"></span> {{result.myreports5}}</a></li>
+		<li ><a ng-href="#/{{result.myreports6}}"><span class="fa fa-table fa-fw"></span> {{result.myreports6}}</a></li>	
+		<li ><a ng-href="#/{{result.myreports7}}"><span class="fa fa-table fa-fw"></span> {{result.myreports7}}</a></li>
+		<li> <a ng-href="#/{{result.myreports8}}"><span class="fa fa-table fa-fw"></span> {{result.myreports8}}</a></li>
+        </ul>
+      </li>
+	  
+	  
+	  
+	
+	  
+	  </ul>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
     <ul class="nav navbar-nav navbar-right">
       
       <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
     </ul>
+	  
+	
+	  
+	  
+	  
+	  
+		
+	  
+	  
+	  </div> 
+	  
   </div>
 </nav>
 	
 	
-	
-	<div class = "row" style="padding: 2px">
-    <div class="col-xs-4 col-sm-2" id="sidebar" >
-<div class="panel panel-default">
-	<div class="panel-heading"><h4>My Reports</h4></div> 
-<ul class="list-group" ng-repeat="result in results">
-	
-		  
-  <li class="list-group-item"><a ng-href="#/{{result.myreports1}}">{{result.myreports1}}</a></li>
-    <li class="list-group-item"><a ng-href="#/{{result.myreports2}}">{{result.myreports2}}</a></li>
-    <li class="list-group-item"><a ng-href="#/{{result.myreports3}}">{{result.myreports3}}</a></li>
-	<li class="list-group-item"><a ng-href="#/{{result.myreports4}}">{{result.myreports4}}</a></li>
-    <li class="list-group-item"><a ng-href="#/{{result.myreports5}}">{{result.myreports5}}</a></li>
-    <li class="list-group-item"><a ng-href="#/{{result.myreports6}}">{{result.myreports6}}</a></li>	
-	<li class="list-group-item"><a ng-href="#/{{result.myreports7}}">{{result.myreports7}}</a></li>
-    <li class="list-group-item"><a ng-href="#/{{result.myreports8}}">{{result.myreports8}}</a></li>	
-  </ul>
-		</div></div>
-	  
 
+   
+	
+	
+ 
+	  
+	
 
 		
 		
@@ -198,14 +254,14 @@ a.editable-click {
 	
     <div ng-view>
 
-
   </div>
 
 
 
-</div>
-            
-	
+
+             
+
+		
 	
 
  

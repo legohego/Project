@@ -165,11 +165,19 @@ module.exports = function(app, passport) {
 		})
 	});
 
-	app.get('/findOrdersVia_Date/:OrderDate',isLoggedIn, function (req, res) {
+	app.get('/findOrdersVia_Date/:OrderDate/:Month',isLoggedIn, function (req, res) {
 		var OrderDate = req.params.OrderDate;
+var Month = req.params.Month;
+		var date;
+		
+		if(Month==0){
+			date =OrderDate;
+		}else{ 
+			
+			date =Month+"/"+OrderDate;
+		}
 
-
-		orders.find({'OrderDate': {'$regex': OrderDate}}, function (err, foundObject) {
+		orders.find({'OrderDate': {'$regex': date}}, function (err, foundObject) {
 			if (err) {//start of outer if
 				console.log(err);
 				res.status(500).send()
@@ -288,7 +296,7 @@ module.exports = function(app, passport) {
 
 
 
-	app.get('/sales/:data/:amount', isLoggedIn,function (req, res) {
+	app.get('/CustomersOrdersChart2/:data/:amount/:OrderDate/:Month',function (req, res) {
 		var data;
 		var amount;
 		if(req.params.amount == 10){
@@ -311,8 +319,17 @@ module.exports = function(app, passport) {
 
 		console.log(data)
 
+		var Month=req.params.Month;
+var date;
+var OrderDate=req.params.OrderDate;
+		if(Month==0){
+			date =OrderDate;
+		}else{ 
+			
+			date =Month+"/"+OrderDate;
+		}
 
-		orders.aggregate([
+		orders.aggregate([{ $match: {'OrderDate': {'$regex': date}}},
 		                  {
 		                	  $group:{ _id: '$CustomerID',  //$region is the column name in collection
 		                	  count: {$sum: 1}} }, { "$sort": { "count": data } },
@@ -339,7 +356,7 @@ module.exports = function(app, passport) {
 
 
 
-	app.get('/sales2/:data/:amount',isLoggedIn, function (req, res) {
+	app.get('/ProductChart/:data/:amount',isLoggedIn, function (req, res) {
 		var data;
 		var amount = req.params.amount; 
 		if(req.params.amount == 20){
@@ -379,7 +396,7 @@ module.exports = function(app, passport) {
 				res.status(500).send()
 			} else {//start of outer else
 				if (!foundObject) {
-					res.status(404).send();
+					res.status(405).send();
 				} else {
 
 					res.json(foundObject);
@@ -391,7 +408,7 @@ module.exports = function(app, passport) {
 
 
 
-	app.get('/sales3/:data/:amount',isLoggedIn, function (req, res) {
+	app.get('/StoreSales/:data/:amount/:OrderDate/:Month',isLoggedIn, function (req, res) {
 		var data;
 		var amount;
 		if(req.params.amount == 10){
@@ -401,8 +418,6 @@ module.exports = function(app, passport) {
 
 			amount = 5;
 		}
-
-
 
 		if(req.params.data == 1){
 			data = 1;
@@ -414,8 +429,19 @@ module.exports = function(app, passport) {
 
 		console.log(data)
 
+console.log(amount)
+var Month=req.params.Month;
+var date;
+var OrderDate=req.params.OrderDate;
+		if(Month==0){
+			date =OrderDate;
+		}else{ 
+			
+			date =Month+"/"+OrderDate;
+		}
 
-		orders.aggregate([
+
+		orders.aggregate([{ $match: {'OrderDate': {'$regex': date}}},
 		                  {
 		                	  $group:{ _id: '$EmployeeID',  //$region is the column name in collection
 		                	  count: {$sum: 1}} }, { "$sort": { "count": data } },
@@ -467,6 +493,7 @@ module.exports = function(app, passport) {
 	
 	app.put('/updateCustomers',isLoggedIn, function (req, res) {
 		var id = req.body._id;//assigns the id from the body to id variable
+		console.log(req.body.ContactName)
 		customers.findOne({_id: id}, function (err, foundObject) {//searches database for document with same id
 			if(err) {//if error
 				console.log(err);
@@ -478,8 +505,11 @@ module.exports = function(app, passport) {
 					if (req.body.CustomerName != null && req.body.CustomerName !="") {
 						foundObject.CustomerName  = req.body.CustomerName  ;
 					}
-					if (req.body.CompanyName != null&&req.body.CompanyName !="") {
+					if (req.body.CompanyName != null&& req.body.CompanyName !="") {
 						foundObject.CompanyName  = req.body.CompanyName ;
+					}
+					if (req.body.ContactName != null&& req.body.ContactName  !="") {
+						foundObject.ContactName  = req.body.ContactName ;
 					}
 					if (req.body.City != null&&req.body.City  !="") {
 						foundObject.City  = req.body.City ;
@@ -576,7 +606,7 @@ module.exports = function(app, passport) {
 
 	app.put('/updateRequests',isLoggedIn, function (req, res) {
 		var id = req.body._id;
-		console.log(id);
+		console.log(req.body.Status);
 		queries.findOne({_id: id}, function (err, foundObject) {
 			if(err) {//start of outer if
 				console.log(err);
@@ -585,12 +615,48 @@ module.exports = function(app, passport) {
 				if (!foundObject) {
 					res.status(403).send();
 				} else {
-					if (req.body.Status != "") {
+					if (req.body.Status != ""&&req.body.Status != null) {
 						foundObject.Status = req.body.Status;
 					}
-					if (req.body.Notes != "") {
+					if (req.body.Notes != ""&&req.body.Notes != null) {
 						foundObject.Notes = req.body.Notes;
 					}
+			
+					if (req.body.UrgentLevel != ""&&req.body.UrgentLevel != null) {
+						foundObject.UrgentLevel = req.body.UrgentLevel;
+					}
+					
+					
+					
+					if (req.body.querySubject != ""&&req.body.querySubject != null) {
+						foundObject.querySubject = req.body.querySubject;
+					}
+					if (req.body.queryBody != ""&& req.body.queryBody != null) {
+						foundObject.queryBody = req.body.queryBody;
+					}
+					
+					
+					if (req.body.query_date != ""&&req.body.query_date != null) {
+						foundObject.query_date= req.body.query_date;
+					}
+					if (req.body.firstName != ""&&req.body.firstName != null) {
+						foundObject.firstName = req.body.firstName;
+					}
+					
+					
+					
+					if (req.body.lastName != ""&&req.body.lastName != null) {
+						foundObject.lastName =req.body.lastName;
+					}
+					if (req.body.email != ""&&req.body.email != null) {
+						foundObject.email = req.body.email;
+					}
+					
+					
+					
+					
+		
+					
 					foundObject.save(function (err, updatedObject) {
 						if (err) {
 							console.log(err);
@@ -629,17 +695,18 @@ module.exports = function(app, passport) {
 
 	app.post('/addCustomers',isLoggedIn, function(req, res) {
 
-
+console.log(req.body.ContactName)
 		var newcustomers  =  new customers()
 		newcustomers.CustomerID=req.body.CustomerID;
 		newcustomers.CustomerName =req.body.CustomerName;
+		newcustomers.ContactName =req.body.ContactName;
 		newcustomers.CompanyName=req.body.CompanyName;
 		newcustomers.ContactTitle=req.body.ContactTitle;
 		newcustomers.Address=req.body.Address;
 		newcustomers.City =req.body.City;
 		newcustomers.Country=req.body.Country;
 		newcustomers.Phone=req.body.Phone;
-
+newcustomers.PostalCode=req.body.PostalCode;
 
 		newcustomers.save(function(err){
 
@@ -820,7 +887,9 @@ module.exports = function(app, passport) {
 
 
 	app.delete('/deleteCustomers/:id',isLoggedIn,function(req,res) {
+		
 		var myid = req.params.id;//url varable is set to function variable
+		console.log(myid)
 		//mongodb is search by customer document with give id
 		customers.find({'_id':  myid}, function (err, foundObject) {
 			if (err) {//if error return 500 & err message
@@ -962,7 +1031,7 @@ var  data= [
 
 
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/profile', // redirect to the secure profile section
+		successRedirect : '/profile#/StaffReports', // redirect to the secure profile section
 		failureRedirect : '/login', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));
@@ -980,7 +1049,7 @@ var  data= [
 });
 	 */
 
-	app.get('/signup', isLoggedIn2, function(req, res) {
+	app.get('/signup', function(req, res) {
 
 		res.render('signup.ejs', { message: req.flash('signupMessage') });
 	});
@@ -1069,9 +1138,9 @@ app.get('/tables',isLoggedIn, function(req, res) {
 	});
 
 
-	app.get('/chart3',isLoggedIn, function(req, res) {
+	app.get('/StoreSales',isLoggedIn, function(req, res) {
 
-		res.render('chart3.ejs', { message: req.flash('signupMessage') });
+		res.render('StoreSales.ejs', { message: req.flash('signupMessage') });
 	});
 
 	app.get('/chart2', isLoggedIn, function(req, res) {
@@ -1133,8 +1202,18 @@ app.get('/tables',isLoggedIn, function(req, res) {
 	});
 
 //chart4
-	app.get('/chart4',isLoggedIn,function(req, res, next) {
-		res.render('chart_4.ejs');
+	app.get('/ProductChartsView',isLoggedIn,function(req, res, next) {
+		res.render('ProductChartsView.ejs');
+
+
+
+
+
+	});
+	
+	
+	app.get('/CustomersOrdersChart',isLoggedIn,function(req, res, next) {
+		res.render('CustomersOrdersChart.ejs');
 
 
 
@@ -1196,7 +1275,7 @@ function isLoggedIn3(req, res, next) {
 	//if user is authenticated in the session, carry on 
 	if (req.isAuthenticated()&& req.user.local.isAdmin === true){
 
-		res.redirect('/Admin');
+		res.redirect('/Admin#/');
 
 	}else if(req.isAuthenticated()&& req.user.local.isAdmin === false){
 

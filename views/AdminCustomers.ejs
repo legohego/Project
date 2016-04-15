@@ -1,25 +1,19 @@
-    
+  
     <style> .me {
     
     
     
         box-shadow: 2px 2px 1px 1px grey;
     }</style>
-    <script></script>
-    <div class="container">
-        <div class="me">
-    
-    
-    
+   
+  <div class="col-xs-12" >
+	<div class="me">
             <div class="panel panel-default">
                 <div class="panel-heading">
-    
-    
-    
+ 
                     <button type="button" class="btn btn-default" ng-click="FindAllCust();AllCustFun()" > All Customers </button>
                     <button type="button" class="btn btn-default" ng-click="findCustFun();" >Find Customers</button>
                     <button type="button" class="btn btn-default" ng-click="addCustFormFuc()" >Add Customers</button>
-    
     
                 </div>
     
@@ -31,62 +25,142 @@
     
                     <form name="myFormi" ng-show="addCustForm" ng-click="click()" class="form-inline"
                           role="form"  novalidate>
-                        <div class="form-group">
-                            <label for="CustomerID">CustomerID:  </label>
-    
-                            <input ng-model="CustomerID" required type="text" class="form-control"
+						
+						
+				
+		<div class = "row" style="padding: 2px">
+		
+            <div class = "col-md-2">
+				<label for="CustomerID">CustomerID:  </label>
+			 </div>
+			  <div class = "col-md-2">
+               <input ng-model="CustomerID" required type="text" class="form-control"
                                    id="CustomerID" placeholder="Enter CustomerID" name="CustomerID" >
-    
-                        </div>
-                        <div class="form-group">
-    
-                            <label for="CustomerName">CustomerName:</label>
-    
-                            <input ng-model="CustomerName" required type="text"class="form-control"
+			 </div>
+		</div>
+						
+						
+			 
+					
+		<div class = "row" style="padding: 2px">
+		
+            <div class = "col-md-2">
+				<label for="Contact Name">Contact Name:  </label>
+			 </div>
+			  <div class = "col-md-2">
+               <input ng-model="ContactName" required type="text" class="form-control"
+                                   id="CustomerID" placeholder="Contact Name" name="ContactName" >
+			 </div>
+		</div>			
+						
+						
+					
+		<div class = "row" style="padding: 2px">
+		
+            <div class = "col-md-2">
+				<label for="CustomerName">CustomerName:</label>
+			 </div>
+			  <div class = "col-md-2">
+               <input ng-model="CustomerName" required type="text"class="form-control"
                                    id="CustomerName" placeholder="Enter Customer Name" name="CustomerName" >
-    
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="SupplierID">CompanyName:  </label>
-    
-    
-                            <input ng-model="CompanyName" required type="text" class="form-control"
+			 </div>
+		</div>			
+						
+						
+						
+						
+						
+						
+						
+                      			
+		<div class = "row" style="padding: 2px">
+		
+            <div class = "col-md-2">
+				 <label for="SupplierID">CompanyName:  </label>
+			 </div>
+			  <div class = "col-md-2">
+              <input ng-model="CompanyName" required type="text" class="form-control"
                                    id="CompanyName" placeholder="Enter Company Name" name="CompanyName" >
+			 </div>
+		</div>	
     
-                        </div>
-                        <div class="form-group">
-                            <label for="ContactTitle">ContactTitle:</label>
-                            <input ng-model="ContactTitle" type="text" class="form-control" id="ContactTitle" placeholder="Enter Contact Title:">
-                        </div>
-                        <div class="form-group">
-                            <label for="Address">Address:</label>
-    
-                            <input ng-model="Address" required type="text"
+						
+						
+						<div class = "row" style="padding: 2px">
+		
+            <div class = "col-md-2">
+				  <label for="ContactTitle">ContactTitle:</label>
+			 </div>
+			  <div class = "col-md-2">
+               <input ng-model="ContactTitle" type="text" class="form-control" id="ContactTitle" placeholder="Enter Contact Title:">
+			 </div>
+		</div>	
+						
+						
+						
+                        
+                       			<div class = "row" style="padding: 2px">
+		
+            <div class = "col-md-2">
+				 <label for="Address">Address:</label>
+			 </div>
+			  <div class = "col-md-2">
+<input ng-model="Address" required type="text"
                                    class="form-control" id="Address" placeholder="Address" name="Address" >
-                        </div>
-                        <div class="form-group">
-                            <label for="City">City:</label>
-    
-    
-    
-    
+			 </div>
+		</div>	
+					
+						
+						
+						<div class = "row" style="padding: 2px">
+						
+						  <div class = "col-md-2">
+				  <label for="City">City:</label>
+			 </div>
+			  <div class = "col-md-2">
+
                             <input ng-model="City" required type="text" class="form-control"
                                    id="City" placeholder="City" name="City" >
-                        </div>
-                        <div class="form-group">
-                            <label for="Country">Country:</label>
-                            <input  ng-model="Country"type="text" class="form-control" id="Country" placeholder="Country:">
-    
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="Phone">Phone:</label>
-    
-    
-                            <input ng-model="RPhone" required type="number"
+			 </div>
+		</div>
+                       
+                      
+					<div class = "row" style="padding: 2px">
+							  <div class = "col-md-2">
+				 <label for="Country">Country:</label>
+			 </div>
+			  <div class = "col-md-2">
+
+                                <input  ng-model="Country"type="text" class="form-control" id="Country" placeholder="Country:">
+			 </div>
+		</div>
+					<div class = "row" style="padding: 2px">
+		
+            <div class = "col-md-2">
+				<label for="PostalCode">Postal Code:  </label>
+			 </div>
+			  <div class = "col-md-2">
+               <input ng-model="PostalCode" required type="text" class="form-control"
+                                   id="CustomerID" placeholder="Postal Code" name="PostalCode" >
+			 </div>
+		</div>			
+				
+					
+					
+							<div class = "row" style="padding: 2px">
+							  <div class = "col-md-2">
+				 <label for="Phone">Phone:</label>
+			 </div>
+			  <div class = "col-md-2">
+
+                       <input ng-model="RPhone" required type="number"
                                    class="form-control" id="Phone" placeholder="Phone" name="Phone" >
-                        </div>
+			 </div>
+		</div>
+					
+                       
+    
+                        
     
     
                         <br><br>
@@ -102,12 +176,21 @@
                         <div class = "row" style="padding: 2px">
     
                             <div class = "col-md-2">
+								
+			 <div class="form-group">
+
+				 <label for="CustomerID"> Search by:</label>
+									<input ng-model="data6" required type="text" class="form-control" id="data" placeholder="data" name="data" ></div>
+								
+								
+                           
+								
+			 <div class="form-group">
+                                   <br><br>
                                 <label for="CustomerID">
-                                    Search by:</label><br><br>
-                                <label for="CustomerID">
-                                    Enter value:</label></div>
-                            <div class="col-xs-2">
-                                <input ng-model="data6" required type="text" class="form-control" id="data" placeholder="data" name="data" >
+									Enter value:</label>
+                           
+                                
     
                                 <select ng-model="option3" class="form-control" id="sel1">
                                     <option>ContactName</option>
@@ -116,14 +199,12 @@
                                     <option>CompanyName</option>
     
                                 </select>
-                                    
-                            
+                       
     
-                                                        <span style="color:red" ng-show="myForm._data6.$dirty && myForm.data6.$invalid">
-                                        <span ng-show="myForm.data6.$error.required">ID is required.</span>
-                                        </span>
+						
+                                      
                             </div>
-                        </div><br>
+							</div><br></div>
                         <div class = "row" style="padding: 2px">
     
     
@@ -210,7 +291,7 @@
             </span>
                             </td>
                             <td><button class="btn btn-primary" ng-click="UpdateCustomer(boss._id,boss.PostalCode,boss.City,boss.ContactTitle,boss.CompanyName,boss.ContactName )">Save Edits</button></td>
-                            <td><button class=" btn btn-danger" data-toggle="modal" data-target="#myModal" ng-click="hold(boss._id); removeUser($index)">Delete</button></td>
+                            <td><button class=" btn btn-danger" data-toggle="modal" data-target="#myModal" ng-click="hold(boss._id);AllCustFun()">Delete2</button></td>
                         </tr>
                         <tr>
                         </tbody>
@@ -269,7 +350,7 @@
             </span>
                                 </td>
                                 <td><button class="btn btn-primary" ng-click="UpdateCustomer(boss._id,boss.PostalCode,boss.City,boss.ContactTitle,boss.CompanyName,boss.ContactName )">Save Edits</button></td>
-                                <td><button class=" btn btn-danger" ng-click="DeleteCustomer2(boss._id); removeUser($index)">Delete</button></td>
+                                 <td><button class=" btn btn-danger" data-toggle="modal" data-target="#myModal" ng-click="hold(boss._id)">Delete</button></td>
                             </tr>
                             <tr>
                             </tbody>
@@ -282,7 +363,13 @@
     
     
     
-                    </div></div><div class="modal fade" id="myModal" role="dialog">
+                    </div>
+		</div>
+		
+		
+		
+		
+		<div class="modal fade" id="myModal" role="dialog">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -300,6 +387,14 @@
                     </div>
                 </div>
     
-            </div><div class="panel-footer"></div>
             </div>
-        </div></div>
+		
+		
+		
+				<div class="panel-footer">
+
+
+				</div>
+            </div>
+        </div>
+</div>
