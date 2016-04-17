@@ -153,7 +153,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<strong>count:</strong> <span style='color:red'>" + d.count + "</span>";
+    return "<strong>Orders:</strong> <span style='color:red'>" + d.Orders + "</span>";
   })
 
 var svg = d3.select(".panel-body").append("svg")
@@ -178,12 +178,12 @@ function fun() {
 
     data.forEach(function(d) {
         d._id = d._id;
-        d.count = +d.count;
+        d.Orders = +d.Orders;
     });
 	
   // scale the range of the data
   x.domain(data.map(function(d) { return d._id; }));
-  y.domain([0, d3.max(data, function(d) { return d.count; })]);
+  y.domain([0, d3.max(data, function(d) { return d.Orders; })]);
 
   svg.append("g")
       .attr("class", "x axis")
@@ -212,13 +212,13 @@ function fun() {
       .attr("class", "bar")
       .attr("x", function(d) { return x(d._id); })
       .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.count); })
-      .attr("height", function(d) { return height - y(d.count); })
+      .attr("y", function(d) { return y(d.Orders); })
+      .attr("height", function(d) { return height - y(d.Orders); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
   
   function type(d) {
-  d.count = +d.count;
+  d.Orders = +d.Orders;
   return d;
 }
 

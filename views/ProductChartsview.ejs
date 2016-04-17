@@ -58,7 +58,7 @@
 	
 	  <div class="form-group">
   <label for="sel1">Please choose the number of Employees:</label>
-  <select class="form-control" id="sel1" name="num">
+  <select class="form-control" id="sel1" name="amount">
      <option>20</option>
     <option>15</option>
 	 <option>10</option>
@@ -69,15 +69,13 @@
 	
   <div class="form-group">
   <label for="sel1">Show the Max/Min Sales</label>
-  <select class="form-control" id="sel1" name="ps">
+  <select class="form-control" id="sel1" name="maxmin">
     <option>Max</option>
     <option>Min</option>
   
   </select>
 </div>	
-
 	
-		
 	<button onClick="fun();dis();"type="submit" class="btn btn-warning btn-lg" id="myBtn">Submit</button>	
 	<button onClick="refreshPage()"  type="submit" class="btn btn-warning btn-lg" >Refresh</button>
 	
@@ -123,7 +121,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<strong>Sales:</strong> <span style='color:red'>" + d.count + "</span>";
+    return "<strong>Sales:</strong> <span style='color:red'>" + d.Sales + "</span>";
   })
 
 var svg = d3.select(".panel-body").append("svg")
@@ -135,25 +133,25 @@ var svg = d3.select(".panel-body").append("svg")
 svg.call(tip);
 
 function fun() {
-	var m;
-	var ps = document.theForm.ps.value;
-        var num = document.theForm.num.value;
+	var sort;
+	var maxmin = document.theForm.maxmin.value;
+    var amount = document.theForm.amount.value;
 	
-	if(ps=='Max'){
-		m=-1;
-	}else if(ps=='Min'){
-		m=1;
+	if( maxmin=='Max'){
+		sort=-1;
+	}else if( maxmin=='Min'){
+		sort=1;
 	}
-	d3.json(d3.json("/ProductChart/"+m+"/"+num, function(error, data) {
+	d3.json(d3.json("/ProductChart/"+sort+"/"+amount, function(error, data) {
 
     data.forEach(function(d) {
         d._id = d._id;
-        d.count = +d.count;
+        d.Sales = +d.Sales;
     });
 	
   // scale the range of the data
   x.domain(data.map(function(d) { return d._id; }));
-  y.domain([0, d3.max(data, function(d) { return d.count; })]);
+  y.domain([0, d3.max(data, function(d) { return d.Sales; })]);
 
   svg.append("g")
       .attr("class", "x axis")
@@ -181,20 +179,18 @@ function fun() {
       .attr("class", "bar")
       .attr("x", function(d) { return x(d._id); })
       .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.count); })
-      .attr("height", function(d) { return height - y(d.count); })
+      .attr("y", function(d) { return y(d.Sales); })
+      .attr("height", function(d) { return height - y(d.Sales); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
   
   function type(d) {
-  d.count = +d.count;
+  d.Sales = +d.Sales;
   return d;
 }
 
 }))}
 
-
-	
 	</script>
 
 <script>

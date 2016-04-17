@@ -1,0 +1,155 @@
+     <form name="myForm" ng-show="showStaffSearch" class="form-horizontal" role="form" novalidate>
+
+                        <div class = "row" style="padding: 2px">
+
+                            <div class = "col-md-2">
+                                <label for="name">Search by:
+                                </label><br><br><br>
+								<label for="name">Staff Details:
+                                </label>
+                            </div>
+                            <div class = "col-md-2">
+								<select ng-model="option3" class="form-control" id="sel1">
+                                    <option>LastName</option>
+                                    <option>FirstName</option>
+                                    <option>City</option>
+
+
+                            </select><br>
+                                <input ng-model="data6" required type="text" class="form-control" id="data" placeholder="data" name="data" >
+
+                                
+
+                                <span style="color:red" ng-show="myForm.name.$dirty && myForm.name.$invalid"></span>
+
+                                <span ng-show="myForm.name.$error.required">Username is required.</span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class = "row" style="padding: 2px">
+                            <div class="btn-group">
+                                <button type="submit" ng-disabled="myForm.name.$untouched && myForm.name.$invalid "
+                                        ng-click="FindOneStaff();" class="btn btn-primary"  >
+                                    Search <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                                <button type="button" ng-click="clearStaffSearch()" class="btn btn-primary"> Clear
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                                <button type="button" ng-click="hideStaffSearch()" class="btn btn-primary"> Hide
+                                    <span class="glyphicon glyphicon-chevron-up"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+//a.DeleteCustomer2 =function(myid){
+		//b.delete("/deleteCustomers/"+ myid)
+		//.success(function(status){
+			//a.CustomerdeleteFuc();
+			//console.log(done);
+			//console.log(status);
+			
+			
+
+		//})
+		//.error(function(data,status){
+			//console.log(status);
+			//a.NotDeleteFuc();
+
+		//})
+	//}
+
+ 
+
+
+
+
+
+.text(function(d){
+        return d.text
+        })
+     
+     
+     d3.select('body')
+     .append('svg')
+         .attr('width',400)
+         .attr('height',400)
+         .style('background',"#f4f4f4")
+     .append('rect')
+         .attr('width',300)
+         .attr('height',300)
+         .attr('x',50)
+         .attr('y',50)
+         .style('fill','red')
+         .style('stroke','black')
+         .style('stroke-width',1)
+     
+     
+     d3.select('svg')
+     .append('circle')
+        .attr('cx',200)
+        .attr('cy',200)
+        .attr('r',50)
+        .style('fill','blue')
+        .style('stroke','black')
+        .style('stroke-width',7)
+
+ d3.selectAll('.items li')
+     .data(styles)
+     .style({'font-size':'18px',
+             'padding':'6px',
+             'margin':'4px',
+             'list-style':'none',
+             'background':function(d){return d.background;},
+                     
+             'color':function(d){return d.color;},      
+            'width':function(d){return d.width+'%';}, 
+             
+            })
+
+
+
+
+
+
+
+ <div class="col-xs-5 col-sm-2" id="sidebar" >
+<div class="panel panel-default">
+	<div class="panel-heading"><h4>My Reports</h4></div> 
+<ul class="list-group" ng-repeat="result in results">
+	
+		  
+  <li class="list-group-item"><a ng-href="#/{{result.myreports1}}">{{result.myreports1}}</a></li>
+    <li class="list-group-item"><a ng-href="#/{{result.myreports2}}">{{result.myreports2}}</a></li>
+    <li class="list-group-item"><a ng-href="#/{{result.myreports3}}">{{result.myreports3}}</a></li>
+	<li class="list-group-item"><a ng-href="#/{{result.myreports4}}">{{result.myreports4}}</a></li>
+    <li class="list-group-item"><a ng-href="#/{{result.myreports5}}">{{result.myreports5}}</a></li>
+    <li class="list-group-item"><a ng-href="#/{{result.myreports6}}">{{result.myreports6}}</a></li>	
+	<li class="list-group-item"><a ng-href="#/{{result.myreports7}}">{{result.myreports7}}</a></li>
+    <li class="list-group-item"><a ng-href="#/{{result.myreports8}}">{{result.myreports8}}</a></li>	
+  </ul>
+		</div></div>
+ <form name="myForm"class="form-inline" role="form" ng-show="showMe2" novalidate>
+        <div class="form-group">
+            <label for="_id">_id:  </label>
+            <input type="text" ng-model="_id" class="form-control" id="_id" placeholder="Enter _id" name="id" required>
+
+        </div>
+        
+        <div class="form-group">
+            <label for=" Status"> Status:  </label>
+            <input type="text" ng-model="Status" class="form-control" id="Status" placeholder="Complete/Pending:">
+
+        </div>
+        <div class="form-group">
+            <label for="Notes">Notes:</label>
+            <input type="text" ng-model="Notes" class="form-control" id="Notes" placeholder="Notes:">
+        </div>
+   
+
+<br>
+<br>
+            
+            <input type="submit"  ng-disabled="myForm.id.$untouched && myForm.id.$invalid " class="btn btn-primary" ng-click="UpdateRequests();">
+            <button type="button" class="btn btn-primary" ng-click="myFunc2()">Hide</button>
+            
+    </form>

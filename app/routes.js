@@ -296,50 +296,38 @@ var Month = req.params.Month;
 
 
 
-	app.get('/CustomersOrdersChart2/:data/:amount/:OrderDate/:Month',function (req, res) {
-		var data;
+	app.get('/CustomersOrdersChart2/:order/:amount/:OrderDate/:Month',function (req, res) {
+		var order;//creating varaible to be used in analytics 
 		var amount;
-		if(req.params.amount == 10){
+		var Month=req.params.Month;//setting Month equal to request params
+		var OrderDate=req.params.OrderDate;//setting OrderDate equal to request params
+		if(req.params.amount == 10){//checking is request amount params and setting amount variable
 			amount = 10;
-
 		}else if(req.params.amount == 5){
-
 			amount = 5;
 		}
-
-
-
-		if(req.params.data == 1){
-			data = 1;
-
-		}else if(req.params.data == -1){
-
-			data = -1;
+		if(req.params.order == 1){
+			order = 1;
+		}else if(req.params.order == -1){//checking is request amount params and setting order variable
+			order = -1;
 		}
-
-		console.log(data)
-
-		var Month=req.params.Month;
-var date;
-var OrderDate=req.params.OrderDate;
-		if(Month==0){
+		if(Month==0){//search by year only
 			date =OrderDate;
 		}else{ 
-			
-			date =Month+"/"+OrderDate;
+			date =Month+"/"+OrderDate;//search by month and year
 		}
 
-		orders.aggregate([{ $match: {'OrderDate': {'$regex': date}}},
-		                  {
-		                	  $group:{ _id: '$CustomerID',  //$region is the column name in collection
-		                	  count: {$sum: 1}} }, { "$sort": { "count": data } },
-		                  // Optionally limit results
-		                  { "$limit": amount}
+		orders.aggregate([{ $match: {'OrderDate': {'$regex': date}}},//finds all documents with Orderdate contain dat variable
+		                  {  $group:{ _id: '$CustomerID',  //groups document results by CustomerID
+		                	  Orders: {$sum: 1}} }, { "$sort": { "Orders": order } },//counts the number of groups 
+						  //and save value as orders and sorts results by either max or min (ordervalue
+		                  
+		                  { "$limit": amount}//sets a limit of result return amount variable
 		                	  ], function (err, foundObject) {
-			if (err) {//start of outer if
+			if (err) {
 				console.log(err);
 				res.status(500).send()
-			} else {//start of outer else
+			} else {
 				if (!foundObject) {
 					res.status(404).send();
 				} else {
@@ -387,7 +375,7 @@ var OrderDate=req.params.OrderDate;
 		Order_Details.aggregate([
 		                         {
 		                        	 $group:{ _id: '$ProductID',  //$region is the column name in collection
-		                        	 count: {$sum: "$Quantity"}} }, { "$sort": { "count": data } },
+		                        	 Sales: {$sum: "$Quantity"}} }, { "$sort": { "Sales": data } },
 		                         // Optionally limit results
 		                         { "$limit": amount}
 		                        	 ], function (err, foundObject) {
@@ -444,7 +432,7 @@ var OrderDate=req.params.OrderDate;
 		orders.aggregate([{ $match: {'OrderDate': {'$regex': date}}},
 		                  {
 		                	  $group:{ _id: '$EmployeeID',  //$region is the column name in collection
-		                	  count: {$sum: 1}} }, { "$sort": { "count": data } },
+		                	  Sales: {$sum: 1}} }, { "$sort": { "Sales": data } },
 		                  // Optionally limit results
 		                  { "$limit": amount}
 		                	  ], function (err, foundObject) {
