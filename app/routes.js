@@ -1,40 +1,33 @@
-//app/routes.js
+"use strict";
 module.exports = function(app, passport) {
-	var myReports  = require('../app/models/myReports');
-	var customers  = require('../app/models/customers');
-	var employees  = require('../app/models/employees');
-	var products  = require('../app/models/products');
-	var queries  = require('../app/models/queries');
-	//var obj  = require('../views/data.json');
-	var Order_Details  = require('../app/models/Order_Details');
-	var orders  = require('../app/models/orders'); 
-	//=====================================
-	//HOME PAGE (with login links) ========
-	//=====================================
+var myReports  = require('../app/models/myReports');
+var customers  = require('../app/models/customers');
+var employees  = require('../app/models/employees');
+var products  = require('../app/models/products');
+var queries  = require('../app/models/queries');
+var Order_Details  = require('../app/models/Order_Details');
+var orders  = require('../app/models/orders');
+var Promise = require('bluebird');
 
 
+	app.get('/findOrdersVia_C_Name/:CustomerName', isLoggedIn, findOrdersVia_C_Name);
 
-	app.get('/findOrdersVia_C_Name/:CustomerName',isLoggedIn, function (req, res) {
+	function findOrdersVia_C_Name (req, res) {
 		var CustomerName = req.params.CustomerName;
-
-
-		orders.find({'CustomerName': CustomerName}, function (err, foundObject) {
-			if (err) {//start of outer if
-				console.log(err);
-				res.status(500).send()
-			} else {//start of outer else
+		return orders.find({'CustomerName': CustomerName}).then(function (err, foundObject) {
+			if (err) {
+				console.error(err);
+				res.status(500).send();
+			} else {
 				if (!foundObject) {
 					res.status(404).send();
 				} else {
-
-					res.send(foundObject)
+					res.send(foundObject);
 				}
-
 			}
-		})
-	});    
+		});
+	}
 
-	//do this when u come back
 	app.get('/findOrdersDetailsVia_O_ID/:data1/:option1',isLoggedIn, function (req, res) {
 		var data = req.params.data1;
 		var option = req.params.option1;
@@ -45,17 +38,17 @@ module.exports = function(app, passport) {
 		Order_Details.find(query, function (err, foundObject) {
 			if (err) {//start of outer if
 				console.log(err);
-				res.status(500).send()
+				res.status(500).send();
 			} else {//start of outer else
 				if (!foundObject) {
 					res.status(404).send();
 				} else {
 
-					res.send(foundObject)
+					res.send(foundObject);
 				}
 
 			}
-		})
+		});
 	});
 
 	app.get('/findOrdersVia/:data/:option', function (req, res) {
@@ -67,71 +60,73 @@ module.exports = function(app, passport) {
 		console.log(query);
 		orders.find(query, function (err, foundObject) {
 			if (err) {//start of outer if
-				console.log(err);
-				res.status(500).send()
+				console.error(err);
+				res.status(500).send();
 			} else {//start of outer else
 				if (!foundObject) {
 					res.status(404).send();
 				} else {
 
-					res.send(foundObject)
+					res.send(foundObject);
 				}
 
 			}
-		})
-	});	
+		});
+	});
 
 
 
-	app.get('/MyReports',isLoggedIn,function(req,res){
+	app.get('/MyReports', isLoggedIn,function(req,res){//MyReports
 
 		var myemail=req.user.local.email;
 
 		myReports.find({email:myemail},function(err,foundObject){
 			if(err){
-				console.log(err)
-				res.send(err)}
+				console.error(err);
+				res.send(err);
+			}
 			else{//start of outer else
 				if (!foundObject) {
 					res.status(404).send();
 				} else {
 
-					res.send(foundObject)
+					res.send(foundObject);
 				}
 
 			}
-		})
+		});
 
-	})
+	});
 
 
 
-	app.get('/mytickets',isLoggedIn,function(req,res){
+	app.get('/mytickets', isLoggedIn, function(req,res){//mytickets
 
-		var myemail=req.user.local.email; 
-		console.log(req.user.local.email)
-		queries.find({email:myemail},function(err,foundObject){
+		var myemail=req.user.local.email;
+
+		queries.find({email:myemail}, function(err, foundObject){
 			if(err){
-				console.log(err)
-				res.send(err)}
+				console.error(err);
+				res.send(err);
+			}
 			else{//start of outer else
 				if (!foundObject) {
 					res.status(404).send();
 				} else {
 
-					res.send(foundObject)
+					res.send(foundObject);
 				}
 
 			}
-		})
+		});
 
-	})
+	});
 
 
 
-	app.get('/GetAllOpenTickets',isLoggedIn2,function(req,res){
+	app.get('/GetAllOpenTickets',isLoggedIn2,function(req,res){//GetAllOpenTickets
 		//user look for all open ticket, isloggedIn send params of api
-		
+
 
 		queries.find({ Status: { $ne: "Complete" } },function(err,foundqueries){
 		//seches the database for tickets with status not Complete
@@ -144,10 +139,10 @@ module.exports = function(app, passport) {
 				res.status(200);
 			}
 
-		})
+		});
 
 
-	})	
+	});
 
 	app.get('/findemployees',isLoggedIn,function(req,res){
 
@@ -161,143 +156,124 @@ module.exports = function(app, passport) {
 			{
 				repsonceObject = foundData;
 			}
-			res.send(repsonceObject)
-		})
+			res.send(repsonceObject);
+		});
 	});
 
 	app.get('/findOrdersVia_Date/:OrderDate/:Month',isLoggedIn, function (req, res) {
 		var OrderDate = req.params.OrderDate;
-var Month = req.params.Month;
+    var Month = req.params.Month;
 		var date;
-		
-		if(Month==0){
-			date =OrderDate;
-		}else{ 
-			
-			date =Month+"/"+OrderDate;
+
+		if(Month === 0){
+			date = OrderDate;
+		}else{
+
+			date = Month + "/" + OrderDate;
 		}
 
 		orders.find({'OrderDate': {'$regex': date}}, function (err, foundObject) {
 			if (err) {//start of outer if
 				console.log(err);
-				res.status(500).send()
+				res.status(500).send();
 			} else {//start of outer else
 				if (!foundObject) {
 					res.status(404).send();
 				} else {
 
-					res.send(foundObject)
+					res.send(foundObject);
 				}
 
 			}
-		})
+		});
 	});
-	app.get('/findCustomers',isLoggedIn,function(req,res){
+	app.get('/findCustomers', isLoggedIn, findCustomers);
 
-
-		customers.find({}, function(err,foundData){
+	function findCustomers (req,res){
+    return customers.find({}).then(function(err,foundData){
 			if(err){
-				console.log(err);
+				console.error (err);
 				res.status(404);
 			}
 			else
 			{
 				repsonceObject = foundData;
 			}
-			res.send(repsonceObject)
-		})
-	});
+			res.send(repsonceObject);
+		});
+	}
 
-	app.get('/findOrdersVia_O_ID/:OrderID',isLoggedIn, function (req, res) {
+	app.get('/findOrdersVia_O_ID/:OrderID',isLoggedIn, findOrdersVia_O_ID);
+
+  function findOrdersVia_O_ID (req, res) {
 		var OrderID = req.params.OrderID;
-
-
-		orders.find({'OrderID': OrderID}, function (err, foundObject) {
-			if (err) {//start of outer if
-				console.log(err);
-				res.status(500).send()
-			} else {//start of outer else
+		orders.find({'OrderID': OrderID}).then(function (err, foundObject) {
+			if (err) {
+				console.error(err);
+				res.status(500).send();
+			} else {
 				if (!foundObject) {
 					res.status(404).send();
 				} else {
-
-					res.send(foundObject)
+					res.send(foundObject);
 				}
-
 			}
-		})
-	});   
+		});
+	}
 
 
 
+	app.get('/findemployees/:data/:feild', isLoggedIn, findemployees);
 
-
-	app.get('/findemployees/:data/:feild',isLoggedIn, function (req, res) {
+  function findemployees (req, res) {
 		var data = req.params.data;
-		
-		
-		
-		var feild =req.params.feild;	
+		var feild =req.params.feild;
 		var query = {};
 		query[feild] = data;
-		employees.find(query, function(err, foundObject){
-			if (err) {//start of outer if
+		return employees.find(query).then(function (err, foundObject) {
+			if (err) {
 				console.log(err);
-				res.status(500).send()
-			} else {//start of outer else
+				res.status(500).send();
+			} else {
 				if (!foundObject.length) {
 					res.status(404).send();
 				} else  {
 					res.send(foundObject);
 					console.log(foundObject);
 				}
-
 			}
-		})
-	});
+		});
+	}
 
+	app.get('/findOneCustomer/:data/:option3', isLoggedIn, findOneCustomer);
 
+  function findOneCustomer (req, res) {
 
-	app.get('/findOneCustomer/:data/:option3',isLoggedIn, function (req, res) {
-		//var name=req.params.name;
-		//var name=
-		
-		var Search =req.params.option3;	
-		//req.body.reportURL;
-		//query[name] = value;
-		//var url=req.body.reportUR;
-
-		//var query = { email: req.body.email }
-
+		var Search =req.params.option3;
 		var query2 = {};
 		query2[Search] = req.params.data;
 
-		//console.log(query);console.log(query2);
-		
-		customers.find(query2, function (err, foundObject) {
-			if (err) {//start of outer if
-				console.log(err);
-				res.status(500).send()
-			} else {//start of outer else
+		return customers.find(query2).then(function (err, foundObject) {
+			if (err) {
+				console.error(err);
+				res.status(500).send();
+			} else {
 				if (!foundObject) {
 					res.status(404).send();
 				} else {
-					repsonceObject = foundObject
-							res.send(repsonceObject)
-							console.log(200)
+					repsonceObject = foundObject;
+					res.send(repsonceObject);
+							console.error(200);
 				}
 
 			}
-		})
-	});
+		});
+	}
 
+	app.get('/CustomersOrdersChart2/:order/:amount/:OrderDate/:Month', CustomersOrdersChart2);
 
-
-
-
-
-	app.get('/CustomersOrdersChart2/:order/:amount/:OrderDate/:Month',function (req, res) {
-		var order;//creating varaible to be used in analytics 
+  function CustomersOrdersChart2 (req, res) {
+		var order;//creating varaible to be used in analytics
 		var amount;
 		var Month=req.params.Month;//setting Month equal to request params
 		var OrderDate=req.params.OrderDate;//setting OrderDate equal to request params
@@ -311,22 +287,22 @@ var Month = req.params.Month;
 		}else if(req.params.order == -1){//checking is request amount params and setting order variable
 			order = -1;
 		}
-		if(Month==0){//search by year only
+		if(Month === 0){//search by year only
 			date =OrderDate;
-		}else{ 
+		}else{
 			date =Month+"/"+OrderDate;//search by month and year
 		}
 
-		orders.aggregate([{ $match: {'OrderDate': {'$regex': date}}},//finds all documents with Orderdate contain dat variable
+		return orders.aggregate([{ $match: {'OrderDate': {'$regex': date}}},//finds all documents with Orderdate contain dat variable
 		                  {  $group:{ _id: '$CustomerID',  //groups document results by CustomerID
-		                	  Orders: {$sum: 1}} }, { "$sort": { "Orders": order } },//counts the number of groups 
+		                	  Orders: {$sum: 1}} }, { "$sort": { "Orders": order } },//counts the number of groups
 						  //and save value as orders and sorts results by either max or min (ordervalue
-		                  
+
 		                  { "$limit": amount}//sets a limit of result return amount variable
-		                	  ], function (err, foundObject) {
+		                	  ]).then(function (err, foundObject) {
 			if (err) {
-				console.log(err);
-				res.status(500).send()
+				console.error(err);
+				res.status(500).send();
 			} else {
 				if (!foundObject) {
 					res.status(404).send();
@@ -336,17 +312,17 @@ var Month = req.params.Month;
 				}
 
 			}
-		})
-	});  
+		});
+	}
 
 
 
 
+	app.get('/ProductChart/:data/:amount',isLoggedIn, ProductChart);
 
-
-	app.get('/ProductChart/:data/:amount',isLoggedIn, function (req, res) {
+  function ProductChart (req, res) {
 		var data;
-		var amount = req.params.amount; 
+		var amount = req.params.amount;
 		if(req.params.amount == 20){
 			amount = 20;
 
@@ -368,20 +344,16 @@ var Month = req.params.Month;
 
 			data = -1;
 		}
-
-		console.log(data)
-
-
-		Order_Details.aggregate([
+		return Order_Details.aggregate([
 		                         {
 		                        	 $group:{ _id: '$ProductID',  //$region is the column name in collection
 		                        	 Sales: {$sum: "$Quantity"}} }, { "$sort": { "Sales": data } },
 		                         // Optionally limit results
 		                         { "$limit": amount}
-		                        	 ], function (err, foundObject) {
+		                        	 ]).then(function (err, foundObject) {
 			if (err) {//start of outer if
 				console.log(err);
-				res.status(500).send()
+				res.status(500).send();
 			} else {//start of outer else
 				if (!foundObject) {
 					res.status(405).send();
@@ -391,12 +363,13 @@ var Month = req.params.Month;
 				}
 
 			}
-		})
-	});  
+		});
+	}
+
+	app.get('/StoreSales/:data/:amount/:OrderDate/:Month',isLoggedIn, StoreSales);
 
 
-
-	app.get('/StoreSales/:data/:amount/:OrderDate/:Month',isLoggedIn, function (req, res) {
+  function StoreSales (req, res) {
 		var data;
 		var amount;
 		if(req.params.amount == 10){
@@ -415,30 +388,27 @@ var Month = req.params.Month;
 			data = -1;
 		}
 
-		console.log(data)
-
-console.log(amount)
-var Month=req.params.Month;
+var Month = req.params.Month;
 var date;
-var OrderDate=req.params.OrderDate;
-		if(Month==0){
+var OrderDate = req.params.OrderDate;
+		if(Month === 0){
 			date =OrderDate;
-		}else{ 
-			
+		}else{
+
 			date =Month+"/"+OrderDate;
 		}
 
 
-		orders.aggregate([{ $match: {'OrderDate': {'$regex': date}}},
+		return orders.aggregate([{ $match: {'OrderDate': {'$regex': date}}},
 		                  {
 		                	  $group:{ _id: '$EmployeeID',  //$region is the column name in collection
 		                	  Sales: {$sum: 1}} }, { "$sort": { "Sales": data } },
 		                  // Optionally limit results
 		                  { "$limit": amount}
-		                	  ], function (err, foundObject) {
+		                	  ]).then(function (err, foundObject) {
 			if (err) {//start of outer if
 				console.log(err);
-				res.status(500).send()
+				res.status(500).send();
 			} else {//start of outer else
 				if (!foundObject) {
 					res.status(404).send();
@@ -448,203 +418,154 @@ var OrderDate=req.params.OrderDate;
 				}
 
 			}
-		})
-	});  	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		});
+	}
 
 
 
 	//put area
-	
-	
-	
-					
-					
-	
-	
-	app.put('/updateCustomers',isLoggedIn, function (req, res) {
-		var id = req.body._id;//assigns the id from the body to id variable
-		console.log(req.body.ContactName)
-		customers.findOne({_id: id}, function (err, foundObject) {//searches database for document with same id
+
+
+
+	app.put('/updateCustomers',isLoggedIn, updateCustomers);
+
+function updateCustomers (req, res) {
+		var id = req.body._id;//assigns t9he id from the body to id variable
+
+		return customers.findOne({_id: id}).then(function (err, foundObject) {//searches database for document with same id
 			if(err) {//if error
 				console.log(err);
-				res.status(500).send()//return status 500
-			}else {
+				res.status(500).send();//return status 500
+			} else {
 				if (!foundObject) {//if document not found
 					res.status(403).send();//send back 403 status
 				} else {//else check to see what fields were updated and assign new values to document
-					if (req.body.CustomerName != null && req.body.CustomerName !="") {
-						foundObject.CustomerName  = req.body.CustomerName  ;
+					if (req.body.CustomerName !== null && req.body.CustomerName !== "") {
+						foundObject.CustomerName = req.body.CustomerName ;
 					}
-					if (req.body.CompanyName != null&& req.body.CompanyName !="") {
-						foundObject.CompanyName  = req.body.CompanyName ;
+					if (req.body.CompanyName !== null && req.body.CompanyName !== "") {
+						foundObject.CompanyName = req.body.CompanyName ;
 					}
-					if (req.body.ContactName != null&& req.body.ContactName  !="") {
+					if (req.body.ContactName !== null && req.body.ContactName  !== "") {
 						foundObject.ContactName  = req.body.ContactName ;
 					}
-					if (req.body.City != null&&req.body.City  !="") {
+					if (req.body.City !== null && req.body.City  !== "") {
 						foundObject.City  = req.body.City ;
 					}
-					if (req.body.Title != null&&req.body.Title !="") {
+					if (req.body.Title !== null && req.body.Title !=="") {
 						foundObject.ContactTitle  = req.body.Title ;
-					}if (req.body.PostalCode != null&&req.body.PostalCode!="") {
-						foundObject.PostalCode  = req.body.PostalCode ;
-					}if (req.body.Country != null&&req.body.Country !="") {
-						foundObject.Country   = req.body.Country  ;
-					}if (req.body.Address != null&&req.body.Address !="") {
-						foundObject.Address   = req.body.Address  ;
-					}if (req.body.Phone != null&&req.body.Phone !="") {
-						foundObject.Phone   = req.body.Phone  ;
+					}if (req.body.PostalCode !== null && req.body.PostalCode !== "") {
+						foundObject.PostalCode = req.body.PostalCode;
+					}if (req.body.Country !== null && req.body.Country !== "") {
+						foundObject.Country = req.body.Country;
+					}if (req.body.Address !== null && req.body.Address !== "") {
+						foundObject.Address = req.body.Address;
+					}if (req.body.Phone !== null && req.body.Phone !== "") {
+						foundObject.Phone = req.body.Phone  ;
 					}
-					foundObject.save(function (err, updatedObject) {//save document
-						if (err) {//if error
+					return foundObject.save(function (err, updatedObject) {
+						if (err) {
 							console.log(err);
-							res.status(500).send();//send back 500 and updated object
-						} else {//send back
-							res.status(200).send(updatedObject); }
+							res.status(500).send();
+						} else {
+							res.status(200).send(updatedObject);
+						}
 					});
 				}   }
-		})}
-			) 
+		});}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//
-	
-	
 
-	app.put('/updateStaff',isLoggedIn, function (req, res) {
+	app.put('/updateStaff', isLoggedIn, updateStaff);
+
+  function updateStaff (req, res) {
 		var id = req.body._id;//gets json objects id
-		employees.findOne({_id: id}, function (err, foundObject) {
+		return employees.findOne({_id: id}).then(function (err, foundObject) {
 			if(err) {//looks for object in databse with given id
 				console.log(err);
-				res.status(500).send()//if error resends status 500
+				res.status(500).send();//if error resends status 500
 			}else {//else
 				if (!foundObject) {//if object not found
 					res.status(403).send();//resend status 403
 				} else {//else object found, update given fields
-					if (req.body.LastName != null && req.body.LastName !="") {
+					if (req.body.LastName !== null && req.body.LastName !== "") {
 						foundObject.LastName  = req.body.LastName  ;
-					}if (req.body.FirstName != null&&req.body.FirstName !="") {
+					}if (req.body.FirstName !== null && req.body.FirstName !== "") {
 						foundObject.FirstName  = req.body.FirstName ;
-					}if (req.body.City != null&&req.body.City  !="") {
+					}if (req.body.City !== null && req.body.City  !== "") {
 						foundObject.City  = req.body.City ;
-					}if (req.body.Title != null&&req.body.Title !="") {
+					}if (req.body.Title !== null && req.body.Title !== "") {
 						foundObject.Title  = req.body.Title ;
-					}if (req.body.Address != null&&req.body.Address !="") {
+					}if (req.body.Address !== null && req.body.Address !== "") {
 						foundObject.Address  = req.body.Address ;
-					}if (req.body.PostalCode != null&&req.body.PostalCode!="") {
+					}if (req.body.PostalCode !== null && req.body.PostalCode!== "") {
 						foundObject.PostalCode  = req.body.PostalCode ;
-					}if (req.body.Country != null&&req.body.Country !="") {
+					}if (req.body.Country !== null && req.body.Country !== "") {
 						foundObject.Country   = req.body.Country  ;
-					}if (req.body.HomePhone != null&&req.body.HomePhone !="") {
+					}if (req.body.HomePhone !== null && req.body.HomePhone !== "") {
 						foundObject.HomePhone  = req.body.HomePhone ;
-					}if (req.body.ReportsTo != null&&req.body.ReportsTo !="") {
+					}if (req.body.ReportsTo !== null && req.body.ReportsTo !== "") {
 						foundObject.ReportsTo  = req.body.ReportsTo ;
 					}
-					foundObject.save(function (err, updatedObject) {//save objects
-						if (err) {//if error 
+					return foundObject.save(function (err, updatedObject) {//save objects
+						if (err) {//if error
 							console.log(err);//console log error and send 500
 							res.status(500).send();
 						} else {//else resend updated object and status 200
-							//res.send(updatedObject); 
+							//res.send(updatedObject);
 						res.status(200).send(foundObject);}
 					});}}
-		})}) 
+		});}
 
 
-
-
-
-
-	app.put('/updateRequests',isLoggedIn, function (req, res) {
+	app.put('/updateRequests',isLoggedIn, updateRequests);
+  function updateRequests (req, res) {
 		var id = req.body._id;
 		console.log(req.body.Status);
-		queries.findOne({_id: id}, function (err, foundObject) {
+		return queries.findOne({_id: id}).then(function (err, foundObject) {
 			if(err) {//start of outer if
 				console.log(err);
-				res.status(500).send()
+				res.status(500).send();
 			}else {//start of outer else
 				if (!foundObject) {
 					res.status(403).send();
 				} else {
-					if (req.body.Status != ""&&req.body.Status != null) {
+					if (req.body.Status !== "" && req.body.Status !== null) {
 						foundObject.Status = req.body.Status;
 					}
-					if (req.body.Notes != ""&&req.body.Notes != null) {
+					if (req.body.Notes !== "" && req.body.Notes !== null) {
 						foundObject.Notes = req.body.Notes;
 					}
-			
-					if (req.body.UrgentLevel != ""&&req.body.UrgentLevel != null) {
+
+					if (req.body.UrgentLevel !== "" && req.body.UrgentLevel !== null) {
 						foundObject.UrgentLevel = req.body.UrgentLevel;
 					}
-					
-					
-					
-					if (req.body.querySubject != ""&&req.body.querySubject != null) {
+
+
+
+					if (req.body.querySubject !== "" && req.body.querySubject !== null) {
 						foundObject.querySubject = req.body.querySubject;
 					}
-					if (req.body.queryBody != ""&& req.body.queryBody != null) {
+					if (req.body.queryBody !== "" && req.body.queryBody !== null) {
 						foundObject.queryBody = req.body.queryBody;
 					}
-					
-					
-					if (req.body.query_date != ""&&req.body.query_date != null) {
+
+
+					if (req.body.query_date !== "" && req.body.query_date !== null) {
 						foundObject.query_date= req.body.query_date;
 					}
-					if (req.body.firstName != ""&&req.body.firstName != null) {
+					if (req.body.firstName !== "" && req.body.firstName !== null) {
 						foundObject.firstName = req.body.firstName;
 					}
-					
-					
-					
-					if (req.body.lastName != ""&&req.body.lastName != null) {
-						foundObject.lastName =req.body.lastName;
+
+
+
+					if (req.body.lastName !== "" && req.body.lastName !== null) {
+						foundObject.lastName = req.body.lastName;
 					}
-					if (req.body.email != ""&&req.body.email != null) {
+					if (req.body.email !== "" && req.body.email !== null) {
 						foundObject.email = req.body.email;
 					}
-					
-					
-					
-					
-		
-					
+
 					foundObject.save(function (err, updatedObject) {
 						if (err) {
 							console.log(err);
@@ -653,9 +574,8 @@ var OrderDate=req.params.OrderDate;
 							res.send(updatedObject); }
 					});
 				}   }
-		})
-	}) 
-
+		});
+	}
 	//post area
 
 	app.post('/addReports',isLoggedIn, function(req, res) {
@@ -703,9 +623,9 @@ newcustomers.PostalCode=req.body.PostalCode;
 				return res.status(500).send("User Not added");
 			}else //send back following
 			return res.status(200).send("succesfully saved");
-			
+
 		})
-	})	
+	})
 
 
 
@@ -713,7 +633,7 @@ newcustomers.PostalCode=req.body.PostalCode;
 
 	app.post('/addNewReport',isLoggedIn,function(req,res){
 
-		var report =req.body.reportNumber;	
+		var report =req.body.reportNumber;
 		//req.body.reportURL;
 		//query[name] = value;
 		var url=req.body.reportUR;
@@ -727,7 +647,7 @@ newcustomers.PostalCode=req.body.PostalCode;
 		myReports.findOneAndUpdate(query, query2, function(err, doc){
 			if (err) return res.send(500, { error: err });
 			return res.send("succesfully saved");
-		}); 
+		});
 
 
 	})
@@ -745,9 +665,9 @@ newcustomers.PostalCode=req.body.PostalCode;
 		newProduct.UnitsOnOrder=req.body.UnitsOnOrder;
 		newProduct.ReorderLevel= req.body.ReorderLevel;
 		newProduct.Discontinued=req.body.Discontinued;
-		
+
 		newProduct.save(function(err){//save the user in the mongo database
-	
+
 			if(err){//if error
 				console.log(err);//console log error
 				return res.status(500).send();//send back 500 status
@@ -777,7 +697,7 @@ newcustomers.PostalCode=req.body.PostalCode;
 		newOrders.ShipCity=req.body.ShipCity;
 		newOrders.ShipRegion=req.body.ShipRegion;
 		newOrders.ShipPostalCode=req.body.ShipPostalCode;
-		newOrders.ShipCountry=req.body.ShipCountry; 
+		newOrders.ShipCountry=req.body.ShipCountry;
 
 
 		/*  var OrderDetailGroup=[
@@ -799,7 +719,7 @@ newcustomers.PostalCode=req.body.PostalCode;
 		/* newOrdersDet.OrderID=req.body.OrderID;
  newOrdersDet.PruductID=req.body.PruductID;
  newOrdersDet.UnitPrice=req.body.Unit;
- newOrdersDet.Quanity=req.body.Unit;      
+ newOrdersDet.Quanity=req.body.Unit;
  newOrdersDet.Discount=req.body.Discount;*/
 
 
@@ -875,7 +795,7 @@ newcustomers.PostalCode=req.body.PostalCode;
 
 
 	app.delete('/deleteCustomers/:id',isLoggedIn,function(req,res) {
-		
+
 		var myid = req.params.id;//url varable is set to function variable
 		console.log(myid)
 		//mongodb is search by customer document with give id
@@ -883,15 +803,15 @@ newcustomers.PostalCode=req.body.PostalCode;
 			if (err) {//if error return 500 & err message
 				console.log(err);
 				res.status(500).send("use has been deleted"+err)
-			} 
-			else 
+			}
+			else
 			{//if no error
 				if (!foundObject.length) {//if product not found
 						//if document not found send 404(not found status)
 					res.status(404).send();//send back not found
 					res.status(404).send("user has not been deleted"+err);
 				} else {//if found remove document
-					
+
 					customers.findOneAndRemove({_id:  myid}, function (err) {
 
 						if (err) {//if error
@@ -902,7 +822,7 @@ newcustomers.PostalCode=req.body.PostalCode;
 							//if no error
 							res.status(200).send("user has been deleted");
 						}
-					}); 
+					});
 
 				};
 			}
@@ -921,7 +841,7 @@ newcustomers.PostalCode=req.body.PostalCode;
 
 		})
 
-	});   
+	});
 
 
 	app.delete('/deleteproducts/:id',isLoggedIn,function(req,res) {
@@ -931,8 +851,8 @@ newcustomers.PostalCode=req.body.PostalCode;
 			if (err) {//if error
 				console.log(err);
 				res.status(500).send()
-			} 
-			else 
+			}
+			else
 			{//if no error
 				if (!foundObject) {//if product not found
 
@@ -948,9 +868,9 @@ newcustomers.PostalCode=req.body.PostalCode;
 
 							res.status(200).send();
 						}
-					}); 
+					});
 
-				}		
+				}
 			}
 		})
 
@@ -975,7 +895,7 @@ newcustomers.PostalCode=req.body.PostalCode;
 
 		})
 
-	});    
+	});
 
 
 	app.delete('/deleteOrdersDetails',isLoggedIn,function(req,res) {
@@ -990,7 +910,7 @@ newcustomers.PostalCode=req.body.PostalCode;
 
 		})
 
-	});    
+	});
 
 
 
@@ -1012,7 +932,7 @@ var  data= [
 
  res.send(data);
 
-}); */ 
+}); */
 
 
 
@@ -1083,7 +1003,7 @@ var  data= [
 	app.get('/login', function(req, res) {
 
 		// render the page and pass in any flash data if it exists
-		res.render('login.ejs', { message: req.flash('loginMessage') }); 
+		res.render('login.ejs', { message: req.flash('loginMessage') });
 	});
 
 
@@ -1176,7 +1096,7 @@ app.get('/tables',isLoggedIn, function(req, res) {
 
 	app.get('/userQueries',isLoggedIn, function(req, res, next) {
 		res.render('userQueries', { title: 'Express' });
-	});   
+	});
 
 
 
@@ -1198,8 +1118,8 @@ app.get('/tables',isLoggedIn, function(req, res) {
 
 
 	});
-	
-	
+
+
 	app.get('/CustomersOrdersChart',isLoggedIn,function(req, res, next) {
 		res.render('CustomersOrdersChart.ejs');
 
@@ -1208,7 +1128,7 @@ app.get('/tables',isLoggedIn, function(req, res) {
 
 
 	});
-	
+
 	app.get('/tte',isLoggedIn,function(req, res, next) {
 		res.render('testTableEdit.ejs');
 
@@ -1241,12 +1161,12 @@ app.get('/tables',isLoggedIn, function(req, res) {
 
 
 
-	});  
+	});
 }
 //route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
-	//if user is authenticated in the session, carry on 
+	//if user is authenticated in the session, carry on
 	if (req.isAuthenticated())
 		return next();
 
@@ -1260,7 +1180,7 @@ function isLoggedIn(req, res, next) {
 
 function isLoggedIn3(req, res, next) {
 
-	//if user is authenticated in the session, carry on 
+	//if user is authenticated in the session, carry on
 	if (req.isAuthenticated()&& req.user.local.isAdmin === true){
 
 		res.redirect('/Admin#/');
@@ -1280,7 +1200,7 @@ function isLoggedIn3(req, res, next) {
 
 function isLoggedIn2(req, res, next) {
 
-	//if user is authenticated in the session, carry on 
+	//if user is authenticated in the session, carry on
 	if (req.isAuthenticated()&& req.user.local.isAdmin === true)
 
 
